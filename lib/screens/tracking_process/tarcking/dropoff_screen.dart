@@ -29,114 +29,114 @@ class _DropOffPageState extends State<DropOffPage> {
             ),
             Positioned(
               bottom: 0,
-              child: Container(
-                width: size.width,
-                height: size.height * 0.2,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => completedRide(),
+                  );
+                },
+                child: Container(
+                  width: size.width,
+                  height: size.height * 0.2,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    border: Border.all(
+                      width: 1,
+                      color: const Color(0xFF000000).withOpacity(0.15),
+                    ),
                   ),
-                  border: Border.all(
-                    width: 1,
-                    color: const Color(0xFF000000).withOpacity(0.15),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: size.height * 0.03),
-                        const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'On the Way',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w600,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: size.height * 0.03),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'On the Way',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                            ),
-                            Text(
-                              '45 Km Away',
-                              style: TextStyle(
-                                color: Color(0xFF79BF42),
-                                fontSize: 16,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w500,
+                              Text(
+                                '45 Km Away',
+                                style: TextStyle(
+                                  color: Color(0xFF79BF42),
+                                  fontSize: 16,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.02),
-                        const Text(
-                          'Moving towards the Drop-off Point',
-                          style: TextStyle(
-                            color: Color(0xFF565656),
-                            fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w500,
+                            ],
                           ),
-                        ),
-                        SizedBox(height: size.height * 0.02),
-                        Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) => completedRide(),
-                                );
-                              },
-                              child: SvgPicture.asset(
+                          SizedBox(height: size.height * 0.02),
+                          const Text(
+                            'Moving towards the Drop-off Point',
+                            style: TextStyle(
+                              color: Color(0xFF565656),
+                              fontSize: 12,
+                              fontFamily: 'Montserrat-Regular',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(height: size.height * 0.02),
+                          Row(
+                            children: [
+                              SvgPicture.asset(
                                 'assets/images/green-location-icon.svg',
                                 width: 40,
                                 height: 40,
                               ),
-                            ),
-                            SizedBox(width: size.width * 0.04),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Drop-off Location',
-                                  style: TextStyle(
-                                    color: Color(0xFF565656),
-                                    fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                SizedBox(height: size.height * 0.005),
-                                SizedBox(
-                                  width: size.width * 0.7,
-                                  child: const AutoSizeText(
-                                    '2972 Westheimer Rd. Santa Ana, Illinois 85486 ',
+                              SizedBox(width: size.width * 0.04),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Drop-off Location',
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: Color(0xFF565656),
                                       fontSize: 12,
                                       fontFamily: 'Montserrat-Regular',
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w400,
                                     ),
-                                    minFontSize: 12,
-                                    maxFontSize: 12,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.03),
-                      ],
+                                  SizedBox(height: size.height * 0.005),
+                                  SizedBox(
+                                    width: size.width * 0.7,
+                                    child: const AutoSizeText(
+                                      '2972 Westheimer Rd. Santa Ana, Illinois 85486 ',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 12,
+                                        fontFamily: 'Montserrat-Regular',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      minFontSize: 12,
+                                      maxFontSize: 12,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: size.height * 0.03),
+                        ],
+                      ),
                     ),
                   ),
                 ),

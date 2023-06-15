@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
-import 'package:umrahcar/screens/tracking_process/tarcking/dropoff_screen.dart';
+import 'package:umrahcar/screens/tracking_process/tarcking/pickup_screen.dart';
 
 class TrackPage extends StatefulWidget {
   const TrackPage({super.key});
@@ -271,7 +271,7 @@ class _TrackPageState extends State<TrackPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const DropOffPage(),
+                                  builder: (context) => const PickUpPage(),
                                 ));
                           },
                           child: button('Track', context),

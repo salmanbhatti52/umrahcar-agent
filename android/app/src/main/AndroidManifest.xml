@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.umrahcar.apps">
+    package="com.umrahcar_agent.apps">
    <application
-        android:label="Umrah Car"
+        android:label="Umrah Car\nAgent"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
