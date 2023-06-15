@@ -4,7 +4,6 @@ import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/screens/login_screen.dart';
 
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -35,10 +34,15 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   initScreen(BuildContext context) {
-    return Scaffold(
-      backgroundColor: mainColor,
-        body: Center(
-      child: SvgPicture.asset("assets/images/splash-icon.svg"),
-    ));
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: Scaffold(
+          backgroundColor: mainColor,
+          body: Center(
+            child: SvgPicture.asset("assets/images/splash-icon.svg"),
+          )),
+    );
   }
 }
