@@ -28,60 +28,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
   final countryPicker = const FlCountryCodePicker();
   CountryCode? countryCode;
 
-  File? imagePathCamera;
-  String? base64imgCamera;
-  Future pickImageCamera() async {
+  File? imagePath;
+  String? base64img;
+  Future pickImage(ImageSource source) async {
     try {
       final ImagePicker picker = ImagePicker();
-      final XFile? xFile = await picker.pickImage(source: ImageSource.camera);
+      final XFile? xFile = await picker.pickImage(source: source);
       if (xFile == null) {
         // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
         // const NavBar()), (Route<dynamic> route) => false);
       } else {
         Uint8List imageByte = await xFile.readAsBytes();
-        base64imgCamera = base64.encode(imageByte);
-        print("base64img $base64imgCamera");
+        base64img = base64.encode(imageByte);
+        print("base64img $base64img");
 
         final imageTemporary = File(xFile.path);
 
         setState(() {
-          imagePathCamera = imageTemporary;
-          print("newImage $imagePathCamera");
-          print("newImage64 $base64imgCamera");
-          // Navigator.push(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (BuildContext context) => SaveImageScreen(
-          //           image: imagePath,
-          //           image64: "$base64img",
-          //         )));
-        });
-      }
-    } on PlatformException catch (e) {
-      print('Failed to pick image: ${e.toString()}');
-    }
-  }
-
-  File? imagePathGallery;
-  String? base64imgGallery;
-  Future pickImageGallery() async {
-    try {
-      final ImagePicker picker = ImagePicker();
-      final XFile? xFile = await picker.pickImage(source: ImageSource.gallery);
-      if (xFile == null) {
-        // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-        // const NavBar()), (Route<dynamic> route) => false);
-      } else {
-        Uint8List imageByte = await xFile.readAsBytes();
-        base64imgGallery = base64.encode(imageByte);
-        print("base64img $base64imgGallery");
-
-        final imageTemporary = File(xFile.path);
-
-        setState(() {
-          imagePathGallery = imageTemporary;
-          print("newImage $imagePathGallery");
-          print("newImage64 $base64imgGallery");
+          imagePath = imageTemporary;
+          print("newImage $imagePath");
+          print("newImage64 $base64img");
           // Navigator.push(
           //     context,
           //     MaterialPageRoute(
@@ -145,11 +111,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       height: 70,
                       child: Stack(
                         children: [
-                          CircleAvatar(
-                            radius: 35,
-                            child: Image.asset(
-                              'assets/images/profile.png',
-                              fit: BoxFit.cover,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(50),
+                            child: Container(
+                              width: size.width * 0.2,
+                              height: size.height * 0.4,
+                              decoration: const BoxDecoration(
+                                  color: Colors.red, shape: BoxShape.circle),
+                              child: imagePath != null
+                                  ? Image.file(
+                                      imagePath!,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset(
+                                      'assets/images/profile.png',
+                                      fit: BoxFit.cover,
+                                    ),
                             ),
                           ),
                           Positioned(
@@ -176,7 +153,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                pickImageCamera();
+                                                pickImage(ImageSource.camera);
                                               },
                                               child: Row(
                                                 children: [
@@ -205,7 +182,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                 height: size.height * 0.04),
                                             GestureDetector(
                                               onTap: () {
-                                                pickImageGallery();
+                                                pickImage(ImageSource.gallery);
                                               },
                                               child: Row(
                                                 children: [
