@@ -4,9 +4,11 @@ import 'package:umrahcar/widgets/button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/screens/login_screen.dart';
 
+import '../service/rest_api_serivice.dart';
+
 class ResetPasswordPage extends StatefulWidget {
-  final String? email, verifyOTP;
-  const ResetPasswordPage({super.key, this.email, this.verifyOTP});
+  final String? uid, verifyOTP;
+  const ResetPasswordPage({super.key, this.uid, this.verifyOTP});
 
   @override
   State<ResetPasswordPage> createState() => _ResetPasswordPageState();
@@ -91,12 +93,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     controller: passwordController,
                     obscureText: _obscure,
                     keyboardType: TextInputType.visiblePassword,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Password field is required!';
-                    //   }
-                    //   return null;
-                    // },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password field is required!';
+                      }
+                      return null;
+                    },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Montserrat-Regular',
@@ -187,12 +189,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     controller: confirmPasswordController,
                     obscureText: _obscure1,
                     keyboardType: TextInputType.visiblePassword,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Confirm Password field is required!';
-                    //   }
-                    //   return null;
-                    // },
+                    validator: (value) {
+                      if (value == null || value.isEmpty ) {
+                        return 'Confirm Password field is required!';
+                      }
+                      else if(value  != passwordController.text){
+                        return "Confirm Password is not matching with Password ";
+                      }
+                      return null;
+                    },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Montserrat-Regular',
@@ -278,11 +283,35 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ),
                 SizedBox(height: size.height * 0.04),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const LogInPage()),
-                        (Route<dynamic> route) => false);
+                  onTap: () async {
+                    if (createNewPasswordFormKey.currentState!.validate()) {
+                      print("users_agents_id: ${widget.uid}");
+                      print("otp: ${widget.verifyOTP}");
+                      print("new_password: ${passwordController.text}");
+                      print("confirm_password: ${confirmPasswordController.text}");
+                      var mapData={
+                        "users_agents_id":"${widget.uid}",
+                        "otp":"${widget.verifyOTP}",
+                        "new_password":"${passwordController.text}",
+                        "confirm_password":" ${confirmPasswordController.text}"
+                      };
+                      var response = await DioClient().resetNewPassword(
+                          mapData,context
+                      );
+                      print("response otp: ${response.message}");
+                      if (response != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${response.message}")));
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => const LogInPage()),
+                                (Route<dynamic> route) => false);
+                      }
+                    }
+
+
+
+
+
                   },
                   child: button('Confrim', context),
                 ),

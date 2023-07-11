@@ -1,14 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:umrahcar/models/forgot_password_otp_model.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:umrahcar/widgets/button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/screens/reset_password_screen.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
+import '../service/rest_api_serivice.dart';
+
 class VerifyOTPPage extends StatefulWidget {
-  final String? email, verifyOTP;
-  const VerifyOTPPage({super.key, this.email, this.verifyOTP});
+  final String? email, verifyOTP,userId;
+  const VerifyOTPPage({super.key, this.email, this.verifyOTP,this.userId});
 
   @override
   State<VerifyOTPPage> createState() => _VerifyOTPPageState();
@@ -20,6 +23,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
   FocusNode focusNode = FocusNode();
   TextEditingController otpController = TextEditingController();
   final GlobalKey<FormState> otpFormKey = GlobalKey<FormState>();
+  ForgotPasswordOtpModel? response;
 
   startTimer() {
     timer = Timer.periodic(const Duration(seconds: 1), (_) {
@@ -41,8 +45,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
   void initState() {
     super.initState();
     startTimer();
-    // print("email: ${widget.email}");
-    // print("verifyOTP: ${widget.verifyOTP}");
+
   }
 
   @override
@@ -134,20 +137,17 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                         onTap: () async {
                           seconds = 60;
                           await startTimer();
-                          // forgotPassword();
-                          // if (forgotPasswordModel.status == 'success') {
-                          //   ScaffoldMessenger.of(context).showSnackBar(
-                          //       const SnackBar(
-                          //           backgroundColor: Color(0xFF4276EE),
-                          //           content: Text(
-                          //               "OTP has been sent to your email")));
-                          // }
-                          // if (forgotPasswordModel.status != 'success') {
-                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          //       backgroundColor: const Color(0xFF4276EE),
-                          //       content:
-                          //           Text("${forgotPasswordModel.message}")));
-                          // }
+                          print("email: ${widget.email}");
+                          var mapData={
+                            "email": widget.email,
+                          };
+                           response = await DioClient().forgotPasswordOtp(
+                              mapData,context
+                          );
+                          if (response != null) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${response!.data!.message}")));
+                          }
+
                           setState(() {});
                         },
                         child: Center(
@@ -206,24 +206,84 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                       // Your logic with pin code
                       // print(output);
                     },
+
                   ),
                 ),
                 SizedBox(height: size.height * 0.08),
                 GestureDetector(
-                  onTap: () {
-                    // if (otpController.text == widget.verifyOTP) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                const ResetPasswordPage()));
+                  onTap: () async{
+
+                    if( response !=null && response!.data !=null ){
+                      print("model otp: ${response!.data!.otp}");
+
+                      if (otpController.text == response!.data!.otp.toString()){
+                        var mapData={
+                          "users_agents_id":"${widget.userId}",
+                          "otp": otpController.text
+                        };
+
+                        var responseMessage = await DioClient().verifyForgotPasswordOtp(
+                            mapData,context
+                        );
+                        print("response message: ${responseMessage.message}");
+                        if (responseMessage != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${responseMessage.message}")));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ResetPasswordPage(uid: widget.userId,verifyOTP: response!.data!.otp.toString(),)));
+                          setState(() {
+                            stopTimer();
+
+                          });
+                        }
+
+                      }
+                      else{
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Otp is Empty")));
+                      }
+
+
+
+
+
+
+                    }
+                    else{
+                      print("Hiiii");
+                      if (otpController.text == widget.verifyOTP) {
+                        var mapData={
+                          "users_agents_id":"${widget.userId}",
+                          "otp":otpController.text
+                        };
+                       var responseMessage = await DioClient().verifyForgotPasswordOtp(
+                            mapData,context
+                        );
+                       print("response message: ${responseMessage.message}");
+                        if (responseMessage != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${responseMessage.message}")));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                   ResetPasswordPage(uid: widget.userId,verifyOTP: widget.verifyOTP,)));
+                          setState(() {
+                            stopTimer();
+
+                          });
+                        }
+
+                      }
+                      else{
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Otp is Empty")));
+                      }
+                    }
+
+
+
                   },
-                  //   else {
-                  //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  //         backgroundColor: Color(0xFF4276EE),
-                  //         content: Text("Invalid OTP")));
-                  //   }
-                  // },
+
                   child: button('Confirm', context),
                 ),
                 SizedBox(height: size.height * 0.02),

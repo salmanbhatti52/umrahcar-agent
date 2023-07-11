@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 import 'package:umrahcar/screens/verify_otp_screen.dart';
 
+import '../service/rest_api_serivice.dart';
+
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
 
@@ -13,7 +15,7 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   TextEditingController emailController = TextEditingController();
-  final GlobalKey<FormState> forgotPasswordFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -50,116 +52,142 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           // centerTitle: true,
         ),
         backgroundColor: mainColor,
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              SizedBox(height: size.height * 0.02),
-              SvgPicture.asset('assets/images/umrah-car-logo-big.svg'),
-              SizedBox(height: size.height * 0.04),
-              const Text(
-                'Forgot Password',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: 'Montserrat-Regular',
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(height: size.height * 0.02),
-              const Text(
-                'Enter your email below to\nreceive security code ',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'Montserrat-Regular',
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              SizedBox(height: size.height * 0.06),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  // validator: (value) {
-                  //   if (value == null || value.isEmpty) {
-                  //     return 'Email field is required!';
-                  //   }
-                  //   return null;
-                  // },
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w400,
+        body: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                SizedBox(height: size.height * 0.02),
+                SvgPicture.asset('assets/images/umrah-car-logo-big.svg'),
+                SizedBox(height: size.height * 0.04),
+                const Text(
+                  'Forgot Password',
+                  style: TextStyle(
+                    fontSize: 20,
                     fontFamily: 'Montserrat-Regular',
-                    fontSize: 16,
-                    color: Color(0xFF6B7280),
+                    fontWeight: FontWeight.w600,
                   ),
-                  decoration: InputDecoration(
-                    filled: false,
-                    errorStyle: const TextStyle(
-                      color: Colors.red,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      wordSpacing: 2,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      borderSide: BorderSide(
-                        color: const Color(0xFF000000).withOpacity(0.15),
-                        width: 1,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      borderSide: BorderSide(
-                        color: const Color(0xFF000000).withOpacity(0.15),
-                        width: 1,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      borderSide: BorderSide(
-                        color: const Color(0xFF000000).withOpacity(0.15),
-                        width: 1,
-                      ),
-                    ),
-                    errorBorder: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 1,
-                      ),
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    hintText: "Email",
-                    hintStyle: const TextStyle(
-                      color: Color(0xFF929292),
-                      fontSize: 12,
+                ),
+                SizedBox(height: size.height * 0.02),
+                const Text(
+                  'Enter your email below to\nreceive security code ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Montserrat-Regular',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(height: size.height * 0.06),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextFormField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      bool emailValid = RegExp(
+                          r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                          .hasMatch(value!);
+                      if (value.isEmpty) {
+                        return "Email field is required!";
+                      } else if (!emailValid) {
+                        return "Email field is not valid!";
+                      } else {
+                        return null;
+                      }
+                    },
+
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
                       fontFamily: 'Montserrat-Regular',
-                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Color(0xFF6B7280),
                     ),
-                    prefixIcon: SvgPicture.asset(
-                      'assets/images/email-icon.svg',
-                      width: 25,
-                      height: 25,
-                      fit: BoxFit.scaleDown,
+                    decoration: InputDecoration(
+                      filled: false,
+                      errorStyle: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        wordSpacing: 2,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 1,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 10),
+                      hintText: "Email",
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF929292),
+                        fontSize: 12,
+                        fontFamily: 'Montserrat-Regular',
+                        fontWeight: FontWeight.w500,
+                      ),
+                      prefixIcon: SvgPicture.asset(
+                        'assets/images/email-icon.svg',
+                        width: 25,
+                        height: 25,
+                        fit: BoxFit.scaleDown,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: size.height * 0.06),
-              GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const VerifyOTPPage(),
-                      ),
-                    );
-                  },
-                  child: button('Confirm', context)),
-              SizedBox(height: size.height * 0.02),
-            ],
+                SizedBox(height: size.height * 0.06),
+                GestureDetector(
+                    onTap: () async {
+                      if (_formKey.currentState!.validate()) {
+                        print("email: ${emailController.text}");
+                        var mapData={
+                          "email": emailController.text,
+                        };
+                        var response = await DioClient().forgotPasswordOtp(
+                            mapData,context
+                        );
+                        print("response otp: ${response.data!.otp.toString()}");
+                        print("response uid: ${response.data!.usersAgentsId.toString()}");
+                        if (response != null) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${response.data!.message}")));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>  VerifyOTPPage(email: emailController.text,verifyOTP: response.data!.otp.toString(),userId: response.data!.usersAgentsId ),
+                            ),
+                          );
+                        }
+                      }
+
+
+                    },
+                    child: button('Confirm', context)),
+                SizedBox(height: size.height * 0.02),
+              ],
+            ),
           ),
         ),
       ),

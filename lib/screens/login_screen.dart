@@ -314,6 +314,13 @@ class _LogInPageState extends State<LogInPage> {
                             );
                             print("response id: ${response.data!.userData!.email}");
                             if (response != null) {
+                              print("userId: ${response.data!.userData!.usersAgentsId}");
+                              print("oneSignalId: ${response.data!.userData!.onesignalId}");
+                              print("users_roles_id: ${response.data!.userData!.usersRolesId}");
+                              SharedPreferences prefs = await SharedPreferences.getInstance();
+                              await prefs.setString("userId", response.data!.userData!.usersAgentsId!);
+                              await prefs.setString("oneSignalId", response.data!.userData!.onesignalId!);
+                              await prefs.setString("usersRoleId", response.data!.userData!.usersRolesId!);
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>NavBar()));
                               // Navigator.of(context).pushAndRemoveUntil(
                               //     MaterialPageRoute(
