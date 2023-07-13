@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:umrahcar/service/rest_api_serivice.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/top_boxes.dart';
-import 'package:umrahcar/widgets/home_list.dart';
+import 'package:umrahcar/widgets/homepage_get_booking_list.dart';
+
+
+var userId;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,7 +16,54 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
+
 class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    getLocalData();
+    // TODO: implement initState
+    super.initState();
+  }
+  var getBookingResponse;
+  var getProfileResponse;
+  getLocalData()async{
+    final _sharedPref = await SharedPreferences.getInstance();
+    var uid=_sharedPref.getString('userId');
+    userId=uid;
+    print("uiduid: ${uid}");
+    print("uiduid: ${userId}");
+    getBookingList();
+    getProfile();
+
+  }
+  getBookingList()async{
+    print("userIdId ${userId}");
+    var mapData={
+      "users_agents_id": userId.toString()
+    };
+     getBookingResponse= await DioClient().getBookingList(mapData, context);
+    print("response id: ${getBookingResponse.data}");
+    setState(() {
+
+    });
+
+  }
+  getProfile()async{
+    print("userIdId ${userId}");
+    var mapData={
+      "users_agents_id": userId.toString()
+    };
+    getProfileResponse= await DioClient().getProfile(mapData, context);
+    if(getProfileResponse.data !=null )
+    print("getProfileResponse name: ${getProfileResponse.data.name}");
+    setState(() {
+
+    });
+
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -50,31 +102,45 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Talha Anjum',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w600,
-                          ),
+                        if(getProfileResponse !=null )
+                         Container(
+                           width: 150,
+                           child: Text(
+                            '${getProfileResponse.data!.name}',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontFamily: 'Montserrat-Regular',
+                              fontWeight: FontWeight.w600,
+
+                            ),
                         ),
+                         ),
                         SizedBox(height: size.height * 0.002),
                         Row(
                           children: [
+
                             SvgPicture.asset(
                                 'assets/images/white-location-icon.svg'),
                             SizedBox(width: size.width * 0.01),
-                            const Text(
-                              '6391 Elgin St. Celina, ',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w500,
-                              ),
+                            if(getProfileResponse !=null )
+                             Container(
+                               width: 150,
+                               child: Text(
+                                '${getProfileResponse.data!.address!} ${getProfileResponse.data!.city!}, ${getProfileResponse.data!.state!} ${getProfileResponse.data!.country!}',
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
                             ),
+                             ),
                           ],
                         ),
                       ],
@@ -170,11 +236,15 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: size.height * 0.02),
                   Container(
                     color: Colors.transparent,
-                    height: size.height * 0.421,
-                    child: Padding(
+                    height: size.height * 0.430,
+                    child:                   getBookingResponse !=null?
+                      Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: homeList(context),
-                    ),
+                      child: homeList(context,getBookingResponse),
+                    ): Center(child: Container(
+                        height: 20,
+                        width: 20,
+                        child: const CircularProgressIndicator())),
                   ),
                 ],
               ),

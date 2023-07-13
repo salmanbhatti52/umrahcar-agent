@@ -187,6 +187,9 @@ class _LogInPageState extends State<LogInPage> {
                           if (value == null || value.isEmpty) {
                             return 'Password field is required!';
                           }
+                          else if(value.length <6){
+                            return "Password must be 6 Digits";
+                          }
                           return null;
                         },
                         style: const TextStyle(

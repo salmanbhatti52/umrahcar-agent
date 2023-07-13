@@ -95,7 +95,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     keyboardType: TextInputType.visiblePassword,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Password field is required!';
+                        return 'New Password field is required!';
+                      }
+                      else if(value.length <6){
+                        return "Password must be 6 Digits";
                       }
                       return null;
                     },
@@ -190,8 +193,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     obscureText: _obscure1,
                     keyboardType: TextInputType.visiblePassword,
                     validator: (value) {
-                      if (value == null || value.isEmpty ) {
+                      if (value == null || value.isEmpty) {
                         return 'Confirm Password field is required!';
+                      }
+                      else if(value.length <6){
+                        return " Confirm Password must be 6 Digits";
                       }
                       else if(value  != passwordController.text){
                         return "Confirm Password is not matching with Password ";

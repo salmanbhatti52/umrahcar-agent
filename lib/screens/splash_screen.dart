@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/screens/login_screen.dart';
+import 'package:umrahcar/widgets/navbar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -28,7 +30,12 @@ class _SplashScreenState extends State<SplashScreen> {
     return Timer(duration, route);
   }
 
-  route() {
+  route() async{
+    final _sharedPref = await SharedPreferences.getInstance();
+    var uid=_sharedPref.getString('userId');
+    print("uiduid: ${uid}");
+    uid !=null? Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => const NavBar())):
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LogInPage()));
   }

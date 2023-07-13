@@ -5,15 +5,15 @@ import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 
-class PickUpInfoPage extends StatefulWidget {
+class TouristInfoPage extends StatefulWidget {
   final TabController? tabController;
-  const PickUpInfoPage({super.key, this.tabController});
+  const TouristInfoPage({super.key, this.tabController});
 
   @override
-  State<PickUpInfoPage> createState() => _PickUpInfoPageState();
+  State<TouristInfoPage> createState() => _TouristInfoPageState();
 }
 
-class _PickUpInfoPageState extends State<PickUpInfoPage> {
+class _TouristInfoPageState extends State<TouristInfoPage> {
   TextEditingController pickUpController = TextEditingController();
   TextEditingController dropOffController = TextEditingController();
   final GlobalKey<FormState> pickUpInfoFormKey = GlobalKey<FormState>();
@@ -23,15 +23,10 @@ class _PickUpInfoPageState extends State<PickUpInfoPage> {
   String? selectedPickUp;
   String? selectedDropOff;
 
-  final List<String> items = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
+  final List<String> visaTypeItems = [
+    "Tourist",
+    "Visit Visa",
+    "Umrah Visa"
   ];
 
   @override
@@ -107,7 +102,7 @@ class _PickUpInfoPageState extends State<PickUpInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: items
+                          items: visaTypeItems
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -269,7 +264,7 @@ class _PickUpInfoPageState extends State<PickUpInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: items
+                          items: visaTypeItems
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -424,7 +419,7 @@ class _PickUpInfoPageState extends State<PickUpInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: items
+                          items: visaTypeItems
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,

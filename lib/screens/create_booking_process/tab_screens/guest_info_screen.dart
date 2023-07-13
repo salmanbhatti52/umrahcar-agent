@@ -7,6 +7,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 
+import '../../../widgets/booking_confirmation.dart';
+
 class GuestInfoPage extends StatefulWidget {
   final TabController? tabController;
   const GuestInfoPage({super.key, this.tabController});
@@ -330,11 +332,13 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                 SizedBox(height: size.height * 0.3),
                 GestureDetector(
                   onTap: () {
-                    final newIndex = widget.tabController!.index + 1;
-                    widget.tabController!.animateTo(newIndex);
-                    print('newIndex $newIndex');
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => bookingConfirmation(context),
+                    );
                   },
-                  child: button('Next', context),
+                  child: button('Submit', context),
                 ),
                 SizedBox(height: size.height * 0.02),
               ],

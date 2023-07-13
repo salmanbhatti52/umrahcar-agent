@@ -14,7 +14,7 @@ abstract class TickerProvider {}
 
 class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
     with TickerProviderStateMixin {
-  List<String> tabs = ["Guest Info", "Pickup Info", "Other Info"];
+  List<String> tabs = ["Tourist Info", "Other Info", "Guest Info"];
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +60,9 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                     fontWeight: FontWeight.w500,
                   ),
                   tabs: const [
-                    Tab(text: "Guest Info"),
-                    Tab(text: "Pickup Info"),
+                    Tab(text: "Tourist Info"),
                     Tab(text: "Other Info"),
+                    Tab(text: "Guest Info"),
                   ],
                 ),
               )),
@@ -73,13 +73,13 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
           child: TabBarView(
             controller: tabController,
             children: [
+              TouristInfoPage(
+                tabController: tabController,
+              ),
+               OtherInfoPage(tabController: tabController),
               GuestInfoPage(
                 tabController: tabController,
               ),
-              PickUpInfoPage(
-                tabController: tabController,
-              ),
-              const OtherInfoPage(),
             ],
           ),
         ),
