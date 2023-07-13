@@ -5,8 +5,10 @@ import 'package:umrahcar/widgets/button.dart';
 
 class OtherInfoPage extends StatefulWidget {
   final TabController? tabController;
+   List<String>? pickVehicleData = [];
+  List<String>? airLineComapny = [];
 
-  const OtherInfoPage({super.key,this.tabController});
+   OtherInfoPage({super.key,this.tabController,this.pickVehicleData,this.airLineComapny});
 
   @override
   State<OtherInfoPage> createState() => _OtherInfoPageState();
@@ -15,13 +17,24 @@ class OtherInfoPage extends StatefulWidget {
 class _OtherInfoPageState extends State<OtherInfoPage> {
   TextEditingController flightnumberController = TextEditingController();
   TextEditingController instructionsController = TextEditingController();
+  TextEditingController numberOfChilds = TextEditingController();
+  TextEditingController numberOfinfants = TextEditingController();
+  TextEditingController numberOfAdults = TextEditingController();
+  TextEditingController nmbrOfLuggage = TextEditingController();
   final GlobalKey<FormState> guestInfoFormKey = GlobalKey<FormState>();
+  int totalPassengers=0;
+  int childs=0;
+  int adult=0;
+  int infants=0;
+
 
   List<Widget> addDropdowns = [];
   String? selectedVehicle;
+
   String? selectedChildren;
   String? selectedAdult;
   String? selectedLuggage;
+  String? airlineName;
 
   final List<String> items = [
     '1',
@@ -37,6 +50,13 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    List<String> selectedValues = List.filled(addDropdowns.length, '');
+
+    print(childs);
+    print(adult);
+    print(infants);
+    totalPassengers=infants+childs+adult;
+    print("total passengers ${totalPassengers}");
     return GestureDetector(
       onTap: () {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -47,7 +67,6 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
           physics: const BouncingScrollPhysics(),
           child: Container(
             color: Colors.transparent,
-            height: size.height * 0.91,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -115,7 +134,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                                 ),
                               ),
                               borderRadius: BorderRadius.circular(16),
-                              items: items
+                              items: widget.pickVehicleData!
                                   .map(
                                     (item) => DropdownMenuItem<String>(
                                       value: item,
@@ -145,7 +164,18 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            addDropdowns.add(additem());
+                            if(addDropdowns.length>=4){
+                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("You can not add more vaheicles")));
+                            }
+                            else{
+                              addDropdowns.add(additem());
+
+                            }
+
+
+
+
+
                           });
                         },
                         child: Container(
@@ -185,85 +215,80 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                         child: Container(
                           color: Colors.transparent,
                           width: size.width * 0.43,
-                          child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField(
-                                icon: SvgPicture.asset(
-                                  'assets/images/dropdown-icon.svg',
+                          child:TextFormField(
+                            controller: numberOfChilds,
+                            keyboardType: TextInputType.text,
+                            // validator: (value) {
+                            //   if (value == null || value.isEmpty) {
+                            //     return 'Number of Child field is required!';
+                            //   }
+                            //   return null;
+                            // },
+                            onChanged: (v){
+                              childs= int.parse(numberOfChilds.text);
+
+
+                              setState(() {
+
+                              });
+
+                            },
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Montserrat-Regular',
+                              fontSize: 16,
+                              color: Color(0xFF6B7280),
+                            ),
+                            decoration: InputDecoration(
+                              filled: false,
+                              errorStyle: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                wordSpacing: 2,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                borderSide: BorderSide(
+                                  color: const Color(0xFF000000).withOpacity(0.15),
+                                  width: 1,
                                 ),
-                                iconSize: 5,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16)),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xFF000000)
-                                          .withOpacity(0.15),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16)),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xFF000000)
-                                          .withOpacity(0.15),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16)),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xFF000000)
-                                          .withOpacity(0.15),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  prefixIcon: SvgPicture.asset(
-                                    'assets/images/children-icon.svg',
-                                    width: 10,
-                                    height: 10,
-                                    fit: BoxFit.scaleDown,
-                                  ),
-                                  // suffixIcon: SvgPicture.asset(
-                                  //   'assets/images/dropdown-icon.svg',
-                                  //   width: 10,
-                                  //   height: 10,
-                                  //   fit: BoxFit.scaleDown,
-                                  // ),
-                                  hintText: 'No of Childs',
-                                  hintStyle: const TextStyle(
-                                    color: Color(0xFF929292),
-                                    fontSize: 10,
-                                    fontFamily: 'Montserrat-Regular',
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                borderSide: BorderSide(
+                                  color: const Color(0xFF000000).withOpacity(0.15),
+                                  width: 1,
                                 ),
-                                borderRadius: BorderRadius.circular(16),
-                                items: items
-                                    .map(
-                                      (item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          style: const TextStyle(
-                                            color: Color(0xFF929292),
-                                            fontSize: 12,
-                                            fontFamily: 'Montserrat-Regular',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
-                                value: selectedChildren,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedChildren = value as String;
-                                  });
-                                },
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                borderSide: BorderSide(
+                                  color: const Color(0xFF000000).withOpacity(0.15),
+                                  width: 1,
+                                ),
+                              ),
+                              errorBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(16)),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1,
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              hintText: "Number of Childs",
+                              hintStyle: const TextStyle(
+                                color: Color(0xFF929292),
+                                fontSize: 10,
+                                fontFamily: 'Montserrat-Regular',
+                                fontWeight: FontWeight.w500,
+                              ),
+                              prefixIcon: SvgPicture.asset(
+                                'assets/images/adult-icon.svg',
+                                width: 25,
+                                height: 25,
+                                fit: BoxFit.scaleDown,
                               ),
                             ),
                           ),
@@ -274,94 +299,193 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                         child: Container(
                           color: Colors.transparent,
                           width: size.width * 0.43,
-                          child: ButtonTheme(
-                            alignedDropdown: true,
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButtonFormField(
-                                icon: SvgPicture.asset(
-                                  'assets/images/dropdown-icon.svg',
+                          child:TextFormField(
+                            controller: numberOfAdults,
+                            keyboardType: TextInputType.text,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Number of Adults field is required!';
+                              }
+                              return null;
+                            },
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Montserrat-Regular',
+                              fontSize: 16,
+                              color: Color(0xFF6B7280),
+                            ),
+                            decoration: InputDecoration(
+                              filled: false,
+                              errorStyle: const TextStyle(
+                                color: Colors.red,
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                wordSpacing: 2,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                borderSide: BorderSide(
+                                  color: const Color(0xFF000000).withOpacity(0.15),
+                                  width: 1,
                                 ),
-                                iconSize: 5,
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16)),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xFF000000)
-                                          .withOpacity(0.15),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16)),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xFF000000)
-                                          .withOpacity(0.15),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(16)),
-                                    borderSide: BorderSide(
-                                      color: const Color(0xFF000000)
-                                          .withOpacity(0.15),
-                                      width: 1,
-                                    ),
-                                  ),
-                                  prefixIcon: SvgPicture.asset(
-                                    'assets/images/adult-icon.svg',
-                                    width: 10,
-                                    height: 10,
-                                    fit: BoxFit.scaleDown,
-                                  ),
-                                  // suffixIcon: SvgPicture.asset(
-                                  //   'assets/images/dropdown-icon.svg',
-                                  //   width: 10,
-                                  //   height: 10,
-                                  //   fit: BoxFit.scaleDown,
-                                  // ),
-                                  hintText: 'No of Adults',
-                                  hintStyle: const TextStyle(
-                                    color: Color(0xFF929292),
-                                    fontSize: 10,
-                                    fontFamily: 'Montserrat-Regular',
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                borderSide: BorderSide(
+                                  color: const Color(0xFF000000).withOpacity(0.15),
+                                  width: 1,
                                 ),
-                                borderRadius: BorderRadius.circular(16),
-                                items: items
-                                    .map(
-                                      (item) => DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          style: const TextStyle(
-                                            color: Color(0xFF929292),
-                                            fontSize: 12,
-                                            fontFamily: 'Montserrat-Regular',
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
-                                value: selectedAdult,
-                                onChanged: (value) {
-                                  setState(() {
-                                    selectedAdult = value as String;
-                                  });
-                                },
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                                borderSide: BorderSide(
+                                  color: const Color(0xFF000000).withOpacity(0.15),
+                                  width: 1,
+                                ),
+                              ),
+                              errorBorder: const OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(16)),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                  width: 1,
+                                ),
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              hintText: "No of Adults",
+                              hintStyle: const TextStyle(
+                                color: Color(0xFF929292),
+                                fontSize: 10,
+                                fontFamily: 'Montserrat-Regular',
+                                fontWeight: FontWeight.w500,
+                              ),
+                              prefixIcon: SvgPicture.asset(
+                                'assets/images/adult-icon.svg',
+                                width: 25,
+                                height: 25,
+                                fit: BoxFit.scaleDown,
                               ),
                             ),
+                            onChanged: (v){
+                              adult= int.parse(numberOfAdults.text);
+                              setState(() {
+
+                              });
+
+                            },
                           ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextFormField(
+                    controller: numberOfinfants,
+                    keyboardType: TextInputType.text,
+                    // validator: (value) {
+                    //   if (value == null || value.isEmpty) {
+                    //     return 'Number of Child field is required!';
+                    //   }
+                    //   return null;
+                    // },
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Montserrat-Regular',
+                      fontSize: 16,
+                      color: Color(0xFF6B7280),
+                    ),
+                    decoration: InputDecoration(
+                      filled: false,
+                      errorStyle: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        wordSpacing: 2,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 1,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      hintText: "Number of Infants",
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF929292),
+                        fontSize: 10,
+                        fontFamily: 'Montserrat-Regular',
+                        fontWeight: FontWeight.w500,
+                      ),
+                      prefixIcon: SvgPicture.asset(
+                        'assets/images/adult-icon.svg',
+                        width: 25,
+                        height: 25,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                    onChanged: (v){
+                      infants= int.parse(numberOfinfants.text);
+                      setState(() {
+
+                      });
+
+                    },
+                  ),
+                ),
+                SizedBox(height: size.height * 0.03),
+                const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: Text(
+                    'Total Passengers',
+                    style: TextStyle(
+                      color: Color(0xFF1E1E1E),
+                      fontSize: 16,
+                      fontFamily: 'Montserrat-Regular',
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                SizedBox(height: size.height * 0.03),
+                 Center(
+                  child: Text(
+                    totalPassengers !=null ?'$totalPassengers': "0",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF79BF42),
+                      fontSize: 16,
+                      fontFamily: 'Montserrat-Regular',
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                SizedBox(height: size.height * 0.03),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
@@ -380,7 +504,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(16)),
+                              const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
                                 color: const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
@@ -388,7 +512,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(16)),
+                              const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
                                 color: const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
@@ -396,19 +520,19 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(16)),
+                              const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
                                 color: const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
                               ),
                             ),
                             prefixIcon: SvgPicture.asset(
-                              'assets/images/luggage-icon.svg',
+                              'assets/images/visa-icon.svg',
                               width: 10,
                               height: 10,
                               fit: BoxFit.scaleDown,
                             ),
-                            hintText: 'No. of Luggage',
+                            hintText: 'Airline Name',
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
@@ -417,26 +541,26 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: items
+                          items: widget.airLineComapny!
                               .map(
                                 (item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: const TextStyle(
-                                      color: Color(0xFF929292),
-                                      fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  color: Color(0xFF929292),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
                                 ),
-                              )
+                              ),
+                            ),
+                          )
                               .toList(),
-                          value: selectedLuggage,
+                          value: airlineName,
                           onChanged: (value) {
                             setState(() {
-                              selectedLuggage = value as String;
+                              airlineName = value ;
                             });
                           },
                         ),
@@ -444,33 +568,8 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: size.height * 0.03),
-                const Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    'Total Passengers',
-                    style: TextStyle(
-                      color: Color(0xFF1E1E1E),
-                      fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                SizedBox(height: size.height * 0.03),
-                const Center(
-                  child: Text(
-                    '8',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF79BF42),
-                      fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-                SizedBox(height: size.height * 0.03),
+                SizedBox(height: size.height * 0.02),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
@@ -714,7 +813,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       ),
                     ),
                     borderRadius: BorderRadius.circular(16),
-                    items: items
+                    items: widget.pickVehicleData!
                         .map(
                           (item) => DropdownMenuItem<String>(
                             value: item,
@@ -733,7 +832,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     value: selectedVehicle,
                     onChanged: (value) {
                       setState(() {
-                        selectedVehicle = value as String;
+                        selectedVehicle = value;
                       });
                     },
                   ),

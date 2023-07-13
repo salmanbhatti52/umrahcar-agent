@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:umrahcar/models/get_all_system_data_model.dart';
 import 'package:umrahcar/screens/create_booking_process/tab_screens/guest_info_screen.dart';
 import 'package:umrahcar/screens/create_booking_process/tab_screens/other_info_screen.dart';
 import 'package:umrahcar/screens/create_booking_process/tab_screens/pickup_info_screen.dart';
+import 'package:umrahcar/service/rest_api_serivice.dart';
 
 class TabbarCreateBookings extends StatefulWidget {
   const TabbarCreateBookings({super.key});
@@ -14,7 +16,66 @@ abstract class TickerProvider {}
 
 class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
     with TickerProviderStateMixin {
-  List<String> tabs = ["Tourist Info", "Other Info", "Guest Info"];
+  late  List<String> visaTypeItems = [];
+  late  List<String> pickupLocationData = [];
+  late  List<String> pickVehicleData = [];
+  late  List<String> airLineComapny = [];
+  GetAllSystemData getAllSystemData=GetAllSystemData();
+  getSystemAllData()async{
+    getAllSystemData= await DioClient().getSystemAllData(context);
+    if(getAllSystemData !=null){
+      getVisaTypeListData();
+      getPickUpLocationData();
+      getVehicleData();
+      getAirLineDataa();
+
+      print("GETSystemAllData: ${getAllSystemData.data}");
+      setState(() {
+
+      });
+    }
+  }
+
+  getVisaTypeListData(){
+    if(getAllSystemData!.data!=null) {
+      for (int i = 0; i < getAllSystemData!.data!.visaTypes!.length; i++) {
+        visaTypeItems.add(getAllSystemData!.data!.visaTypes![i].name!);
+        print("visa items= $visaTypeItems");
+      }
+    }
+  }
+  getPickUpLocationData(){
+    if(getAllSystemData!.data!!=null){
+      for(int i=0 ;i<getAllSystemData!.data!.routesPickup!.length; i++){
+        pickupLocationData.add(getAllSystemData!.data!.routesPickup![i].name!);
+        print("route items= $pickupLocationData");
+      }
+
+    }
+  }
+  getVehicleData(){
+    if(getAllSystemData!.data!!=null){
+      for(int i=0 ;i<getAllSystemData!.data!.vehicles!.length; i++){
+        pickVehicleData.add(getAllSystemData!.data!.vehicles![i].name!);
+        print("vehicle items= $pickVehicleData");
+      }
+
+    }
+  }
+  getAirLineDataa(){
+    if(getAllSystemData!.data!!=null){
+      for(int i=0 ;i<getAllSystemData!.data!.flightCompanies!.length; i++){
+        airLineComapny.add(getAllSystemData!.data!.flightCompanies![i].name!);
+        print("Airline items= $airLineComapny");
+      }
+
+    }
+  }
+  @override
+  void initState() {
+    getSystemAllData();// TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,11 +133,16 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
           height: MediaQuery.of(context).size.height * 0.72,
           child: TabBarView(
             controller: tabController,
+            physics: NeverScrollableScrollPhysics(),
+
             children: [
               TouristInfoPage(
                 tabController: tabController,
+                getAllSystemData: getAllSystemData,
+                visaTypeItems: visaTypeItems,
+                pickupLocationData: pickupLocationData,
               ),
-               OtherInfoPage(tabController: tabController),
+               OtherInfoPage(tabController: tabController,pickVehicleData: pickVehicleData,airLineComapny: airLineComapny),
               GuestInfoPage(
                 tabController: tabController,
               ),

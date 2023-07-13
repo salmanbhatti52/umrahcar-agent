@@ -94,7 +94,7 @@ class _TrackPageState extends State<TrackPage> {
                         ),
                         SizedBox(height: size.height * 0.02),
                          Text(
-                          '${widget.getBookingData!.routes!.dropoff!.name} (${widget.getBookingData!.dropoffHotel!.name})',
+                          '${widget.getBookingData!.routes!.dropoff!.name} (${widget.getBookingData!.routes!.dropoff!.type})',
                           style: const TextStyle(
                             color: Color(0xFF565656),
                             fontSize: 12,
@@ -281,7 +281,9 @@ class _TrackPageState extends State<TrackPage> {
                           color: const Color(0xFF929292).withOpacity(0.3),
                           thickness: 1,
                         ),
-                        SizedBox(height: size.height * 0.01),
+                        if(widget.getBookingData!.bookedFare !="0")
+                          SizedBox(height: size.height * 0.01),
+                       if(widget.getBookingData!.bookedFare !="0")
                        Row(
                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                          children: [
@@ -306,7 +308,10 @@ class _TrackPageState extends State<TrackPage> {
                            ),
                          ],
                        ),
-                        SizedBox(height: size.height * 0.02),
+                        if(widget.getBookingData!.cashReceiveFromCustomer != "0")
+
+                          SizedBox(height: size.height * 0.02),
+                        if(widget.getBookingData!.cashReceiveFromCustomer != "0")
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

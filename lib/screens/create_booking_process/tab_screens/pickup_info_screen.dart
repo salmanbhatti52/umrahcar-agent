@@ -1,13 +1,18 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:umrahcar/models/get_all_system_data_model.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 
 class TouristInfoPage extends StatefulWidget {
+    List<String>? visaTypeItems = [];
+    List<String>? pickupLocationData = [];
+  GetAllSystemData? getAllSystemData;
   final TabController? tabController;
-  const TouristInfoPage({super.key, this.tabController});
+   TouristInfoPage({super.key, this.tabController,this.getAllSystemData,this.visaTypeItems,this.pickupLocationData});
 
   @override
   State<TouristInfoPage> createState() => _TouristInfoPageState();
@@ -17,20 +22,22 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
   TextEditingController pickUpController = TextEditingController();
   TextEditingController dropOffController = TextEditingController();
   final GlobalKey<FormState> pickUpInfoFormKey = GlobalKey<FormState>();
-
+  String? pickupDate;
+  String? pickupTime;
   List<Widget> addDropdowns = [];
   String? selectedVisa;
+  String? selectedLocation;
   String? selectedPickUp;
   String? selectedDropOff;
+  String? currentDate;
+  String? currentTime;
 
-  final List<String> visaTypeItems = [
-    "Tourist",
-    "Visit Visa",
-    "Umrah Visa"
-  ];
+
 
   @override
   Widget build(BuildContext context) {
+    currentDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
+    currentTime=TimeOfDay.now().format(context);
     var size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
@@ -102,7 +109,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: visaTypeItems
+                          items: widget.visaTypeItems!
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -121,7 +128,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                           value: selectedVisa,
                           onChanged: (value) {
                             setState(() {
-                              selectedVisa = value as String;
+                              selectedVisa = value ;
                             });
                           },
                         ),
@@ -130,84 +137,91 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Container(
                     color: Colors.transparent,
-                    height: size.height * 0.08,
-                    child: TextFormField(
-                      controller: pickUpController,
-                      keyboardType: TextInputType.streetAddress,
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'Pickup Location field is required!';
-                      //   }
-                      //   return null;
-                      // },
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'Montserrat-Regular',
-                        fontSize: 16,
-                        color: Color(0xFF6B7280),
-                      ),
-                      decoration: InputDecoration(
-                        filled: false,
-                        errorStyle: const TextStyle(
-                          color: Colors.red,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                          wordSpacing: 2,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius:
+                    width: size.width,
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButtonFormField(
+                          icon: SvgPicture.asset(
+                            'assets/images/dropdown-icon.svg',
+                            width: 10,
+                            height: 10,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius:
                               const BorderRadius.all(Radius.circular(16)),
-                          borderSide: BorderSide(
-                            color: const Color(0xFF000000).withOpacity(0.15),
-                            width: 1,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius:
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
                               const BorderRadius.all(Radius.circular(16)),
-                          borderSide: BorderSide(
-                            color: const Color(0xFF000000).withOpacity(0.15),
-                            width: 1,
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius:
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
                               const BorderRadius.all(Radius.circular(16)),
-                          borderSide: BorderSide(
-                            color: const Color(0xFF000000).withOpacity(0.15),
-                            width: 1,
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            prefixIcon: SvgPicture.asset(
+                              'assets/images/address-icon.svg',
+                              width: 10,
+                              height: 10,
+                              fit: BoxFit.scaleDown,
+                            ),
+                            hintText: 'Pickup Location',
+                            hintStyle: const TextStyle(
+                              color: Color(0xFF929292),
+                              fontSize: 12,
+                              fontFamily: 'Montserrat-Regular',
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
-                        ),
-                        errorBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                          borderSide: BorderSide(
-                            color: Colors.red,
-                            width: 1,
-                          ),
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        hintText: "Pickup Location",
-                        hintStyle: const TextStyle(
-                          color: Color(0xFF929292),
-                          fontSize: 12,
-                          fontFamily: 'Montserrat-Regular',
-                          fontWeight: FontWeight.w500,
-                        ),
-                        prefixIcon: SvgPicture.asset(
-                          'assets/images/address-icon.svg',
-                          width: 25,
-                          height: 25,
-                          fit: BoxFit.scaleDown,
+                          borderRadius: BorderRadius.circular(16),
+                          items:
+                          widget.pickupLocationData!.map(
+                                (item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  color: Color(0xFF929292),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          )
+                              .toList(),
+                          value: selectedLocation,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedLocation = value ;
+                              print("Location: ${selectedLocation}");
+                            });
+                          },
                         ),
                       ),
                     ),
                   ),
                 ),
+
                 SizedBox(height: size.height * 0.02),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -264,7 +278,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: visaTypeItems
+                          items: widget.visaTypeItems!
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -292,77 +306,91 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
+
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextFormField(
-                    controller: dropOffController,
-                    keyboardType: TextInputType.streetAddress,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Drop off Location field is required!';
-                    //   }
-                    //   return null;
-                    // },
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
-                      fontSize: 16,
-                      color: Color(0xFF6B7280),
-                    ),
-                    decoration: InputDecoration(
-                      filled: false,
-                      errorStyle: const TextStyle(
-                        color: Colors.red,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        wordSpacing: 2,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(Radius.circular(16)),
-                        borderSide: BorderSide(
-                          color: const Color(0xFF000000).withOpacity(0.15),
-                          width: 1,
+                  child: Container(
+                    color: Colors.transparent,
+                    width: size.width,
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButtonFormField(
+                          icon: SvgPicture.asset(
+                            'assets/images/dropdown-icon.svg',
+                            width: 10,
+                            height: 10,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            prefixIcon: SvgPicture.asset(
+                              'assets/images/address-icon.svg',
+                              width: 10,
+                              height: 10,
+                              fit: BoxFit.scaleDown,
+                            ),
+                            hintText: 'Drop off Location',
+                            hintStyle: const TextStyle(
+                              color: Color(0xFF929292),
+                              fontSize: 12,
+                              fontFamily: 'Montserrat-Regular',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          items:
+                          widget.pickupLocationData!.map(
+                                (item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  color: Color(0xFF929292),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          )
+                              .toList(),
+                          value: selectedLocation,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedLocation = value ;
+                              print("Location: ${selectedLocation}");
+                            });
+                          },
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(Radius.circular(16)),
-                        borderSide: BorderSide(
-                          color: const Color(0xFF000000).withOpacity(0.15),
-                          width: 1,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(Radius.circular(16)),
-                        borderSide: BorderSide(
-                          color: const Color(0xFF000000).withOpacity(0.15),
-                          width: 1,
-                        ),
-                      ),
-                      errorBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                          width: 1,
-                        ),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 20),
-                      hintText: "Drop off Location",
-                      hintStyle: const TextStyle(
-                        color: Color(0xFF929292),
-                        fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
-                        fontWeight: FontWeight.w500,
-                      ),
-                      prefixIcon: SvgPicture.asset(
-                        'assets/images/address-icon.svg',
-                        width: 25,
-                        height: 25,
-                        fit: BoxFit.scaleDown,
                       ),
                     ),
                   ),
                 ),
+
                 SizedBox(height: size.height * 0.02),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -419,7 +447,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: visaTypeItems
+                          items: widget.visaTypeItems!
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -460,15 +488,33 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
-                const Center(
-                  child: Text(
-                    '06-07-2023',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF79BF42),
-                      fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
-                      fontWeight: FontWeight.w500,
+                InkWell(
+                  onTap: () async {
+                    DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(), //get today's date
+                        firstDate:DateTime.now(), //DateTime.now() - not to allow to choose before today.
+                        lastDate: DateTime(2050)
+                    );
+                    if(pickedDate !=null){
+                      print(pickedDate);  //get the picked date in the format => 2022-07-04 00:00:00.000
+                      pickupDate = DateFormat('MM/dd/yyyy').format(pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
+                      print(pickupDate);
+                    }
+                    setState(() {
+
+                    });
+                  },
+                  child:  Center(
+                    child: Text(
+                      pickupDate !=null? '$pickupDate':"${currentDate}",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF79BF42),
+                        fontSize: 16,
+                        fontFamily: 'Montserrat-Regular',
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),
@@ -486,18 +532,35 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.02),
-                const Center(
-                  child: Text(
-                    '06-07-2023',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF79BF42),
-                      fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
-                      fontWeight: FontWeight.w500,
+                 InkWell(
+                   onTap: () async{
+                      TimeOfDay? pickedTime = await showTimePicker(
+                       context: context,
+                       initialTime: TimeOfDay.now(),
+                     );
+                      if(pickedTime != null ){
+                        print(" Time: ${pickedTime.format(context)}");
+                        pickupTime=pickedTime.format(context);
+                        setState(() {
+
+                        });//output 10:51 PM
+                      }else{
+                        print("Time is not selected");
+                      }
+                   },
+                   child: Center(
+                    child: Text(
+                      pickupTime!=null? pickupTime! : currentTime!,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF79BF42),
+                        fontSize: 16,
+                        fontFamily: 'Montserrat-Regular',
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
                 ),
+                 ),
                 SizedBox(height: size.height * 0.04),
                 GestureDetector(
                     onTap: () {
