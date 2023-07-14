@@ -71,6 +71,15 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
 
     }
   }
+
+  void onDataReceived({String? visaType,String? pickupLocation,String? pickupHotel,String? dropOffLocation,String? dropOffHotel,String? pickUpData,String? pickUpTime}) {
+    setState(() {
+    print("visaType1: $visaType");
+    });
+  }
+
+  int currentIndex=  0;
+
   @override
   void initState() {
     getSystemAllData();// TODO: implement initState
@@ -103,10 +112,17 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                     color: const Color(0xFF79BF42),
                     borderRadius: BorderRadius.circular(20),
                   ),
+                  // onTap: (index) {
+                  //   if (tabController.indexIsChanging) {
+                  //     tabController.index = tabController.previousIndex;
+                  //   } else {
+                  //     return;
+                  //   }
+                  // },
                   indicatorColor: const Color(0xFF79BF42),
                   isScrollable: true,
                   labelColor: Colors.white,
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 20),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 25),
                   labelStyle: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -141,6 +157,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                 getAllSystemData: getAllSystemData,
                 visaTypeItems: visaTypeItems,
                 pickupLocationData: pickupLocationData,
+                onDataReceived: onDataReceived,
               ),
                OtherInfoPage(tabController: tabController,pickVehicleData: pickVehicleData,airLineComapny: airLineComapny),
               GuestInfoPage(

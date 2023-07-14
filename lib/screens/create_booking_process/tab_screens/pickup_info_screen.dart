@@ -12,7 +12,8 @@ class TouristInfoPage extends StatefulWidget {
     List<String>? pickupLocationData = [];
   GetAllSystemData? getAllSystemData;
   final TabController? tabController;
-   TouristInfoPage({super.key, this.tabController,this.getAllSystemData,this.visaTypeItems,this.pickupLocationData});
+  final Function({String visaType,String pickupLocation,String pickupHotel,String dropOffLocation,String dropOffHotel,String pickUpData,String pickUpTime}) onDataReceived;
+   TouristInfoPage({super.key, this.tabController,this.getAllSystemData,this.visaTypeItems,this.pickupLocationData,required this.onDataReceived});
 
   @override
   State<TouristInfoPage> createState() => _TouristInfoPageState();
@@ -564,6 +565,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                 SizedBox(height: size.height * 0.04),
                 GestureDetector(
                     onTap: () {
+                      selectedVisa !=null?  widget.onDataReceived(visaType: selectedVisa!):"";
                       final newIndex = widget.tabController!.index + 1;
                       widget.tabController!.animateTo(newIndex);
                       print('newIndex $newIndex');

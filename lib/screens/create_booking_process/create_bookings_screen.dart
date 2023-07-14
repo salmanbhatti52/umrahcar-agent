@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:umrahcar/utils/colors.dart';
+import 'package:umrahcar/widgets/navbar.dart';
 import 'package:umrahcar/widgets/tabbar_create_bookings.dart';
 
 class CreateBookingsPage extends StatefulWidget {
@@ -9,13 +10,23 @@ class CreateBookingsPage extends StatefulWidget {
   State<CreateBookingsPage> createState() => _CreateBookingsPageState();
 }
 
+
+
+
 class _CreateBookingsPageState extends State<CreateBookingsPage> {
+  back(){
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>const NavBar()));
+    setState(() {
+      
+    });
+
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () {
-        return Future.value(false);
+        return back();
       },
       child: Scaffold(
         backgroundColor: mainColor,
@@ -23,17 +34,6 @@ class _CreateBookingsPageState extends State<CreateBookingsPage> {
           backgroundColor: mainColor,
           elevation: 0,
           automaticallyImplyLeading: false,
-          // leading: GestureDetector(
-          //   onTap: () {
-          //     Navigator.pop(context);
-          //   },
-          //   child: SvgPicture.asset(
-          //     'assets/images/back-icon.svg',
-          //     width: 22,
-          //     height: 22,
-          //     fit: BoxFit.scaleDown,
-          //   ),
-          // ),
           title: const Text(
             'Create Booking',
             style: TextStyle(

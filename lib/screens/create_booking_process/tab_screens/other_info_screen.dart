@@ -30,6 +30,10 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
 
   List<Widget> addDropdowns = [];
   String? selectedVehicle;
+  String? selectedVehicle1;
+  String? selectedVehicle2;
+  String? selectedVehicle3;
+  String? selectedVehicle4;
 
   String? selectedChildren;
   String? selectedAdult;
@@ -168,7 +172,8 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("You can not add more vaheicles")));
                             }
                             else{
-                              addDropdowns.add(additem());
+                              print("length: ${addDropdowns.length}");
+                              addDropdowns.add(additem(length: addDropdowns.length));
 
                             }
 
@@ -477,7 +482,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                   child: Text(
                     totalPassengers !=null ?'$totalPassengers': "0",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFF79BF42),
                       fontSize: 16,
                       fontFamily: 'Montserrat-Regular',
@@ -754,7 +759,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
     );
   }
 
-  Widget additem() {
+  Widget additem({int? length}) {
     var size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -829,10 +834,28 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                           ),
                         )
                         .toList(),
-                    value: selectedVehicle,
+                    value: length==0?selectedVehicle1:length==1?selectedVehicle2:length==2?selectedVehicle3:selectedVehicle4,
                     onChanged: (value) {
                       setState(() {
-                        selectedVehicle = value;
+                        if(length==0){
+                          selectedVehicle1 = value;
+                          print("value${selectedVehicle1}");
+                        }
+                        else if(length==1){
+                          selectedVehicle2=value;
+                          print("value${selectedVehicle2}");
+
+                        }
+                        else if(length==2){
+                          selectedVehicle3=value;
+                          print("value${selectedVehicle3}");
+
+                        }
+                        else{
+                          selectedVehicle4=value;
+                          print("value${selectedVehicle4}");
+
+                        }
                       });
                     },
                   ),
