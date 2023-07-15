@@ -20,6 +20,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
   late  List<String> pickupLocationData = [];
   late  List<String> pickVehicleData = [];
   late  List<String> airLineComapny = [];
+  late  List<String> serviceTypeData = [];
   GetAllSystemData getAllSystemData=GetAllSystemData();
   getSystemAllData()async{
     getAllSystemData= await DioClient().getSystemAllData(context);
@@ -28,6 +29,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
       getPickUpLocationData();
       getVehicleData();
       getAirLineDataa();
+      getServiceTypeData();
 
       print("GETSystemAllData: ${getAllSystemData.data}");
       setState(() {
@@ -67,6 +69,15 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
       for(int i=0 ;i<getAllSystemData!.data!.flightCompanies!.length; i++){
         airLineComapny.add(getAllSystemData!.data!.flightCompanies![i].name!);
         print("Airline items= $airLineComapny");
+      }
+
+    }
+  }
+  getServiceTypeData(){
+    if(getAllSystemData!.data!!=null){
+      for(int i=0 ;i<getAllSystemData!.data!.serviceType!.length; i++){
+        serviceTypeData.add(getAllSystemData!.data!.serviceType![i]);
+        print("Service Type items= $serviceTypeData");
       }
 
     }
@@ -158,6 +169,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                 visaTypeItems: visaTypeItems,
                 pickupLocationData: pickupLocationData,
                 onDataReceived: onDataReceived,
+                serviceTypeData: serviceTypeData,
               ),
                OtherInfoPage(tabController: tabController,pickVehicleData: pickVehicleData,airLineComapny: airLineComapny),
               GuestInfoPage(

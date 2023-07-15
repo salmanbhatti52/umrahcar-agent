@@ -32,6 +32,7 @@ class Data {
   List<FlightCompany>? flightCompanies;
   List<Vehicle>? vehicles;
   List<VisaType>? visaTypes;
+  List<String>? serviceType;
   List<RoutesPickup>? routesPickup;
   List<Setting>? settings;
 
@@ -39,6 +40,7 @@ class Data {
     this.flightCompanies,
     this.vehicles,
     this.visaTypes,
+    this.serviceType,
     this.routesPickup,
     this.settings,
   });
@@ -47,6 +49,7 @@ class Data {
     flightCompanies: List<FlightCompany>.from(json["flight_companies"].map((x) => FlightCompany.fromJson(x))),
     vehicles: List<Vehicle>.from(json["vehicles"].map((x) => Vehicle.fromJson(x))),
     visaTypes: List<VisaType>.from(json["visa_types"].map((x) => VisaType.fromJson(x))),
+    serviceType: List<String>.from(json["service_type"].map((x) => x)),
     routesPickup: List<RoutesPickup>.from(json["routes_pickup"].map((x) => RoutesPickup.fromJson(x))),
     settings: List<Setting>.from(json["settings"].map((x) => Setting.fromJson(x))),
   );
@@ -55,6 +58,7 @@ class Data {
     "flight_companies": List<dynamic>.from(flightCompanies!.map((x) => x.toJson())),
     "vehicles": List<dynamic>.from(vehicles!.map((x) => x.toJson())),
     "visa_types": List<dynamic>.from(visaTypes!.map((x) => x.toJson())),
+    "service_type": List<dynamic>.from(serviceType!.map((x) => x)),
     "routes_pickup": List<dynamic>.from(routesPickup!.map((x) => x.toJson())),
     "settings": List<dynamic>.from(settings!.map((x) => x.toJson())),
   };

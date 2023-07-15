@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umrahcar/models/forgot_password_otp_model.dart';
 import 'package:umrahcar/models/get_all_system_data_model.dart';
+import 'package:umrahcar/models/get_hotels_data.dart';
 import 'package:umrahcar/models/get_profile_model.dart';
 import 'package:umrahcar/models/login_model.dart';
 import 'package:umrahcar/models/update_profile_model.dart';
 
 import '../models/forgot_verify_otp_model.dart';
 import '../models/get_booking_list_model.dart';
+import '../models/get_drop_off_location_model.dart';
 import '../models/login_model.dart';
 import '../models/login_model.dart';
 import '../models/login_model.dart';
@@ -200,6 +202,59 @@ class DioClient {
       }
       else  {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
+  Future<GetHotelsData> getHotelsData(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_dependent_bookings_data',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetHotelsData.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No hotel found.")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future<GetDropOffLocation> getDropOffData(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_dependent_bookings_data',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetDropOffLocation.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No hotel found.")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future<GetDropOffLocation> getDropOffHotelData(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_dependent_bookings_data',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetDropOffLocation.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No hotel found.")));
         throw 'SomeThing Missing';
       }
     } catch (e) {
