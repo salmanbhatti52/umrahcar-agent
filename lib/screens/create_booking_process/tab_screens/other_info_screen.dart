@@ -3,12 +3,55 @@ import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 
+import '../../../models/get_all_system_data_model.dart';
+import '../../../service/rest_api_serivice.dart';
+
 class OtherInfoPage extends StatefulWidget {
   final TabController? tabController;
-   List<String>? pickVehicleData = [];
-  List<String>? airLineComapny = [];
+  String? visaType;
+  String? pickupLocation;
+  String? pickupHotel;
+  String? dropOffLocation;
+  String? dropOffHotel;
+  String? pickUpData;
+  String? pickUpTime;
+  String? serviceType;
+  int? routesDropOffId;
+  int? routesPickUpId;
+  final Function(
+      {String visaType,
+      String serviceType,
+      String pickupLocation,
+      String? pickupHotel,
+      String dropOffLocation,
+      String? dropOffHotel,
+      String pickUpData,
+      int? routesDropOffId,
+      int? routesPickUpId,
+      int? tabbarIndex,
+      String? pickUpTime,
+      String? routesId,
+      String? numberOfChilds,
+      String? numberOfAdults,
+      String? numberOfInfants,
+      String? extraInformation,
+      String? vehicleId,
+      String? vehicleId1,
+      String? vehicleId2,
+      String? vehicleId3,
+      String? flightNmbr,
+      String? flightCompaniesId,
+      String? flightDetails,
+      String? flightCode,
+      String? totalFare,
+      String? totalNumberOfPassengers
 
-   OtherInfoPage({super.key,this.tabController,this.pickVehicleData,this.airLineComapny});
+
+      }) onDataReceived;
+
+
+
+   OtherInfoPage({super.key,this.tabController,this.visaType,this.serviceType,this.routesPickUpId,this.routesDropOffId,this.pickUpTime,this.pickUpData,this.dropOffHotel,this.dropOffLocation,this.pickupHotel,this.pickupLocation,required this.onDataReceived});
 
   @override
   State<OtherInfoPage> createState() => _OtherInfoPageState();
@@ -16,6 +59,7 @@ class OtherInfoPage extends StatefulWidget {
 
 class _OtherInfoPageState extends State<OtherInfoPage> {
   TextEditingController flightnumberController = TextEditingController();
+  TextEditingController flightdetailsController = TextEditingController();
   TextEditingController instructionsController = TextEditingController();
   TextEditingController numberOfChilds = TextEditingController();
   TextEditingController numberOfinfants = TextEditingController();
@@ -26,6 +70,12 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
   int childs=0;
   int adult=0;
   int infants=0;
+  String? routesId;
+  double? fare;
+  double? fare1;
+  double? fare2;
+  double? fare3;
+  double? totalFare=0.0;
 
 
   List<Widget> addDropdowns = [];
@@ -33,24 +83,184 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
   String? selectedVehicle1;
   String? selectedVehicle2;
   String? selectedVehicle3;
-  String? selectedVehicle4;
+  int? selectedVehiclePassengers;
+  int? selectedVehicle1Passengers;
+  int? selectedVehicle2Passengers;
+  int? selectedVehicle3Passengers;
+  int totalNumberOfPassengers=0;
+  int? selectedVehicleId;
+  int? selectedVehicle1Id;
+  int? selectedVehicle2Id;
+  int? selectedVehicle3Id;
 
   String? selectedChildren;
   String? selectedAdult;
   String? selectedLuggage;
   String? airlineName;
+  String? flightComapniesId;
 
-  final List<String> items = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-  ];
 
+
+
+  late  List<String> pickVehicleData = [];
+  late  List<String> airLineComapny = [];
+  GetAllSystemData getAllSystemData=GetAllSystemData();
+  getSystemAllData()async{
+    getAllSystemData= await DioClient().getSystemAllData(context);
+    if(getAllSystemData !=null){
+      getVehicleData();
+      getAirLineDataa();
+
+      print("GETSystemAllData: ${getAllSystemData.data}");
+      setState(() {
+
+      });
+    }
+  }
+
+  getVehicleData(){
+    if(getAllSystemData!.data!!=null){
+      for(int i=0 ;i<getAllSystemData!.data!.vehicles!.length; i++){
+        pickVehicleData.add(getAllSystemData!.data!.vehicles![i].name!);
+        print("vehicle items= $pickVehicleData");
+      }
+
+    }
+  }
+
+
+  getAirLineDataa(){
+    if(getAllSystemData!.data!!=null){
+      for(int i=0 ;i<getAllSystemData!.data!.flightCompanies!.length; i++){
+        airLineComapny.add(getAllSystemData!.data!.flightCompanies![i].name!);
+        print("Airline items= $airLineComapny");
+      }
+
+    }
+  }
+  getRoutesData(String? vehicleId) async{
+    print("routes_pickup_id ${widget.routesPickUpId.toString()}");
+    print("routes_dropoff_id ${widget.routesDropOffId.toString()}");
+    print("vehicles_id ${vehicleId}");
+    print("service_type ${widget.serviceType}");
+
+
+    var mapData = {
+      "routes_pickup_id": widget.routesPickUpId.toString(),
+      "routes_dropoff_id":widget.routesDropOffId.toString(),
+      "vehicles_id": vehicleId,
+      "service_type": widget.serviceType
+    };
+    var response = await DioClient().getRoutesData(mapData, context);
+    if(response !=null){
+      print("object $response");
+      routesId=response.data!.routesId;
+      fare=double.parse(response.data!.fare!);
+      totalFare=fare!;
+      setState(() {
+
+      });
+    }
+  }
+
+  getRoutesData1(String? vehicleId) async{
+    print("routes_pickup_id ${widget.routesPickUpId.toString()}");
+    print("routes_dropoff_id ${widget.routesDropOffId.toString()}");
+    print("vehicles_id ${vehicleId}");
+    print("service_type ${widget.serviceType}");
+
+
+    var mapData = {
+      "routes_pickup_id": widget.routesPickUpId.toString(),
+      "routes_dropoff_id":widget.routesDropOffId.toString(),
+      "vehicles_id": vehicleId,
+      "service_type": widget.serviceType
+    };
+    var response = await DioClient().getRoutesData(mapData, context);
+    if(response !=null){
+      print("object ${response.data!.fare!}");
+      routesId=response.data!.routesId;
+      fare1=double.parse(response.data!.fare!);
+      totalFare=fare!+ fare1!;
+
+      setState(() {
+
+      });
+    }
+  }
+  getRoutesData2(String? vehicleId) async{
+    print("routes_pickup_id ${widget.routesPickUpId.toString()}");
+    print("routes_dropoff_id ${widget.routesDropOffId.toString()}");
+    print("vehicles_id ${vehicleId}");
+    print("service_type ${widget.serviceType}");
+
+
+    var mapData = {
+      "routes_pickup_id": widget.routesPickUpId.toString(),
+      "routes_dropoff_id":widget.routesDropOffId.toString(),
+      "vehicles_id": vehicleId,
+      "service_type": widget.serviceType
+    };
+    var response = await DioClient().getRoutesData(mapData, context);
+    if(response !=null){
+      print("object $response");
+      routesId=response.data!.routesId;
+      fare2=double.parse(response.data!.fare!);
+      if(fare1 !=null )
+      totalFare=fare!+ fare1!+ fare2!;
+
+      setState(() {
+
+      });
+    }
+  }
+  getRoutesData3(String? vehicleId) async{
+    print("routes_pickup_id ${widget.routesPickUpId.toString()}");
+    print("routes_dropoff_id ${widget.routesDropOffId.toString()}");
+    print("vehicles_id ${vehicleId}");
+    print("service_type ${widget.serviceType}");
+
+
+    var mapData = {
+      "routes_pickup_id": widget.routesPickUpId.toString(),
+      "routes_dropoff_id":widget.routesDropOffId.toString(),
+      "vehicles_id": vehicleId,
+      "service_type": widget.serviceType
+    };
+    var response = await DioClient().getRoutesData(mapData, context);
+    if(response !=null){
+      print("object $response");
+      routesId=response.data!.routesId;
+      fare3=double.parse(response.data!.fare!);
+      totalFare=fare!+ fare1!+ fare2! + fare3!;
+
+      setState(() {
+
+      });
+    }
+  }
+
+
+
+
+
+
+  @override
+  void initState() {
+  // print("get service type: ${widget.serviceType}");
+  print("get visa type: ${widget.visaType}");
+  // print("get pickup location: ${widget.pickupLocation}");
+  // print("get  pickup hotel: ${widget.pickupHotel}");
+  // print("get dropoff location:: ${widget.dropOffLocation}");
+  // print("get dropoff hotel:: ${widget.dropOffHotel}");
+  // print("pick up date:: ${widget.pickUpData}");
+  // print("pick up time::${widget.pickUpTime}");
+  // print("get routes Pick Id::${widget.routesPickUpId}");
+  // print("get Drop Off Pick Id:: ${widget.routesDropOffId}");
+  getSystemAllData();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -138,7 +348,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                                 ),
                               ),
                               borderRadius: BorderRadius.circular(16),
-                              items: widget.pickVehicleData!
+                              items: pickVehicleData
                                   .map(
                                     (item) => DropdownMenuItem<String>(
                                       value: item,
@@ -157,7 +367,22 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                               value: selectedVehicle,
                               onChanged: (value) {
                                 setState(() {
-                                  selectedVehicle = value as String;
+                                  selectedVehicle = value;
+                                  if(value !=null){
+                                    for(int i=0;i< getAllSystemData.data!.vehicles!.length; i++){
+                                      if(selectedVehicle == getAllSystemData.data!.vehicles![i].name){
+                                        selectedVehiclePassengers=int.parse(getAllSystemData.data!.vehicles![i].noOfPassengers!);
+                                        selectedVehicleId=int.parse(getAllSystemData.data!.vehicles![i].vehiclesId!);
+                                        print("no of passengers: ${selectedVehiclePassengers}");
+                                        totalNumberOfPassengers=selectedVehiclePassengers!;
+                                        print("Vehicle Id: ${selectedVehicleId}");
+                                        if(selectedVehicleId !=null){
+                                          getRoutesData(selectedVehicleId.toString());
+
+                                        }
+                                      }
+                                    }
+                                  }
                                 });
                               },
                             ),
@@ -168,12 +393,13 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       GestureDetector(
                         onTap: () {
                           setState(() {
-                            if(addDropdowns.length>=4){
+                            if(addDropdowns.length>=3){
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("You can not add more vaheicles")));
                             }
                             else{
                               print("length: ${addDropdowns.length}");
                               addDropdowns.add(additem(length: addDropdowns.length));
+
 
                             }
 
@@ -231,6 +457,9 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             // },
                             onChanged: (v){
                               childs= int.parse(numberOfChilds.text);
+                              if(childs > totalNumberOfPassengers){
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Your childs are greater then total passengers")));
+                              }
 
 
                               setState(() {
@@ -373,6 +602,10 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             ),
                             onChanged: (v){
                               adult= int.parse(numberOfAdults.text);
+
+                              if(childs+adult+infants > totalNumberOfPassengers){
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Your childs are greater then total passengers")));
+                              }
                               setState(() {
 
                               });
@@ -391,12 +624,12 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                   child: TextFormField(
                     controller: numberOfinfants,
                     keyboardType: TextInputType.text,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Number of Child field is required!';
-                    //   }
-                    //   return null;
-                    // },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Number of Infants field is required!';
+                      }
+                      return null;
+                    },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Montserrat-Regular',
@@ -457,6 +690,9 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     ),
                     onChanged: (v){
                       infants= int.parse(numberOfinfants.text);
+                      if(childs+adult+infants > totalNumberOfPassengers){
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Your childs are greater then total passengers")));
+                      }
                       setState(() {
 
                       });
@@ -480,7 +716,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                 SizedBox(height: size.height * 0.03),
                  Center(
                   child: Text(
-                    totalPassengers !=null ?'$totalPassengers': "0",
+                    totalNumberOfPassengers !=null ?'$totalNumberOfPassengers': "0",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Color(0xFF79BF42),
@@ -546,7 +782,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: widget.airLineComapny!
+                          items: airLineComapny
                               .map(
                                 (item) => DropdownMenuItem<String>(
                               value: item,
@@ -566,6 +802,17 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                           onChanged: (value) {
                             setState(() {
                               airlineName = value ;
+                              if(value !=null){
+                                for(int i=0;i<getAllSystemData.data!.flightCompanies!.length; i++){
+                                 if(airlineName==getAllSystemData.data!.flightCompanies![i].name!) {
+                                   flightComapniesId=getAllSystemData.data!.flightCompanies![i].flightCompaniesId;
+                                   print("company of airline: ${flightComapniesId}");
+                                   setState(() {
+
+                                   });
+                                 }
+                                }
+                              }
                             });
                           },
                         ),
@@ -573,6 +820,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     ),
                   ),
                 ),
+
                 SizedBox(height: size.height * 0.02),
 
                 Padding(
@@ -580,12 +828,12 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                   child: TextFormField(
                     controller: flightnumberController,
                     keyboardType: TextInputType.text,
-                    // validator: (value) {
-                    //   if (value == null || value.isEmpty) {
-                    //     return 'Flight Number field is required!';
-                    //   }
-                    //   return null;
-                    // },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Flight Number field is required!';
+                      }
+                      return null;
+                    },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Montserrat-Regular',
@@ -631,6 +879,79 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 20, vertical: 20),
                       hintText: "Flight Number",
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF929292),
+                        fontSize: 12,
+                        fontFamily: 'Montserrat-Regular',
+                        fontWeight: FontWeight.w500,
+                      ),
+                      prefixIcon: SvgPicture.asset(
+                        'assets/images/flight-icon.svg',
+                        width: 25,
+                        height: 25,
+                        fit: BoxFit.scaleDown,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: size.height * 0.02),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextFormField(
+                    controller: flightdetailsController,
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Flight Details field is required!';
+                      }
+                      return null;
+                    },
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Montserrat-Regular',
+                      fontSize: 16,
+                      color: Color(0xFF6B7280),
+                    ),
+                    decoration: InputDecoration(
+                      filled: false,
+                      errorStyle: const TextStyle(
+                        color: Colors.red,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        wordSpacing: 2,
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: Colors.red,
+                          width: 1,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      hintText: "Flight Details",
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
@@ -728,9 +1049,9 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.01),
-                const Center(
+                 Center(
                   child: Text(
-                    '500',
+                    "${totalFare!}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF79BF42),
@@ -743,10 +1064,51 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                 SizedBox(height: size.height * 0.03),
                 GestureDetector(
                   onTap: () {
-                    final newIndex = widget.tabController!.index + 1;
-                    widget.tabController!.animateTo(newIndex);
-                    print('newIndex $newIndex');
 
+                    final newIndex = widget.tabController!.index + 1;
+                    // widget.tabController!.animateTo(newIndex);
+                    print('newIndex $newIndex');
+                    if(selectedVehicle !=null && numberOfinfants !=null && numberOfChilds !=null && numberOfAdults !=null && totalFare !=null && totalNumberOfPassengers !=null && routesId !=null && flightnumberController !=null && flightComapniesId !=null && flightdetailsController !=null && totalNumberOfPassengers !=null) {
+                      if(totalPassengers > totalNumberOfPassengers){
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("your infants ,childs and adults are greater then total passengers")));
+
+                      }
+                     else{
+                        widget.onDataReceived(
+                            visaType: widget.visaType!,
+                            serviceType: widget.serviceType!,
+                            dropOffHotel: widget.dropOffHotel!,
+                            dropOffLocation: widget.dropOffLocation!,
+                            pickUpData: widget.pickUpData!,
+                            pickupHotel: widget.pickupHotel!,
+                            pickupLocation: widget.pickupLocation!,
+                            pickUpTime: widget.pickUpTime!,
+                            routesDropOffId: widget.routesDropOffId,
+                            routesPickUpId: widget.routesPickUpId,
+                            extraInformation: instructionsController.text,
+                            flightCode: "123",
+                            flightCompaniesId: flightComapniesId,
+                            flightDetails: flightdetailsController.text,
+                            flightNmbr: flightnumberController.text,
+                            numberOfAdults: numberOfAdults.text,
+                            numberOfChilds: numberOfChilds.text,
+                            numberOfInfants: numberOfinfants.text,
+                            routesId: routesId,
+                            tabbarIndex: newIndex,
+                            totalFare: totalFare.toString(),
+                            vehicleId: selectedVehicle,
+                            vehicleId1: selectedVehicle1,
+                            vehicleId2: selectedVehicle2,
+                            vehicleId3: selectedVehicle3,
+                            totalNumberOfPassengers: totalNumberOfPassengers.toString()
+
+
+                        );
+                      }
+                    }
+                    else{
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("SomeThing is missing")));
+                    }
                   },
                   child: button('Next', context),
                 ),
@@ -818,7 +1180,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       ),
                     ),
                     borderRadius: BorderRadius.circular(16),
-                    items: widget.pickVehicleData!
+                    items: pickVehicleData
                         .map(
                           (item) => DropdownMenuItem<String>(
                             value: item,
@@ -834,26 +1196,68 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                           ),
                         )
                         .toList(),
-                    value: length==0?selectedVehicle1:length==1?selectedVehicle2:length==2?selectedVehicle3:selectedVehicle4,
+                    value: length==0?selectedVehicle1:length==1?selectedVehicle2:selectedVehicle3,
                     onChanged: (value) {
                       setState(() {
                         if(length==0){
                           selectedVehicle1 = value;
-                          print("value${selectedVehicle1}");
+                          print("value$selectedVehicle1");
+                          if(value !=null){
+                            for(int i=0;i< getAllSystemData.data!.vehicles!.length; i++){
+                              if(selectedVehicle1 == getAllSystemData.data!.vehicles![i].name){
+                                selectedVehicle1Passengers=int.parse(getAllSystemData.data!.vehicles![i].noOfPassengers!);
+                                totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!;
+                                selectedVehicle1Id=int.parse(getAllSystemData.data!.vehicles![i].vehiclesId!);
+                                print("no of passengers: ${selectedVehicle1Passengers}");
+                                print("Vehicle Id: ${selectedVehicle1Id}");
+                                if(selectedVehicle1Id !=null){
+                                  getRoutesData1(selectedVehicle1Id.toString());
+
+                                }
+                              }
+                            }
+                          }
                         }
                         else if(length==1){
                           selectedVehicle2=value;
                           print("value${selectedVehicle2}");
+                          if(value !=null){
+                            for(int i=0;i< getAllSystemData.data!.vehicles!.length; i++){
+                              if(selectedVehicle2 == getAllSystemData.data!.vehicles![i].name){
+                                selectedVehicle2Passengers=int.parse(getAllSystemData.data!.vehicles![i].noOfPassengers!);
+                                totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!+selectedVehicle2Passengers!;
 
-                        }
-                        else if(length==2){
-                          selectedVehicle3=value;
-                          print("value${selectedVehicle3}");
+                                selectedVehicle2Id=int.parse(getAllSystemData.data!.vehicles![i].vehiclesId!);
+                                print("no of passengers: ${selectedVehicle2Passengers}");
+                                print("Vehicle Id: ${selectedVehicle2Id}");
+                                if(selectedVehicle2Id !=null){
+                                  getRoutesData2(selectedVehicle2Id.toString());
+
+                                }
+                              }
+                            }
+                          }
+
 
                         }
                         else{
-                          selectedVehicle4=value;
-                          print("value${selectedVehicle4}");
+                          selectedVehicle3=value;
+                          print("value${selectedVehicle3}");
+                          if(value !=null){
+                            for(int i=0;i< getAllSystemData.data!.vehicles!.length; i++){
+                              if(selectedVehicle3 == getAllSystemData.data!.vehicles![i].name){
+                                selectedVehicle3Passengers=int.parse(getAllSystemData.data!.vehicles![i].noOfPassengers!);
+                                totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!+selectedVehicle2Passengers!+selectedVehicle3Passengers!;
+
+                                selectedVehicle3Id=int.parse(getAllSystemData.data!.vehicles![i].vehiclesId!);
+                                print("no of passengers: ${selectedVehicle3Passengers}");
+                                print("Vehicle Id: ${selectedVehicle3Id}");
+                                if(selectedVehicle3Id !=null){
+                                  getRoutesData3(selectedVehicle3Id.toString());
+                                }
+                              }
+                            }
+                          }
 
                         }
                       });
@@ -867,6 +1271,31 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
               onTap: () {
                 setState(() {
                   addDropdowns.removeAt(0);
+                  print("index: ${addDropdowns.length}");
+                  if(addDropdowns.isEmpty){
+                    fare1=0.0;
+                    totalFare=fare!+fare1!;
+                    print("total fair: ${totalFare}");
+                    selectedVehicle1Passengers=0;
+                    totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!;
+
+                  }
+                  else if(addDropdowns.length == 1){
+                    fare2=0.0;
+                    totalFare=fare!+fare1!+fare2!;
+                    print("total fair: $totalFare");
+                    selectedVehicle2Passengers=0;
+                    totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!+selectedVehicle2Passengers!;
+
+                  }
+                  else{
+                    fare3=0.0;
+                    totalFare=fare!+fare1!+fare2!+fare3!;
+                    print("total fair: ${totalFare}");
+                    selectedVehicle3Passengers=0;
+                    totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!+selectedVehicle2Passengers!+selectedVehicle3Passengers!;
+
+                  }
                 });
               },
               child: Container(

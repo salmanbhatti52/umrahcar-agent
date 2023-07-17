@@ -7,6 +7,7 @@ import 'package:umrahcar/models/forgot_password_otp_model.dart';
 import 'package:umrahcar/models/get_all_system_data_model.dart';
 import 'package:umrahcar/models/get_hotels_data.dart';
 import 'package:umrahcar/models/get_profile_model.dart';
+import 'package:umrahcar/models/gets_routes_data_model.dart';
 import 'package:umrahcar/models/login_model.dart';
 import 'package:umrahcar/models/update_profile_model.dart';
 
@@ -261,6 +262,50 @@ class DioClient {
       rethrow;
     }
   }
+  Future<GetRoutesDataModel> getRoutesData(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      print("Hiiii");
+      final response =
+      await _dio.post('$baseUrl/get_routes_data',data: model);
+      print("code Status: ${response.statusCode}");
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetRoutesDataModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        print("hooo");
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No route found.")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("There is No Route Against Your selected vehicle. Please Try with another Vehicle")));
+
+      print("hooo1");
+
+      rethrow;
+    }
+  }
+
+
+  Future<GetDropOffLocation> addBookingAgent(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/bookings_add_agents',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetDropOffLocation.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No hotel found.")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
 
 
 }

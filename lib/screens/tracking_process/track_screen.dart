@@ -106,22 +106,21 @@ class _TrackPageState extends State<TrackPage> {
                         Row(
                           children: [
                             for(int i=0; i<widget.getBookingData!.vehicles!.length; i++)
-
                               Padding(
-                                padding: const EdgeInsets.only(right: 10),
+                                padding: const EdgeInsets.only(right: 7),
                                 child: Row(
                                 children: [
                                   SvgPicture.asset(
                                     'assets/images/fast-car-icon.svg',
-                                    width: 12,
-                                    height: 12,
+                                    width: 10,
+                                    height: 10,
                                   ),
-                                  SizedBox(width: size.width * 0.02),
+                                  SizedBox(width: size.width * 0.01),
                                    Text(
-                                    '${widget.getBookingData!.routes!.vehicles!.name}',
-                                    style: TextStyle(
+                                    '${widget.getBookingData!.vehicles![i]!.vehiclesName!.name}',
+                                    style: const TextStyle(
                                       color: Color(0xFF565656),
-                                      fontSize: 12,
+                                      fontSize: 10,
                                       fontFamily: 'Montserrat-Regular',
                                       fontWeight: FontWeight.w500,
                                     ),

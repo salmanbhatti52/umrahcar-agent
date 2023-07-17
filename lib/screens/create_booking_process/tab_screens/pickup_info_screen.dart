@@ -7,29 +7,26 @@ import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 
+import '../../../models/get_drop_off_location_model.dart';
 import '../../../service/rest_api_serivice.dart';
 
 class TouristInfoPage extends StatefulWidget {
-  List<String>? visaTypeItems = [];
-  List<String>? pickupLocationData = [];
-  List<String>? serviceTypeData = [];
-  GetAllSystemData? getAllSystemData;
   final TabController? tabController;
   final Function(
       {String visaType,
+      String serviceType,
       String pickupLocation,
-      String pickupHotel,
+      String? pickupHotel,
       String dropOffLocation,
-      String dropOffHotel,
+      String? dropOffHotel,
       String pickUpData,
+      int? routesDropOffId,
+      int? routesPickUpId,
+      int? tabbarIndex,
       String pickUpTime}) onDataReceived;
   TouristInfoPage(
       {super.key,
-      this.serviceTypeData,
       this.tabController,
-      this.getAllSystemData,
-      this.visaTypeItems,
-      this.pickupLocationData,
       required this.onDataReceived});
 
   @override
@@ -42,7 +39,6 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
   final GlobalKey<FormState> pickUpInfoFormKey = GlobalKey<FormState>();
   String? pickupDate;
   String? pickupTime;
-  List<Widget> addDropdowns = [];
   String? selectedVisa;
   String? selectedPickupLocation;
   String? selectedPickUp;
@@ -56,65 +52,139 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
   List<String>? getDropOffLocation = [];
   String? selectedDropOffHotel;
   List<String>? getDropOffHotel = [];
-  int _selectedIndex = 0;
-
+  int routesPickupId = 0;
+  int routesDropOffId = 0;
+  String hintValue="Drop off Location";
+  late List<String> visaTypeItems = [];
+  late List<String> pickupLocationData = [];
+  late List<String> pickVehicleData = [];
+  late List<String> serviceTypeData = [];
   getHotelsDataList({String? area}) async {
-    getHotelsData!.clear();
-
     final result = area!.split(' ').take(1).join(' ');
     print(result);
+
+
     var mapData = {"data_type": "get_pickup_hotels", "hotel_name": result};
     var response = await DioClient().getHotelsData(mapData, context);
-    print("data of hotels: ${response}");
+    print("data of hotels: $response");
     if (response != null) {
       for (int i = 0; i < response.data!.length; i++) {
         getHotelsData!.add(response.data![i].name!);
-        print("getHotelData: ${getHotelsData}");
-        setState(() {});
+        print("getHotelData: $getHotelsData");
+        setState(() {
+
+        });
       }
     }
   }
 
   getDropOffHotelsDataList({String? area}) async {
-    getDropOffHotel!.clear();
-    print("list: ${getDropOffHotel}");
+    print("area: ${area}");
+    print("list: $getDropOffHotel");
     final result = area!.split(' ').take(1).join(' ');
     print(result);
-    var mapData = {
-      "data_type":"get_dropoff_hotels",
-      "hotel_name": result
-    };
-    var response = await DioClient().getDropOffHotelData(mapData, context);
-    print("data of dropoff hotels: ${response}");
-    if (response != null) {
-      for (int i = 0; i < response.data!.length; i++) {
-        getDropOffHotel!.add(response.data![i].name!);
-        print("getDropOffHotel: ${getDropOffHotel}");
-        setState(() {
-
-        });
-
-
+    if(result== "Madinah" || result =="Makkah"){
+      var mapData = {"data_type": "get_dropoff_hotels", "hotel_name": result};
+      var response = await DioClient().getDropOffHotelData(mapData, context);
+      print("data of dropoff hotels: $response");
+      if (response != null) {
+        for (int i = 0; i < response.data!.length; i++) {
+          hintValue="Drop off Location";
+          getDropOffHotel!.add(response.data![i].name!);
+          print("getDropOffHotel: $getDropOffHotel");
+          setState(() {});
+        }
       }
     }
+    else{
+      hintValue="No need to select DropOff Location";
+      getDropOffHotel=[];
+      selectedDropOffHotel=null;
+      setState(() {
+
+      });
+    }
+
   }
 
+  GetDropOffLocation _getDropOffLocation = GetDropOffLocation();
   getDropOffDataList({int? routeId}) async {
     print("route: $routeId");
-    getDropOffLocation!.clear();
+
     var mapData = {
       "data_type": "get_dropoff_locations",
       "routes_pickup_id": "$routeId"
     };
-    var response = await DioClient().getDropOffData(mapData, context);
-    print("data of dropoff hotels: ${response}");
-    if (response != null) {
-      for (int i = 0; i < response.data!.length; i++) {
-        getDropOffLocation!.add(response.data![i].name!);
-        print("getDropOffLocation: ${getDropOffLocation}");
-        setState(() {});
+    _getDropOffLocation = await DioClient().getDropOffData(mapData, context);
+    print("data of dropoff hotels: $_getDropOffLocation");
+    if (_getDropOffLocation != null) {
+      for (int i = 0; i < _getDropOffLocation.data!.length; i++) {
+        getDropOffLocation!.add(_getDropOffLocation.data![i].name!);
+
+        print("getDropOffLocation: $getDropOffLocation");
+        setState(() {
+
+        });
       }
     }
+  }
+
+  GetAllSystemData getAllSystemData = GetAllSystemData();
+  getSystemAllData() async {
+    getAllSystemData = await DioClient().getSystemAllData(context);
+    if (getAllSystemData != null) {
+      getVisaTypeListData();
+      getPickUpLocationData();
+      getServiceTypeData();
+
+      print("GETSystemAllData: ${getAllSystemData.data}");
+      setState(() {});
+    }
+  }
+
+  getVisaTypeListData() {
+    visaTypeItems.clear();
+
+    if (getAllSystemData!.data != null) {
+      for (int i = 0; i < getAllSystemData!.data!.visaTypes!.length; i++) {
+        visaTypeItems.add(getAllSystemData!.data!.visaTypes![i].name!);
+        print("visa items= $visaTypeItems");
+      }
+    }
+  }
+
+  getPickUpLocationData() {
+    pickupLocationData.clear();
+
+
+    if (getAllSystemData!.data! != null) {
+      for (int i = 0; i < getAllSystemData!.data!.routesPickup!.length; i++) {
+        pickupLocationData.add(getAllSystemData!.data!.routesPickup![i].name!);
+        print("route items= $pickupLocationData");
+        setState(() {
+
+        });
+
+      }
+    }
+
+  }
+
+  getServiceTypeData() {
+    serviceTypeData.clear();
+    if (getAllSystemData!.data! != null) {
+      for (int i = 0; i < getAllSystemData!.data!.serviceType!.length; i++) {
+        serviceTypeData.add(getAllSystemData!.data!.serviceType![i]);
+        print("Service Type items= $serviceTypeData");
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    getSystemAllData();
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -195,7 +265,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: widget.serviceTypeData!
+                          items: serviceTypeData!
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -281,7 +351,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: widget.visaTypeItems!
+                          items: visaTypeItems!
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -367,7 +437,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                             ),
                           ),
                           borderRadius: BorderRadius.circular(16),
-                          items: widget.pickupLocationData!
+                          items: pickupLocationData!
                               .map(
                                 (item) => DropdownMenuItem<String>(
                                   value: item,
@@ -387,14 +457,33 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                           onChanged: (value) {
                             selectedPickupLocation = value;
                             print("Location: $selectedPickupLocation");
-                            _selectedIndex = widget.pickupLocationData!
-                                .indexOf(selectedPickupLocation!);
-                            print("location length: ${_selectedIndex + 1}");
-                            getHotelsDataList(area: selectedPickupLocation);
-                            getDropOffDataList(routeId: _selectedIndex + 1);
-                            setState(() {
+                            getDropOffLocation=[];
+                            selectedDropOff=null;
+                            selectedHotel= null ;
+                            getHotelsData =[];
+                             if(value !=null){
+                               for (int i = 0;
+                               i < getAllSystemData.data!.routesPickup!.length;
+                               i++) {
+                                 if (selectedPickupLocation ==
+                                     getAllSystemData
+                                         .data!.routesPickup![i].name) {
+                                   routesPickupId = int.parse(getAllSystemData
+                                       .data!.routesPickup![i].routesPickupId!);
+                                   print("location length: $routesPickupId");
 
-                            });
+
+
+                                   getDropOffDataList(routeId: routesPickupId);
+
+                                   getHotelsDataList(area: selectedPickupLocation);
+
+
+                                 }
+                               }
+                             }
+
+
                           },
                         ),
                       ),
@@ -452,7 +541,14 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                               fit: BoxFit.scaleDown,
                             ),
                             hintText: selectedPickupLocation != null &&
-                                selectedPickupLocation == "Jeddah Airport" ||  selectedPickupLocation == "Madinah Airport" ||  selectedPickupLocation == "Makkah Train Station" ||  selectedPickupLocation == "Madinah Train Station"
+                                        selectedPickupLocation ==
+                                            "Jeddah Airport" ||
+                                    selectedPickupLocation ==
+                                        "Madinah Airport" ||
+                                    selectedPickupLocation ==
+                                        "Makkah Train Station" ||
+                                    selectedPickupLocation ==
+                                        "Madinah Train Station"
                                 ? "No need to select Hotel"
                                 : 'Pickup Hotel',
                             hintStyle: const TextStyle(
@@ -485,14 +581,20 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                               .toList(),
                           value: selectedHotel,
                           onChanged: selectedPickupLocation != null &&
-                              selectedPickupLocation == "Jeddah Airport" ||  selectedPickupLocation == "Madinah Airport" ||  selectedPickupLocation == "Makkah Train Station" ||  selectedPickupLocation == "Madinah Train Station"? null:
-                               (String? value) {
+                                      selectedPickupLocation ==
+                                          "Jeddah Airport" ||
+                                  selectedPickupLocation == "Madinah Airport" ||
+                                  selectedPickupLocation ==
+                                      "Makkah Train Station" ||
+                                  selectedPickupLocation ==
+                                      "Madinah Train Station"
+                              ? null
+                              : (String? value) {
                                   setState(() {
                                     selectedHotel = value;
-                                    print("Hotel: ${selectedHotel}");
+                                    print("Hotel: $selectedHotel");
                                   });
-                                }
-                              ,
+                                },
                         ),
                       ),
                     ),
@@ -576,12 +678,32 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                           value: selectedDropOff,
                           onChanged: (value) {
                             selectedDropOff = value;
-                            print("DropOFF: ${selectedDropOff}");
-                            getDropOffHotelsDataList(
-                                area: selectedDropOff);
-                            setState(() {
+                            print("DropOFF: $selectedDropOff");
+                            getDropOffHotel=[];
+                            selectedDropOffHotel=null;
+                            if(value !=null){
+                              getDropOffHotelsDataList(area: selectedDropOff);
+                              if (_getDropOffLocation.data != null) {
+                                for (int i = 0;
+                                i < _getDropOffLocation.data!.length;
+                                i++) {
+                                  if (selectedDropOff ==
+                                      _getDropOffLocation.data![i].name) {
+                                    routesDropOffId = int.parse(
+                                        _getDropOffLocation
+                                            .data![i].routesDropoffId!);
+                                    print("routes DropOffId: $routesDropOffId");
 
-                            });
+
+                                  }
+                                }
+
+                              }
+                              setState(() {
+
+                              });
+                            }
+
                           },
                         ),
                       ),
@@ -638,7 +760,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                               height: 10,
                               fit: BoxFit.scaleDown,
                             ),
-                            hintText: 'Drop off Hotel',
+                            hintText: hintValue,
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
@@ -668,11 +790,12 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                               )
                               .toList(),
                           value: selectedDropOffHotel,
-                          onChanged: selectedDropOff !=null && selectedDropOff =="Madinah Ziyarat" || selectedDropOff =="Madinah Train Station"  || selectedDropOff =="Madinah Airport"? null:  (String? value) {
+                          onChanged: (String? value) {
+                            print("hiii");
                             setState(() {
                               selectedDropOffHotel = value;
                             });
-                          },
+                          }
                         ),
                       ),
                     ),
@@ -711,7 +834,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                   },
                   child: Center(
                     child: Text(
-                      pickupDate != null ? '$pickupDate' : "${currentDate}",
+                      pickupDate != null ? '$pickupDate' : "$currentDate",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Color(0xFF79BF42),
@@ -754,7 +877,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                     child: Text(
                       pickupTime != null ? pickupTime! : currentTime!,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xFF79BF42),
                         fontSize: 16,
                         fontFamily: 'Montserrat-Regular',
@@ -766,12 +889,50 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                 SizedBox(height: size.height * 0.04),
                 GestureDetector(
                     onTap: () {
-                      selectedVisa != null
-                          ? widget.onDataReceived(visaType: selectedVisa!)
-                          : "";
-                      final newIndex = widget.tabController!.index + 1;
-                      widget.tabController!.animateTo(newIndex);
-                      print('newIndex $newIndex');
+
+                      // print("get service type: $serviceType");
+                      // print("get visa type: $selectedVisa");
+                      // print("get pickup location: $selectedPickupLocation");
+                      // print("get  pickup hotel: $selectedHotel");
+                      // print("get dropoff location:: $selectedDropOff");
+                      // print("get dropoff hotel:: $selectedDropOffHotel");
+                      // print("pick up date:: $pickupDate");
+                      // print("pick up time:: $pickupTime");
+                      //  print("get routes Pick Id:: $routesPickupId");
+                      //  print("get Drop Off Pick Id:: $routesDropOffId");
+                      // print("pick up time:: $pickupTime");
+                      if (selectedVisa != null &&
+                          serviceType != null &&
+                          selectedDropOff != null &&
+                          // selectedDropOffHotel != null &&
+                          pickupTime != null &&
+                          pickupDate != null &&
+                          selectedPickupLocation != null &&
+                          // selectedHotel != null &&
+                          routesDropOffId != null &&
+                          routesDropOffId != null) {
+                        final newIndex = widget.tabController!.index + 1;
+                        // widget.tabController!.animateTo(newIndex);
+                        print('newIndex $newIndex');
+
+                        widget.onDataReceived(
+                            visaType: selectedVisa!,
+                            serviceType: serviceType!,
+                            dropOffHotel: selectedDropOffHotel,
+                            dropOffLocation: selectedDropOff!,
+                            pickUpData: pickupDate!,
+                            pickupHotel: selectedHotel,
+                            pickupLocation: selectedPickupLocation!,
+                            pickUpTime: pickupTime!,
+                            routesDropOffId: routesDropOffId,
+                            tabbarIndex: newIndex,
+                            routesPickUpId: routesPickupId);
+
+                      }
+                      else{
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("SomeThing is Missing")));
+                      }
+
                     },
                     child: button('Next', context)),
                 SizedBox(height: size.height * 0.02),

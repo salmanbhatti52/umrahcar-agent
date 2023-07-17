@@ -21,7 +21,7 @@ Widget homeList(BuildContext context,GetBookingListModel getBookingListModel) {
       return Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
@@ -32,7 +32,6 @@ Widget homeList(BuildContext context,GetBookingListModel getBookingListModel) {
                 ),
                 child: Image.network("$imageUrl${getData.routes!.vehicles!.featureImage}"),
               ),
-              SizedBox(width: size.width * 0.005),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,30 +65,57 @@ Widget homeList(BuildContext context,GetBookingListModel getBookingListModel) {
                     ],
                   ),
                   SizedBox(height: size.height * 0.005),
-                    Row(
-                      children: [
-                        for(int i=0; i<getData.vehicles!.length; i++)
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                    Container(
+                      width: 180,
+
+                      child: Row(
                         children: [
-                            SvgPicture.asset('assets/images/small-black-car-icon.svg'),
-                            SizedBox(width: size.width * 0.01),
-                              Text(
-                              '${getData.vehicles![i].vehiclesName!.name}',
-                              style: TextStyle(
-                                color: Color(0xFF565656),
-                                fontSize: 8,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w500,
+                          for(int i=0; i<getData.vehicles!.length; i++)
+
+                            Padding(
+                              padding: const EdgeInsets.only(right: 2),
+                              child: getData.vehicles!.length <4?
+                              Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                              SvgPicture.asset('assets/images/small-black-car-icon.svg'),
+                              SizedBox(width: size.width * 0.01),
+                                Text(
+                                '${getData.vehicles![i].vehiclesName!.name}',
+                                style: const TextStyle(
+                                  color: Color(0xFF565656),
+                                  fontSize: 7,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                          ],
+                  ):
+                              Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Column(
+
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(bottom: 4),
+                                      child: SvgPicture.asset('assets/images/small-black-car-icon.svg'),
+                                    ),
+                                    Text(
+                                      '${getData.vehicles![i].vehiclesName!.name}',
+                                      style: const TextStyle(
+                                        color: Color(0xFF565656),
+                                        fontSize: 7,
+                                        fontFamily: 'Montserrat-Regular',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                         ],
-                  ),
-                          ),
-                      ],
+                      ),
                     ),
                   SizedBox(height: size.height * 0.005),
                   Row(
@@ -112,7 +138,7 @@ Widget homeList(BuildContext context,GetBookingListModel getBookingListModel) {
                   ),
                 ],
               ),
-              SizedBox(width: size.width * 0.15),
+              // SizedBox(width: size.width * 0.15),
 
                 GestureDetector(
                   onTap: () {

@@ -13,6 +13,7 @@ class GetBookingListModel {
 
   factory GetBookingListModel.fromJson(Map<String, dynamic> json) => GetBookingListModel(
     status: json["status"],
+
     data: List<GetBookingData>.from(json["data"].map((x) => GetBookingData.fromJson(x))),
   );
 
@@ -175,7 +176,8 @@ class GetBookingData {
     source: json["source"],
     routes: Routes.fromJson(json["routes"]),
     usersAgentsData: UsersAgentsData.fromJson(json["users_agents_data"]),
-    flightCompanies: FlightCompanies.fromJson(json["flight_companies"]),
+    // flightCompanies: FlightCompanies.fromJson(json["flight_companies"]),
+    flightCompanies: json["flight_companies"] != null ? FlightCompanies.fromJson(json["flight_companies"]) : null,
     visaTypes: VisaTypes.fromJson(json["visa_types"]),
     vehicles: List<Vehicle>.from(json["vehicles"].map((x) => Vehicle.fromJson(x))),
   );

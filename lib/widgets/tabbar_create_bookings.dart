@@ -16,90 +16,184 @@ abstract class TickerProvider {}
 
 class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
     with TickerProviderStateMixin {
-  late  List<String> visaTypeItems = [];
-  late  List<String> pickupLocationData = [];
-  late  List<String> pickVehicleData = [];
-  late  List<String> airLineComapny = [];
-  late  List<String> serviceTypeData = [];
-  GetAllSystemData getAllSystemData=GetAllSystemData();
-  getSystemAllData()async{
-    getAllSystemData= await DioClient().getSystemAllData(context);
-    if(getAllSystemData !=null){
-      getVisaTypeListData();
-      getPickUpLocationData();
-      getVehicleData();
-      getAirLineDataa();
-      getServiceTypeData();
+  int currentIndex = 0;
+  int? tabbarIndex;
 
-      print("GETSystemAllData: ${getAllSystemData.data}");
-      setState(() {
+  String? visaType1;
+  String? pickupLocation1;
+  String? pickupHotel1;
+  String? dropOffLocation1;
+  String? dropOffHotel1;
+  String? pickUpData1;
+  String? pickUpTime1;
+  String? serviceType1;
+  int? routesDropOffId1;
+  int? routesPickUpId1;
+  String? routesId1;
+  String? numberOfChilds1;
+  String? numberOfAdults1;
+  String? numberOfInfants1;
+  String? extraInformation1;
+  String? vehicleId1;
+  String? vehicleId11;
+  String? vehicleId22;
+  String? vehicleId33;
+  String? flightNmbr1;
+  String? flightCompaniesId1;
+  String? flightDetails1;
+  String? flightCode1;
+  String? totalFare1;
+  String? totalNumberOfPassengers1;
+  String? vid;
+  String? vid1;
+  String? vid2;
+  String? vid3;
 
-      });
-    }
-  }
-
-  getVisaTypeListData(){
-    if(getAllSystemData!.data!=null) {
-      for (int i = 0; i < getAllSystemData!.data!.visaTypes!.length; i++) {
-        visaTypeItems.add(getAllSystemData!.data!.visaTypes![i].name!);
-        print("visa items= $visaTypeItems");
-      }
-    }
-  }
-  getPickUpLocationData(){
-    if(getAllSystemData!.data!!=null){
-      for(int i=0 ;i<getAllSystemData!.data!.routesPickup!.length; i++){
-        pickupLocationData.add(getAllSystemData!.data!.routesPickup![i].name!);
-        print("route items= $pickupLocationData");
-      }
-
-    }
-  }
-  getVehicleData(){
-    if(getAllSystemData!.data!!=null){
-      for(int i=0 ;i<getAllSystemData!.data!.vehicles!.length; i++){
-        pickVehicleData.add(getAllSystemData!.data!.vehicles![i].name!);
-        print("vehicle items= $pickVehicleData");
-      }
-
-    }
-  }
-  getAirLineDataa(){
-    if(getAllSystemData!.data!!=null){
-      for(int i=0 ;i<getAllSystemData!.data!.flightCompanies!.length; i++){
-        airLineComapny.add(getAllSystemData!.data!.flightCompanies![i].name!);
-        print("Airline items= $airLineComapny");
-      }
-
-    }
-  }
-  getServiceTypeData(){
-    if(getAllSystemData!.data!!=null){
-      for(int i=0 ;i<getAllSystemData!.data!.serviceType!.length; i++){
-        serviceTypeData.add(getAllSystemData!.data!.serviceType![i]);
-        print("Service Type items= $serviceTypeData");
-      }
-
-    }
-  }
-
-  void onDataReceived({String? visaType,String? pickupLocation,String? pickupHotel,String? dropOffLocation,String? dropOffHotel,String? pickUpData,String? pickUpTime}) {
+  void onDataReceived(
+      {int? tabbarIndex,
+      String? visaType,
+      String? pickupLocation,
+      String? pickupHotel,
+      String? dropOffLocation,
+      String? dropOffHotel,
+      String? pickUpData,
+      String? pickUpTime,
+      String? serviceType,
+      int? routesDropOffId,
+      int? routesPickUpId}) {
     setState(() {
-    print("visaType1: $visaType");
+      // print("get service type: $serviceType");
+      // print("get visa type: $visaType");
+      // print("get pickup location: $pickupLocation");
+      // print("get  pickup hotel: $pickupHotel");
+      // print("get dropoff location:: $dropOffLocation");
+      // print("get dropoff hotel:: $dropOffHotel");
+      // print("pick up date:: $pickUpData");
+      // print("pick up time:: $pickUpTime");
+      // print("get routes Pick Id:: $routesPickUpId");
+      // print("get Drop Off Pick Id:: $routesDropOffId");
+      // print("Index of Tabbar:: $tabbarIndex");
+      serviceType1 = serviceType;
+      visaType1 = visaType;
+      pickupLocation1 = pickupLocation;
+      pickupHotel1 = pickupHotel;
+      dropOffLocation1 = dropOffLocation;
+      dropOffHotel1 = dropOffHotel;
+      pickUpData1 = pickUpData;
+      pickUpTime1 = pickUpTime;
+      routesPickUpId1 = routesPickUpId;
+      routesDropOffId1 = routesDropOffId;
+      currentIndex = tabbarIndex!;
+      print("curent of Tabbar:: $currentIndex");
+      setState(() {});
     });
   }
 
-  int currentIndex=  0;
+  void onDataReceivedSecondTab(
+      {
+        int? tabbarIndex,
+      String? visaType,
+      String? pickupLocation,
+      String? pickupHotel,
+      String? dropOffLocation,
+      String? dropOffHotel,
+      String? pickUpData,
+      String? pickUpTime,
+      String? serviceType,
+      int? routesDropOffId,
+      int? routesPickUpId,
+      String? routesId,
+      String? numberOfChilds,
+      String? numberOfAdults,
+      String? numberOfInfants,
+      String? extraInformation,
+      String? vehicleId,
+      String? vehicleId1,
+      String? vehicleId2,
+      String? vehicleId3,
+      String? flightNmbr,
+      String? flightCompaniesId,
+      String? flightDetails,
+      String? flightCode,
+      String? totalFare,
+      String? totalNumberOfPassengers}) {
+    setState(() {
+      // print("get service type: $serviceType");
+      // print("get visa type: $visaType");
+      // print("get pickup location: $pickupLocation");
+      // print("get  pickup hotel: $pickupHotel");
+      // print("get dropoff location:: $dropOffLocation");
+      // print("get dropoff hotel:: $dropOffHotel");
+      // print("pick up date:: $pickUpData");
+      // print("pick up time:: $pickUpTime");
+      // print("get routes Pick Id:: $routesPickUpId");
+      // print("get Drop Off Pick Id:: $routesDropOffId");
+      // print("Index of Tabbar:: $tabbarIndex");
+      // print("flightCode: $flightCode");
+      // print("routesId1:: $routesId");
+      // print("numberOfChilds:: $numberOfChilds");
+      // print("numberOfInfants: $numberOfInfants");
+      // print("numberOfAdults:: $numberOfAdults");
+      // print("extraInformation: $extraInformation");
+      // print("vehicleId: $vehicleId");
+      // print("vehicleId1: $vehicleId1");
+      // print("vehicleId2: $vehicleId2");
+      // print("vehicleId3: $vehicleId3");
+      // print("flightNmbr: $flightNmbr");
+      // print("flightCompaniesId: $flightCompaniesId");
+      // print("flightDetails: $flightDetails");
+      // print("flightNmbr: $flightNmbr");
+      // print("totalFare: $totalFare");
+      // print("totalNumberOfPassengers: $totalNumberOfPassengers");
+      // print("totalFare: $totalFare");
+      serviceType1 = serviceType;
+      visaType1 = visaType;
+      pickupLocation1 = pickupLocation;
+      pickupHotel1 = pickupHotel;
+      dropOffLocation1 = dropOffLocation;
+      dropOffHotel1 = dropOffHotel;
+      pickUpData1 = pickUpData;
+      pickUpTime1 = pickUpTime;
+      routesPickUpId1 = routesPickUpId;
+      routesDropOffId1 = routesDropOffId;
+      currentIndex = tabbarIndex!;
+      flightCode1=flightCode;
+      routesId1=routesId;
+       numberOfChilds1=numberOfChilds;
+       numberOfAdults1=numberOfAdults;
+       numberOfInfants1=numberOfInfants;
+       extraInformation1=extraInformation;
+      vehicleId1=vehicleId;
+       vehicleId11=vehicleId1;
+      vehicleId22=vehicleId2;
+       vehicleId33=vehicleId3;
+       flightNmbr1=flightNmbr;
+      flightCompaniesId1=flightCompaniesId;
+        flightDetails1=flightDetails;
+       totalFare1=totalFare;
+       vid=vehicleId;
+       vid1=vehicleId1;
+       vid2=vehicleId2;
+       vid3=vehicleId3;
+       totalNumberOfPassengers1=totalNumberOfPassengers;
+       currentIndex=tabbarIndex;
+
+      print("curent of Tabbar:: $currentIndex");
+      print("curent of Tabbar:: $vehicleId1");
+      setState(() {});
+    });
+  }
 
   @override
   void initState() {
-    getSystemAllData();// TODO: implement initState
+    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 3, vsync: this);
+    TabController tabController =
+        TabController(length: 3, vsync: this, initialIndex: currentIndex);
     return Column(
       children: [
         Padding(
@@ -123,13 +217,13 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                     color: const Color(0xFF79BF42),
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  // onTap: (index) {
-                  //   if (tabController.indexIsChanging) {
-                  //     tabController.index = tabController.previousIndex;
-                  //   } else {
-                  //     return;
-                  //   }
-                  // },
+                  onTap: (index) {
+                    if (tabController.indexIsChanging) {
+                      tabController.index = tabController.previousIndex;
+                    } else {
+                      return;
+                    }
+                  },
                   indicatorColor: const Color(0xFF79BF42),
                   isScrollable: true,
                   labelColor: Colors.white,
@@ -161,19 +255,51 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
           child: TabBarView(
             controller: tabController,
             physics: NeverScrollableScrollPhysics(),
-
             children: [
               TouristInfoPage(
                 tabController: tabController,
-                getAllSystemData: getAllSystemData,
-                visaTypeItems: visaTypeItems,
-                pickupLocationData: pickupLocationData,
                 onDataReceived: onDataReceived,
-                serviceTypeData: serviceTypeData,
               ),
-               OtherInfoPage(tabController: tabController,pickVehicleData: pickVehicleData,airLineComapny: airLineComapny),
+              OtherInfoPage(
+                  tabController: tabController,
+                  routesPickUpId: routesPickUpId1,
+                  routesDropOffId: routesDropOffId1,
+                  pickUpTime: pickUpTime1,
+                  pickupLocation: pickupLocation1,
+                  pickupHotel: pickupHotel1,
+                  pickUpData: pickUpData1,
+                  onDataReceived: onDataReceivedSecondTab,
+                  dropOffLocation: dropOffLocation1,
+                  dropOffHotel: dropOffHotel1,
+                  serviceType: serviceType1,
+                  visaType: visaType1),
               GuestInfoPage(
                 tabController: tabController,
+                visaType1: visaType1,
+                dropOffHotel1: dropOffHotel1,
+                dropOffLocation1: dropOffLocation1,
+                extraInformation1: extraInformation1,
+                flightCode1: flightCode1,
+                flightCompaniesId1: flightCompaniesId1,
+                flightDetails1: flightDetails1,
+                flightNmbr1: flightNmbr1,
+                numberOfAdults1: numberOfAdults1,
+                numberOfChilds1: numberOfChilds1,
+                numberOfInfants1: numberOfInfants1,
+                pickUpData1: pickUpData1,
+                pickupHotel1: pickupHotel1,
+                pickupLocation1: pickupLocation1,
+                pickUpTime1: pickUpTime1,
+                routesDropOffId1: routesDropOffId1,
+                routesId1: routesId1,
+                routesPickUpId1: routesPickUpId1,
+                serviceType1: serviceType1,
+                totalFare1: totalFare1,
+                totalNumberOfPassengers1: totalNumberOfPassengers1,
+                vehicleId: vid,
+                vehicleId1: vid1,
+                vehicleId2: vid2,
+                vehicleId3: vid3,
               ),
             ],
           ),

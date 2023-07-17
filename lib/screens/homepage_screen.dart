@@ -8,6 +8,7 @@ import 'package:umrahcar/widgets/homepage_get_booking_list.dart';
 
 
 var userId;
+var profileName;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,6 +59,8 @@ class _HomePageState extends State<HomePage> {
     getProfileResponse= await DioClient().getProfile(mapData, context);
     if(getProfileResponse.data !=null )
     print("getProfileResponse name: ${getProfileResponse.data.name}");
+    profileName=getProfileResponse.data.name;
+    print("my name: ${getProfileResponse.data.name}");
     setState(() {
 
     });
@@ -239,7 +242,7 @@ class _HomePageState extends State<HomePage> {
                     height: size.height * 0.430,
                     child:                   getBookingResponse !=null?
                       Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: homeList(context,getBookingResponse),
                     ): Center(child: Container(
                         height: 20,
