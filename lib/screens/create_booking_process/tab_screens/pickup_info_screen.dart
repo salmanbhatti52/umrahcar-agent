@@ -190,7 +190,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    currentDate = DateFormat('MM/dd/yyyy').format(DateTime.now());
+    currentDate = DateFormat('MM-dd-yyyy').format(DateTime.now());
     currentTime = TimeOfDay.now().format(context);
     var size = MediaQuery.of(context).size;
     return GestureDetector(
@@ -835,7 +835,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                     if (pickedDate != null) {
                       print(
                           pickedDate); //get the picked date in the format => 2022-07-04 00:00:00.000
-                      pickupDate = DateFormat('MM/dd/yyyy').format(
+                      pickupDate = DateFormat('MM-dd-yyyy').format(
                           pickedDate); // format date in required form here we use yyyy-MM-dd that means time is removed
                       print(pickupDate);
                     }
