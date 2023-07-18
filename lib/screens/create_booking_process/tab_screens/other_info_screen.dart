@@ -18,6 +18,7 @@ class OtherInfoPage extends StatefulWidget {
   String? serviceType;
   int? routesDropOffId;
   int? routesPickUpId;
+
   final Function(
       {String visaType,
       String serviceType,
@@ -44,7 +45,10 @@ class OtherInfoPage extends StatefulWidget {
       String? flightDetails,
       String? flightCode,
       String? totalFare,
-      String? totalNumberOfPassengers
+      String? vehicleName,
+      String? totalNumberOfPassengers,
+      String? selectedPaymentMethod,
+
 
 
       }) onDataReceived;
@@ -77,7 +81,11 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
   double? fare3;
   double? totalFare=0.0;
 
-
+  List<String> paymentMethod = [
+    "credit",
+    "cash"
+  ];
+  String selectedPaymentMethod="credit";
   List<Widget> addDropdowns = [];
   String? selectedVehicle;
   String? selectedVehicle1;
@@ -104,7 +112,8 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
 
   late  List<String> pickVehicleData = [];
   late  List<String> airLineComapny = [];
-  GetAllSystemData getAllSystemData=GetAllSystemData();
+
+    GetAllSystemData getAllSystemData=GetAllSystemData();
   getSystemAllData()async{
     getAllSystemData= await DioClient().getSystemAllData(context);
     if(getAllSystemData !=null){
@@ -768,6 +777,89 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                               ),
                             ),
                             prefixIcon: SvgPicture.asset(
+                              'assets/images/wallet-icon.svg',
+                              width: 10,
+                              height: 10,
+                              fit: BoxFit.scaleDown,
+                            ),
+                            hintText: 'Payment Type',
+                            hintStyle: const TextStyle(
+                              color: Color(0xFF929292),
+                              fontSize: 12,
+                              fontFamily: 'Montserrat-Regular',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          items: paymentMethod
+                              .map(
+                                (item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: const TextStyle(
+                                  color: Color(0xFF929292),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          )
+                              .toList(),
+                          value: selectedPaymentMethod,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedPaymentMethod = value! ;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: size.height * 0.03),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    color: Colors.transparent,
+                    width: size.width,
+                    child: ButtonTheme(
+                      alignedDropdown: true,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButtonFormField(
+                          icon: SvgPicture.asset(
+                            'assets/images/dropdown-icon.svg',
+                            width: 10,
+                            height: 10,
+                            fit: BoxFit.scaleDown,
+                          ),
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            prefixIcon: SvgPicture.asset(
                               'assets/images/visa-icon.svg',
                               width: 10,
                               height: 10,
@@ -1068,7 +1160,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     final newIndex = widget.tabController!.index + 1;
                     // widget.tabController!.animateTo(newIndex);
                     print('newIndex $newIndex');
-                    if(selectedVehicle !=null && numberOfinfants !=null && numberOfChilds !=null && numberOfAdults !=null && totalFare !=null && totalNumberOfPassengers !=null && routesId !=null && flightnumberController !=null && flightComapniesId !=null && flightdetailsController !=null && totalNumberOfPassengers !=null) {
+                    if(selectedVehicle !=null && numberOfinfants !=null && numberOfChilds !=null && numberOfAdults !=null && totalFare !=null && totalNumberOfPassengers !=null && routesId !=null && flightnumberController !=null && flightComapniesId !=null && flightdetailsController !=null && totalNumberOfPassengers !=null && selectedPaymentMethod !=null) {
                       if(totalPassengers > totalNumberOfPassengers){
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("your infants ,childs and adults are greater then total passengers")));
 
@@ -1077,10 +1169,10 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                         widget.onDataReceived(
                             visaType: widget.visaType!,
                             serviceType: widget.serviceType!,
-                            dropOffHotel: widget.dropOffHotel!,
+                            dropOffHotel: widget.dropOffHotel ?? "null",
                             dropOffLocation: widget.dropOffLocation!,
                             pickUpData: widget.pickUpData!,
-                            pickupHotel: widget.pickupHotel!,
+                            pickupHotel: widget.pickupHotel ?? "null",
                             pickupLocation: widget.pickupLocation!,
                             pickUpTime: widget.pickUpTime!,
                             routesDropOffId: widget.routesDropOffId,
@@ -1096,11 +1188,13 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             routesId: routesId,
                             tabbarIndex: newIndex,
                             totalFare: totalFare.toString(),
-                            vehicleId: selectedVehicle,
-                            vehicleId1: selectedVehicle1,
-                            vehicleId2: selectedVehicle2,
-                            vehicleId3: selectedVehicle3,
-                            totalNumberOfPassengers: totalNumberOfPassengers.toString()
+                            vehicleId: selectedVehicleId.toString(),
+                            vehicleId1: selectedVehicle1Id.toString(),
+                            vehicleId2: selectedVehicle2Id.toString(),
+                            vehicleId3: selectedVehicle2Id.toString(),
+                            totalNumberOfPassengers: totalNumberOfPassengers.toString(),
+                           vehicleName: selectedVehicle,
+                          selectedPaymentMethod: selectedPaymentMethod
 
 
                         );
@@ -1274,6 +1368,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                   print("index: ${addDropdowns.length}");
                   if(addDropdowns.isEmpty){
                     fare1=0.0;
+                    selectedVehicle1Id=null;
                     totalFare=fare!+fare1!;
                     print("total fair: ${totalFare}");
                     selectedVehicle1Passengers=0;
@@ -1282,6 +1377,8 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                   }
                   else if(addDropdowns.length == 1){
                     fare2=0.0;
+                    selectedVehicle2Id=null;
+
                     totalFare=fare!+fare1!+fare2!;
                     print("total fair: $totalFare");
                     selectedVehicle2Passengers=0;
@@ -1290,6 +1387,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                   }
                   else{
                     fare3=0.0;
+                    selectedVehicle3Id=null;
                     totalFare=fare!+fare1!+fare2!+fare3!;
                     print("total fair: ${totalFare}");
                     selectedVehicle3Passengers=0;

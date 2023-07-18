@@ -11,6 +11,7 @@ import 'package:umrahcar/models/gets_routes_data_model.dart';
 import 'package:umrahcar/models/login_model.dart';
 import 'package:umrahcar/models/update_profile_model.dart';
 
+import '../models/add_booking_agent_model.dart';
 import '../models/forgot_verify_otp_model.dart';
 import '../models/get_booking_list_model.dart';
 import '../models/get_drop_off_location_model.dart';
@@ -288,17 +289,18 @@ class DioClient {
   }
 
 
-  Future<GetDropOffLocation> addBookingAgent(Map<String,dynamic> model,BuildContext context) async {
+  Future<AddBookingAgentModel> addBookingAgent(Map<String?,dynamic?> model,BuildContext context) async {
+   print("data: ${model}");
     try {
       final response =
       await _dio.post('$baseUrl/bookings_add_agents',data: model);
       if (response.statusCode == 200) {
         print("hiiii ${response.data}");
-        var res= GetDropOffLocation.fromJson(response.data);
+        var res= AddBookingAgentModel.fromJson(response.data);
         return res;
       }
       else  {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No hotel found.")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("All Fields are Required!")));
         throw 'SomeThing Missing';
       }
     } catch (e) {

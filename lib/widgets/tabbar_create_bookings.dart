@@ -18,7 +18,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
     with TickerProviderStateMixin {
   int currentIndex = 0;
   int? tabbarIndex;
-
+  String? vehicleName1;
   String? visaType1;
   String? pickupLocation1;
   String? pickupHotel1;
@@ -48,6 +48,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
   String? vid1;
   String? vid2;
   String? vid3;
+  String? selectedPaymentMethod1;
 
   void onDataReceived(
       {int? tabbarIndex,
@@ -116,7 +117,11 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
       String? flightDetails,
       String? flightCode,
       String? totalFare,
-      String? totalNumberOfPassengers}) {
+      String? totalNumberOfPassengers,
+        String? vehicleName,
+        String? selectedPaymentMethod,
+
+      }) {
     setState(() {
       // print("get service type: $serviceType");
       // print("get visa type: $visaType");
@@ -163,10 +168,6 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
        numberOfAdults1=numberOfAdults;
        numberOfInfants1=numberOfInfants;
        extraInformation1=extraInformation;
-      vehicleId1=vehicleId;
-       vehicleId11=vehicleId1;
-      vehicleId22=vehicleId2;
-       vehicleId33=vehicleId3;
        flightNmbr1=flightNmbr;
       flightCompaniesId1=flightCompaniesId;
         flightDetails1=flightDetails;
@@ -177,9 +178,13 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
        vid3=vehicleId3;
        totalNumberOfPassengers1=totalNumberOfPassengers;
        currentIndex=tabbarIndex;
+       vehicleName1=vehicleName;
+      selectedPaymentMethod1=selectedPaymentMethod;
 
-      print("curent of Tabbar:: $currentIndex");
-      print("curent of Tabbar:: $vehicleId1");
+      print("vid: $vid");
+      print("vid1: $vid1");
+      print("vid2: $vid2");
+      print("vid3: $vid3");
       setState(() {});
     });
   }
@@ -300,6 +305,8 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                 vehicleId1: vid1,
                 vehicleId2: vid2,
                 vehicleId3: vid3,
+                vehicleName: vehicleName1,
+                selectedPaymentMethod: selectedPaymentMethod1,
               ),
             ],
           ),

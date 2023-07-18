@@ -1,29 +1,26 @@
 
 
-
-
-class GetBookingListModel {
+class AddBookingAgentModel {
   String? status;
-  List<GetBookingData>? data;
+  Data? data;
 
-  GetBookingListModel({
+  AddBookingAgentModel({
     this.status,
     this.data,
   });
 
-  factory GetBookingListModel.fromJson(Map<String, dynamic> json) => GetBookingListModel(
+  factory AddBookingAgentModel.fromJson(Map<String, dynamic> json) => AddBookingAgentModel(
     status: json["status"],
-
-    data: List<GetBookingData>.from(json["data"].map((x) => GetBookingData.fromJson(x))),
+    data: Data.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "data": List<dynamic>.from(data!.map((x) => x.toJson())),
+    "data": data!.toJson(),
   };
 }
 
-class GetBookingData {
+class Data {
   String? bookingsId;
   String? parentId;
   String? usersAgentsId;
@@ -71,11 +68,11 @@ class GetBookingData {
   String? source;
   Routes? routes;
   UsersAgentsData? usersAgentsData;
-  FlightCompanies? flightCompanies;
+  String? flightCompanies;
   VisaTypes? visaTypes;
   List<Vehicle>? vehicles;
 
-  GetBookingData({
+  Data({
     this.bookingsId,
     this.parentId,
     this.usersAgentsId,
@@ -128,7 +125,7 @@ class GetBookingData {
     this.vehicles,
   });
 
-  factory GetBookingData.fromJson(Map<String, dynamic> json) => GetBookingData(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
     bookingsId: json["bookings_id"],
     parentId: json["parent_id"],
     usersAgentsId: json["users_agents_id"],
@@ -141,8 +138,8 @@ class GetBookingData {
     routesId: json["routes_id"],
     routesDetails: json["routes_details"],
     pickupHotel: json["pickup_hotel"],
-    // dropoffHotel: DropoffHotel.fromJson(json["dropoff_hotel"]),
     dropoffHotel : json["dropoff_hotel"] != null ? DropoffHotel.fromJson(json["dropoff_hotel"]) : null,
+
 
     noOfPassengers: json["no_of_passengers"],
     noOfAdults: json["no_of_adults"],
@@ -150,7 +147,7 @@ class GetBookingData {
     noOfInfants: json["no_of_infants"],
     pickupLocation: json["pickup_location"],
     dropoffLocation: json["dropoff_location"],
-    pickupDate: json["pickup_date"],
+    pickupDate:json["pickup_date"],
     pickupTime: json["pickup_time"],
     flightCompaniesId: json["flight_companies_id"],
     flightNumber: json["flight_number"],
@@ -178,10 +175,10 @@ class GetBookingData {
     source: json["source"],
     routes: Routes.fromJson(json["routes"]),
     usersAgentsData: UsersAgentsData.fromJson(json["users_agents_data"]),
-    // flightCompanies: FlightCompanies.fromJson(json["flight_companies"]),
-    flightCompanies: json["flight_companies"] != null ? FlightCompanies.fromJson(json["flight_companies"]) : null,
+    flightCompanies: json["flight_companies"],
     // visaTypes: VisaTypes.fromJson(json["visa_types"]),
     visaTypes : json["visa_types"] != null ? VisaTypes.fromJson(json["visa_types"]) : null,
+
     vehicles: List<Vehicle>.from(json["vehicles"].map((x) => Vehicle.fromJson(x))),
   );
 
@@ -210,7 +207,7 @@ class GetBookingData {
     "flight_companies_id": flightCompaniesId,
     "flight_number": flightNumber,
     "flight_details": flightDetails,
-    "flight_date": flightDate,
+    "flight_date": flightDate ,
     "flight_time": flightTime,
     "actual_fare": actualFare,
     "agent_fare": agentFare,
@@ -244,7 +241,7 @@ class DropoffHotel {
   String? citiesId;
   String? name;
   String? city;
-  Status? status;
+  String? status;
 
   DropoffHotel({
     this.hotelsId,
@@ -259,7 +256,7 @@ class DropoffHotel {
     citiesId: json["cities_id"],
     name: json["name"],
     city: json["city"],
-    status: statusValues.map[json["status"]],
+    status: json["status"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -267,15 +264,9 @@ class DropoffHotel {
     "cities_id": citiesId,
     "name": name,
     "city": city,
-    "status": statusValues.reverse[status],
+    "status": status,
   };
 }
-
-enum Status { ACTIVE }
-
-final statusValues = EnumValues({
-  "Active": Status.ACTIVE
-});
 
 class Routes {
   String? routesId;
@@ -284,7 +275,7 @@ class Routes {
   String? vehiclesId;
   String? fare;
   String? serviceType;
-  Status? status;
+  String? status;
   Vehicles? vehicles;
   Dropoff? pickup;
   Dropoff? dropoff;
@@ -309,7 +300,7 @@ class Routes {
     vehiclesId: json["vehicles_id"],
     fare: json["fare"],
     serviceType: json["service_type"],
-    status: statusValues.map[json["status"]],
+    status: json["status"],
     vehicles: Vehicles.fromJson(json["vehicles"]),
     pickup: Dropoff.fromJson(json["pickup"]),
     dropoff: Dropoff.fromJson(json["dropoff"]),
@@ -322,7 +313,7 @@ class Routes {
     "vehicles_id": vehiclesId,
     "fare": fare,
     "service_type": serviceType,
-    "status": statusValues.reverse[status],
+    "status": status,
     "vehicles": vehicles!.toJson(),
     "pickup": pickup!.toJson(),
     "dropoff": dropoff!.toJson(),
@@ -334,7 +325,7 @@ class Dropoff {
   String? routesPickupId;
   String? name;
   String? type;
-  Status? status;
+  String? status;
 
   Dropoff({
     this.routesDropoffId,
@@ -349,7 +340,7 @@ class Dropoff {
     routesPickupId: json["routes_pickup_id"],
     name: json["name"],
     type: json["type"],
-    status: statusValues.map[json["status"]],
+    status: json["status"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -357,7 +348,7 @@ class Dropoff {
     "routes_pickup_id": routesPickupId,
     "name": name,
     "type": type,
-    "status": statusValues.reverse[status],
+    "status": status,
   };
 }
 
@@ -405,8 +396,6 @@ class Vehicles {
   };
 }
 
-
-
 class UsersAgentsData {
   String? usersAgentsId;
   String? usersRolesId;
@@ -432,7 +421,7 @@ class UsersAgentsData {
   String? resetOtp;
   String? dateAdded;
   String? dateModified;
-  Status? status;
+  String? status;
 
   UsersAgentsData({
     this.usersAgentsId,
@@ -486,8 +475,8 @@ class UsersAgentsData {
     notificationSwitch: json["notification_switch"],
     resetOtp: json["reset_otp"],
     dateAdded: json["date_added"],
-    dateModified: json["date_modified"],
-    status: statusValues.map[json["status"]],
+    dateModified:json["date_modified"],
+    status: json["status"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -515,7 +504,7 @@ class UsersAgentsData {
     "reset_otp": resetOtp,
     "date_added": dateAdded,
     "date_modified": dateModified,
-    "status": statusValues.reverse[status],
+    "status": status,
   };
 }
 
@@ -551,7 +540,7 @@ class Vehicle {
     usersDriversId: json["users_drivers_id"],
     usersDriversFare: json["users_drivers_fare"],
     paidStatus: json["paid_status"],
-    dateAdded:json["date_added"],
+    dateAdded: json["date_added"],
     dateModified: json["date_modified"],
     vehiclesDrivers: json["vehicles_drivers"],
     vehiclesName: Vehicles.fromJson(json["vehicles_name"]),
@@ -574,7 +563,7 @@ class Vehicle {
 class VisaTypes {
   String? visaTypesId;
   String? name;
-  Status? status;
+  String? status;
 
   VisaTypes({
     this.visaTypesId,
@@ -585,52 +574,12 @@ class VisaTypes {
   factory VisaTypes.fromJson(Map<String, dynamic> json) => VisaTypes(
     visaTypesId: json["visa_types_id"],
     name: json["name"],
-    status: statusValues.map[json["status"]],
+    status: json["status"],
   );
 
   Map<String, dynamic> toJson() => {
     "visa_types_id": visaTypesId,
     "name": name,
-    "status": statusValues.reverse[status],
-  };
-}
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
-}
-
-class FlightCompanies {
-  String? flightCompaniesId;
-  String? name;
-  String? code;
-  String? status;
-
-  FlightCompanies({
-    this.flightCompaniesId,
-    this.name,
-    this.code,
-    this.status,
-  });
-
-  factory FlightCompanies.fromJson(Map<String, dynamic> json) => FlightCompanies(
-    flightCompaniesId: json["flight_companies_id"],
-    name: json["name"],
-    code: json["code"],
-    status: json["status"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "flight_companies_id": flightCompaniesId,
-    "name": name,
-    "code": code,
     "status": status,
   };
 }

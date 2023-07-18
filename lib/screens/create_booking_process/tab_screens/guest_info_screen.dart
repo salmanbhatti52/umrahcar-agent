@@ -2,12 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:umrahcar/screens/homepage_screen.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:umrahcar/widgets/button.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
+import 'package:umrahcar/widgets/navbar.dart';
 
+import '../../../service/rest_api_serivice.dart';
 import '../../../widgets/booking_confirmation.dart';
 
 class GuestInfoPage extends StatefulWidget {
@@ -37,7 +40,9 @@ class GuestInfoPage extends StatefulWidget {
   String? flightCode1;
   String? totalFare1;
   String? totalNumberOfPassengers1;
-   GuestInfoPage({super.key, this.tabController,this.pickupHotel1,this.vehicleId,this.flightCode1,this.dropOffHotel1,this.dropOffLocation1,this.extraInformation1,this.flightCompaniesId1,this.flightDetails1,this.flightNmbr1,this.numberOfAdults1,this.numberOfChilds1,this.numberOfInfants1,this.pickUpData1,this.pickupLocation1,this.pickUpTime1,this.routesDropOffId1,this.routesId1,this.routesPickUpId1,this.serviceType1,this.totalFare1,this.totalNumberOfPassengers1,this.vehicleId1,this.vehicleId2,this.vehicleId3,this.visaType1,});
+  String? vehicleName;
+  String? selectedPaymentMethod;
+   GuestInfoPage({super.key,this.selectedPaymentMethod, this.vehicleName,this.tabController,this.pickupHotel1,this.vehicleId,this.flightCode1,this.dropOffHotel1,this.dropOffLocation1,this.extraInformation1,this.flightCompaniesId1,this.flightDetails1,this.flightNmbr1,this.numberOfAdults1,this.numberOfChilds1,this.numberOfInfants1,this.pickUpData1,this.pickupLocation1,this.pickUpTime1,this.routesDropOffId1,this.routesId1,this.routesPickUpId1,this.serviceType1,this.totalFare1,this.totalNumberOfPassengers1,this.vehicleId1,this.vehicleId2,this.vehicleId3,this.visaType1,});
 
   @override
   State<GuestInfoPage> createState() => _GuestInfoPageState();
@@ -108,7 +113,9 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: size.height * 0.04),
+
+                  SizedBox(height: size.height * 0.02),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
@@ -197,12 +204,12 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                         }
                         return null;
                       },
-                      onChanged: (value){
-                        completeNumber="${countryCode?.dialCode}$value";
-                        setState(() {
-
-                        });
-                      },
+                      // onChanged: (value){
+                      //   completeNumber="${countryCode?.dialCode}$value";
+                      //   setState(() {
+                      //
+                      //   });
+                      // },
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontFamily: 'Montserrat-Regular',
@@ -414,6 +421,8 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                             setState(() {
                               status = val;
                               if(status==true){
+                                completeNumber="${countryCode?.dialCode}${contactNumberController.text}";
+
                                 whatsappNumberController.text=completeNumber!;
 
                               }
@@ -587,7 +596,7 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                                             ),
                                           ),
                                           Text(
-                                            '${widget.vehicleId}',
+                                            '${widget.vehicleName}',
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 15,
@@ -656,9 +665,55 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                                     // ),
                                     SizedBox(height: size.height * 0.06),
                                     GestureDetector(
-                                      onTap: () {
+                                      onTap: () async{
+                                        print("uidZ: ${userId}");
+                                        var mapData={
+                                          "source": "TEST API",
+                                          "users_agents_id":userId.toString(),
+                                          "routes_id":"${widget.routesId1}",
+                                          "pickup_location":"${widget.routesPickUpId1}",
+                                          "dropoff_location":"${widget.routesDropOffId1}",
+                                          "service_type":"${widget.serviceType1}",
+                                          "visa_types_id":"${widget.visaType1}",
+                                          "name":guestNameController.text,
+                                          "contact":"${countryCode!.dialCode}${contactNumberController.text}",
+                                          "whatsapp":whatsappNumberController.text,
+                                          "payment_type":widget.selectedPaymentMethod,
+                                          "pickup_date":widget.pickUpData1,
+                                          "pickup_time":widget.pickUpTime1,
+                                          "no_of_childs":widget.numberOfChilds1,
+                                          "no_of_infants":widget.numberOfInfants1,
+                                          "no_of_adults":widget.numberOfAdults1,
+                                          "no_of_passengers":widget.totalNumberOfPassengers1,
+                                          "extra_information": widget.extraInformation1,
+                                          "vehicle":{
+                                            "0":widget.vehicleId,
+                                            if(widget.vehicleId1 !="null")  "1":widget.vehicleId1,
+                                            if(widget.vehicleId2 !="null")  "2":widget.vehicleId2,
+                                            if(widget.vehicleId3 !="null" )  "3":widget.vehicleId3,
+                                          },
+                                          if(widget.pickupHotel1 !="null")  "pickup_hotel":widget.pickupHotel1,
+                                          if(widget.dropOffHotel1 !="null")  "dropoff_hotel":widget.dropOffHotel1,
+                                          "booked_fare": widget.totalFare1,
+                                          "agent_fare":widget.totalFare1,
+                                          "actual_fare":widget.totalFare1,
+                                          "flight_number":widget.flightNmbr1,
+                                          "flight_companies_id":widget.flightCompaniesId1,
+                                          "flight_date": widget.pickUpData1,
+                                          "flight_time":widget.pickUpTime1,
+                                          "flight_details": widget.flightDetails1,
+                                          "flight_code": widget.flightCode1
+                                        };
+                                        var response = await DioClient().addBookingAgent(
+                                            mapData,context
+                                        );
+                                        print("hiiii data: ${response.data}");
+                                        if(response !=null){
 
-                                        Navigator.pop(context);
+                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Booking successfull")));
+                                          Navigator.pushReplacement(
+                                              context, MaterialPageRoute(builder: (context) => const NavBar()));
+                                        }
                                       },
                                       child: dialogButton('OK', context),
                                     ),
