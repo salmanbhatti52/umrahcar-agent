@@ -336,71 +336,71 @@ class _LogInPageState extends State<LogInPage> {
                         },
                         child: button('Login', context)),
                     SizedBox(height: size.height * 0.06),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Divider(
-                            color: const Color(0xFF929292).withOpacity(0.3),
-                            thickness: 1,
-                            indent: 20,
-                            endIndent: 10,
-                          ),
-                        ),
-                        const Text(
-                          'OR',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(
-                            color: const Color(0xFF929292).withOpacity(0.3),
-                            thickness: 1,
-                            indent: 10,
-                            endIndent: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: size.height * 0.06),
-                    RichText(
-                      overflow: TextOverflow.clip,
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        text: "Don’t have an account? ",
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontFamily: 'Montserrat-Regular',
-                          fontWeight: FontWeight.w500,
-                        ),
-                        children: [
-                          TextSpan(
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                // Handle the tap event, e.g., navigate to a new screen
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const SignUpPage(),
-                                  ),
-                                );
-                              },
-                            text: 'Sign Up',
-                            style: const TextStyle(
-                              color: Color(0xFF79BF42),
-                              fontFamily: 'Montserrat-Regular',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: size.height * 0.02),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Expanded(
+                    //       child: Divider(
+                    //         color: const Color(0xFF929292).withOpacity(0.3),
+                    //         thickness: 1,
+                    //         indent: 20,
+                    //         endIndent: 10,
+                    //       ),
+                    //     ),
+                    //     const Text(
+                    //       'OR',
+                    //       style: TextStyle(
+                    //         fontSize: 16,
+                    //         fontFamily: 'Montserrat-Regular',
+                    //         fontWeight: FontWeight.w500,
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: Divider(
+                    //         color: const Color(0xFF929292).withOpacity(0.3),
+                    //         thickness: 1,
+                    //         indent: 10,
+                    //         endIndent: 20,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // SizedBox(height: size.height * 0.06),
+                    // RichText(
+                    //   overflow: TextOverflow.clip,
+                    //   textAlign: TextAlign.center,
+                    //   text: TextSpan(
+                    //     text: "Don’t have an account? ",
+                    //     style: const TextStyle(
+                    //       color: Colors.black,
+                    //       fontSize: 16,
+                    //       fontFamily: 'Montserrat-Regular',
+                    //       fontWeight: FontWeight.w500,
+                    //     ),
+                    //     children: [
+                    //       TextSpan(
+                    //         recognizer: TapGestureRecognizer()
+                    //           ..onTap = () {
+                    //             // Handle the tap event, e.g., navigate to a new screen
+                    //             Navigator.push(
+                    //               context,
+                    //               MaterialPageRoute(
+                    //                 builder: (context) => const SignUpPage(),
+                    //               ),
+                    //             );
+                    //           },
+                    //         text: 'Sign Up',
+                    //         style: const TextStyle(
+                    //           color: Color(0xFF79BF42),
+                    //           fontFamily: 'Montserrat-Regular',
+                    //           fontSize: 16,
+                    //           fontWeight: FontWeight.w600,
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    // SizedBox(height: size.height * 0.02),
                   ],
                 ),
               ),
