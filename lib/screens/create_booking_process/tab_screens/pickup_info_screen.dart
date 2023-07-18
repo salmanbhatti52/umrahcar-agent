@@ -54,6 +54,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
   List<String>? getDropOffHotel = [];
   int routesPickupId = 0;
   int routesDropOffId = 0;
+  String? visaId;
   String hintValue="Drop off Location";
   late List<String> visaTypeItems = [];
   late List<String> pickupLocationData = [];
@@ -371,6 +372,14 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                           onChanged: (value) {
                             setState(() {
                               selectedVisa = value;
+                              if(value !=null){
+                                for(int i=0;i<getAllSystemData.data!.visaTypes!.length;i++){
+                                  if(selectedVisa==getAllSystemData.data!.visaTypes![i].name){
+                                    visaId=getAllSystemData.data!.visaTypes![i].visaTypesId;
+                                    print("visa Id: ${visaId}");
+                                  }
+                                }
+                              }
                             });
                           },
                         ),
@@ -903,6 +912,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                       // print("pick up time:: $pickupTime");
                       if (selectedVisa != null &&
                           serviceType != null &&
+                          visaId !=null &&
                           selectedDropOff != null &&
                           // selectedDropOffHotel != null &&
                           pickupTime != null &&
@@ -916,7 +926,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                         print('newIndex $newIndex');
 
                         widget.onDataReceived(
-                            visaType: selectedVisa!,
+                            visaType: visaId!,
                             serviceType: serviceType!,
                             dropOffHotel: selectedDropOffHotel,
                             dropOffLocation: selectedDropOff!,
