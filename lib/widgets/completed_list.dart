@@ -141,14 +141,14 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
               SizedBox(width: size.width * 0.15),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>  TrackPage(getBookingData: getData),
-                      ));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //       builder: (context) =>  TrackPage(getBookingData: getData),
+                  //     ));
                 },
                 child: const Text(
-                  'Track',
+                  'Completed',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFF0066FF),

@@ -90,6 +90,7 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
     print("totalFare: ${widget.totalFare1}");
     print("totalNumberOfPassengers: ${widget.totalNumberOfPassengers1}");
     print("totalFare: ${widget.totalFare1}");
+    print("visa type: ${widget.visaType1}");
     super.initState();
   }
 
