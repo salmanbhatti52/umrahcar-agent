@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
     print("uiduid: ${uid}");
     print("uiduid: ${userId}");
     getBookingList();
+    getAgentWidgetData();
     getProfile();
 
   }
@@ -46,6 +47,20 @@ class _HomePageState extends State<HomePage> {
     };
      getBookingResponse= await DioClient().getBookingList(mapData, context);
     print("response id: ${getBookingResponse.data}");
+    setState(() {
+
+    });
+
+  }
+  var getAgentsWidgetData;
+
+  getAgentWidgetData()async{
+    print("userIdId ${userId}");
+    var mapData={
+      "users_agents_id": userId.toString()
+    };
+    getAgentsWidgetData= await DioClient().getAgentsWidgetsData(mapData, context);
+    print("response id: ${getAgentsWidgetData.data}");
     setState(() {
 
     });
@@ -72,7 +87,8 @@ class _HomePageState extends State<HomePage> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: mainColor,
-      body: Container(
+      body: getBookingResponse !=null && getAgentsWidgetData !=null ?
+      Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/background.png'),
@@ -167,6 +183,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: size.height * 0.04),
+
             Container(
               decoration: BoxDecoration(
                 color: mainColor,
@@ -178,24 +195,29 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: size.height * 0.03),
-                  Row(
+
+                    SizedBox(height: size.height * 0.03),
+                  if(getAgentsWidgetData !=null)
+                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      box('assets/images/white-bookings-icon.svg', '30',
+                      box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsPending}',
                           'Pending Bookings', context),
-                      box('assets/images/white-bookings-icon.svg', '10',
+                      box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsAll}',
                           'All Bookings', context),
-                      box('assets/images/white-bookings-icon.svg', '15',
+                      box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsCompleted}',
                           'Completed Trips', context),
                     ],
                   ),
                   SizedBox(height: size.height * 0.01),
-                  Row(
+                  if(getAgentsWidgetData !=null)
+
+                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      noimagebox('30,000', 'Total Deposit', context),
-                      noimageredbox('15,000', 'Remaining', context),
+
+                      noimagebox('${getAgentsWidgetData.data.bookingsTotalDeposit}', 'Total Deposit', context),
+                      noimageredbox('${getAgentsWidgetData.data.bookingsTotalReamining}', 'Remaining', context),
                       nobox(context),
                     ],
                   ),
@@ -240,19 +262,24 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     color: Colors.transparent,
                     height: size.height * 0.430,
-                    child:                   getBookingResponse !=null?
+                    child:
                       Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: homeList(context,getBookingResponse),
-                    ): Center(child: Container(
-                        height: 20,
-                        width: 20,
-                        child: const CircularProgressIndicator())),
+                    )
                   ),
                 ],
               ),
-            ),
+            )
           ],
+        ),
+      )
+          :Container(
+        height: MediaQuery.of(context).size.height/1,
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: Colors.blue,
+          ),
         ),
       ),
     );

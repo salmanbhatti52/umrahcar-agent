@@ -4,6 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:umrahcar/widgets/upcoming_list.dart';
 
+import '../../../models/get_booking_list_model.dart';
+import '../../../service/rest_api_serivice.dart';
+import '../../homepage_screen.dart';
+
 class UpcomingPage extends StatefulWidget {
   const UpcomingPage({super.key});
 
@@ -25,6 +29,25 @@ class _UpcomingPageState extends State<UpcomingPage> {
   ];
 
   bool isFocused = false;
+  GetBookingListModel getBookingUpcomingResponse=GetBookingListModel();
+  getBookingListUpcoming()async{
+    print("userIdId ${userId}");
+    var mapData={
+      "users_agents_id": userId.toString()
+    };
+    getBookingUpcomingResponse= await DioClient().getBookingupcoming(mapData, context);
+    print("response id: ${getBookingUpcomingResponse.data}");
+    setState(() {
+
+    });
+
+  }
+  @override
+  void initState() {
+    getBookingListUpcoming();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +178,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
               height: size.height * 0.6,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: upComingList(context),
+                child: upComingList(context,getBookingUpcomingResponse),
               ),
             ),
           ],

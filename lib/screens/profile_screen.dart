@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umrahcar/screens/homepage_screen.dart';
+import 'package:umrahcar/screens/login_screen.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
@@ -288,7 +290,26 @@ class _ProfilePageState extends State<ProfilePage> {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
+
+
                   ],
+                ),
+              ),
+              SizedBox(height: size.height * 0.08),
+              InkWell(
+                onTap: ()async {
+                  SharedPreferences preferences = await SharedPreferences.getInstance();
+                  await preferences.clear();
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LogInPage()));
+                },
+                child: const Text(
+                  'Logout',
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 18,
+                    fontFamily: 'Montserrat-Regular',
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
             ],

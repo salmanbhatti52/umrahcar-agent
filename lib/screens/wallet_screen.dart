@@ -3,6 +3,9 @@ import 'package:umrahcar/utils/colors.dart';
 import 'package:umrahcar/widgets/top_boxes.dart';
 import 'package:umrahcar/widgets/wallet_list.dart';
 
+import '../service/rest_api_serivice.dart';
+import 'homepage_screen.dart';
+
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key});
 
@@ -11,6 +14,28 @@ class WalletPage extends StatefulWidget {
 }
 
 class _WalletPageState extends State<WalletPage> {
+  var getAgentsWidgetData;
+
+  getAgentWidgetData()async{
+    print("userIdId ${userId}");
+    var mapData={
+      "users_agents_id": userId.toString()
+    };
+    getAgentsWidgetData= await DioClient().getAgentsWidgetsData(mapData, context);
+    print("response id: ${getAgentsWidgetData.data}");
+    setState(() {
+
+    });
+
+  }
+
+
+  @override
+  void initState() {
+    getAgentWidgetData();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -20,7 +45,8 @@ class _WalletPageState extends State<WalletPage> {
       },
       child: Scaffold(
         backgroundColor: mainColor,
-        body: Container(
+        body: getAgentsWidgetData !=null ?
+        Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/background.png'),
@@ -65,9 +91,9 @@ class _WalletPageState extends State<WalletPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        bignoimagebox('30,000', 'Total Deposit', context),
+                        bignoimagebox('${getAgentsWidgetData.data.bookingsTotalDeposit}', 'Total Deposit', context),
                         SizedBox(width: size.width * 0.04),
-                        bignoimageredbox('15,000', 'Remaining', context),
+                        bignoimageredbox('${getAgentsWidgetData.data.bookingsTotalReamining}', 'Remaining', context),
                       ],
                     ),
                     SizedBox(height: size.height * 0.03),
@@ -96,6 +122,14 @@ class _WalletPageState extends State<WalletPage> {
                 ),
               ),
             ],
+          ),
+        )
+            :Container(
+          height: MediaQuery.of(context).size.height/1,
+          child: const Center(
+            child: CircularProgressIndicator(
+              color: Colors.blue,
+            ),
           ),
         ),
       ),

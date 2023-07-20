@@ -4,6 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:umrahcar/widgets/completed_list.dart';
 
+import '../../../models/get_booking_list_model.dart';
+import '../../../service/rest_api_serivice.dart';
+import '../../homepage_screen.dart';
+
 class CompletedPage extends StatefulWidget {
   const CompletedPage({super.key});
 
@@ -25,6 +29,26 @@ class _CompletedPageState extends State<CompletedPage> {
   ];
 
   bool isFocused = false;
+  GetBookingListModel getBookingCompletedResponse=GetBookingListModel();
+  getBookingListUpcoming()async{
+    print("userIdId ${userId}");
+    var mapData={
+      "users_agents_id": userId.toString()
+    };
+    getBookingCompletedResponse= await DioClient().getBookingCompleted(mapData, context);
+    print("response id: ${getBookingCompletedResponse.data}");
+    setState(() {
+
+    });
+
+  }
+
+  @override
+  void initState() {
+    getBookingListUpcoming();
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,7 +179,7 @@ class _CompletedPageState extends State<CompletedPage> {
               height: size.height * 0.6,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: completedList(context),
+                child: completedList(context,getBookingCompletedResponse),
               ),
             ),
           ],

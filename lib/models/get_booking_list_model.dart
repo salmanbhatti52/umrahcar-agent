@@ -66,7 +66,7 @@ class GetBookingData {
   String? completedStatus;
   String? status;
   String? cancelReason;
-  String? driverTripStatus;
+  DriverTripStatus? driverTripStatus;
   String? pickupDatetime;
   String? source;
   Routes? routes;
@@ -173,7 +173,7 @@ class GetBookingData {
     completedStatus: json["completed_status"],
     status: json["status"],
     cancelReason: json["cancel_reason"],
-    driverTripStatus: json["driver_trip_status"],
+    driverTripStatus : json["driver_trip_status"] != null ? DriverTripStatus.fromJson(json["driver_trip_status"]) : null,
     pickupDatetime: json["pickup_datetime"],
     source: json["source"],
     routes: Routes.fromJson(json["routes"]),
@@ -228,7 +228,7 @@ class GetBookingData {
     "completed_status": completedStatus,
     "status": status,
     "cancel_reason": cancelReason,
-    "driver_trip_status": driverTripStatus,
+    "driver_trip_status": driverTripStatus!.toJson(),
     "pickup_datetime": pickupDatetime,
     "source": source,
     "routes": routes!.toJson(),
@@ -236,6 +236,29 @@ class GetBookingData {
     "flight_companies": flightCompanies,
     "visa_types": visaTypes!.toJson(),
     "vehicles": List<dynamic>.from(vehicles!.map((x) => x.toJson())),
+  };
+}
+class DriverTripStatus {
+  String? bookingsDriversStatusId;
+  Status? name;
+  Status? status;
+
+  DriverTripStatus({
+    this.bookingsDriversStatusId,
+    this.name,
+    this.status,
+  });
+
+  factory DriverTripStatus.fromJson(Map<String, dynamic> json) => DriverTripStatus(
+    bookingsDriversStatusId: json["bookings_drivers_status_id"],
+    name: statusValues.map[json["name"]],
+    status: statusValues.map[json["status"]],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "bookings_drivers_status_id": bookingsDriversStatusId,
+    "name": statusValues.reverse[name],
+    "status": statusValues.reverse[status],
   };
 }
 
@@ -528,7 +551,7 @@ class Vehicle {
   String? paidStatus;
   String? dateAdded;
   String? dateModified;
-  String? vehiclesDrivers;
+  VehiclesDrivers? vehiclesDrivers;
   Vehicles? vehiclesName;
 
   Vehicle({
@@ -553,7 +576,7 @@ class Vehicle {
     paidStatus: json["paid_status"],
     dateAdded:json["date_added"],
     dateModified: json["date_modified"],
-    vehiclesDrivers: json["vehicles_drivers"],
+    vehiclesDrivers : json["vehicles_drivers"] != null ? VehiclesDrivers.fromJson(json["vehicles_drivers"]) : null,
     vehiclesName: Vehicles.fromJson(json["vehicles_name"]),
   );
 
@@ -566,8 +589,83 @@ class Vehicle {
     "paid_status": paidStatus,
     "date_added": dateAdded,
     "date_modified": dateModified,
-    "vehicles_drivers": vehiclesDrivers,
+    "vehicles_drivers": vehiclesDrivers!.toJson(),
     "vehicles_name": vehiclesName!.toJson(),
+  };
+}
+class VehiclesDrivers {
+  String? usersDriversId;
+  String? parentId;
+  String? walletAmount;
+  String? driversType;
+  String? companyName;
+  String? name;
+  String? email;
+  String? password;
+  String? contact;
+  String? whatsapp;
+  String? city;
+  String? rating;
+  String? image;
+  Status? status;
+  DateTime? dateAdded;
+  DateTime? dateModified;
+
+  VehiclesDrivers({
+    this.usersDriversId,
+    this.parentId,
+    this.walletAmount,
+    this.driversType,
+    this.companyName,
+    this.name,
+    this.email,
+    this.password,
+    this.contact,
+    this.whatsapp,
+    this.city,
+    this.rating,
+    this.image,
+    this.status,
+    this.dateAdded,
+    this.dateModified,
+  });
+
+  factory VehiclesDrivers.fromJson(Map<String, dynamic> json) => VehiclesDrivers(
+    usersDriversId: json["users_drivers_id"],
+    parentId: json["parent_id"],
+    walletAmount: json["wallet_amount"],
+    driversType: json["drivers_type"],
+    companyName: json["company_name"],
+    name: json["name"],
+    email: json["email"],
+    password: json["password"],
+    contact: json["contact"],
+    whatsapp: json["whatsapp"],
+    city: json["city"],
+    rating: json["rating"],
+    image: json["image"],
+    status: statusValues.map[json["status"]],
+    dateAdded: DateTime.parse(json["date_added"]),
+    dateModified: DateTime.parse(json["date_modified"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "users_drivers_id": usersDriversId,
+    "parent_id": parentId,
+    "wallet_amount": walletAmount,
+    "drivers_type": driversType,
+    "company_name": companyName,
+    "name": name,
+    "email": email,
+    "password": password,
+    "contact": contact,
+    "whatsapp": whatsapp,
+    "city": city,
+    "rating": rating,
+    "image": image,
+    "status": statusValues.reverse[status],
+    "date_added": dateAdded!.toIso8601String(),
+    "date_modified": dateModified!.toIso8601String(),
   };
 }
 

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umrahcar/models/forgot_password_otp_model.dart';
+import 'package:umrahcar/models/get_agent_widget_data_model.dart';
 import 'package:umrahcar/models/get_all_system_data_model.dart';
 import 'package:umrahcar/models/get_hotels_data.dart';
 import 'package:umrahcar/models/get_profile_model.dart';
@@ -161,6 +162,77 @@ class DioClient {
       if (response.statusCode == 200) {
         print("hiiii ${response.data}");
         var res= GetBookingListModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future<GetBookingListModel> getBookingupcoming(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_bookings_agents_upcoming', data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetBookingListModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future<GetBookingListModel> getBookingOngoing(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_bookings_agents_ongoing', data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetBookingListModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future<GetBookingListModel> getBookingCompleted(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_bookings_agents_completed', data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetBookingListModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
+
+  Future<GetAgentsWidgetsData> getAgentsWidgetsData(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_all_widgets_data_agents', data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetAgentsWidgetsData.fromJson(response.data);
         return res;
       }
       else  {
