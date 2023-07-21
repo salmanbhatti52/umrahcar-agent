@@ -324,7 +324,7 @@ class _LogInPageState extends State<LogInPage> {
                               await prefs.setString("userId", response.data!.userData!.usersAgentsId!);
                               await prefs.setString("oneSignalId", response.data!.userData!.onesignalId!);
                               await prefs.setString("usersRoleId", response.data!.userData!.usersRolesId!);
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>NavBar()));
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NavBar()));
                               // Navigator.of(context).pushAndRemoveUntil(
                               //     MaterialPageRoute(
                               //         builder: (context) => const HomePage()),
