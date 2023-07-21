@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.umrahcar_agent.apps">
-   <application
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
         android:label="Umrah Car\nAgent"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
