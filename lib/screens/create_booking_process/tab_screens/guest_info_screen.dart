@@ -702,8 +702,8 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                                           "flight_companies_id":widget.flightCompaniesId1,
                                           "flight_date": widget.pickUpData1,
                                           "flight_time":widget.pickUpTime1,
-                                          "flight_details": widget.flightDetails1,
-                                          "flight_code": widget.flightCode1
+                                          "flight_details": widget.flightDetails1
+                                          // "flight_code": widget.flightCode1
                                         };
                                         var response = await DioClient().addBookingAgent(
                                             mapData,context

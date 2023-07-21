@@ -1,5 +1,7 @@
 
 
+import 'get_booking_list_model.dart';
+
 class AddBookingAgentModel {
   String? status;
   Data? data;
@@ -68,7 +70,7 @@ class Data {
   String? source;
   Routes? routes;
   UsersAgentsData? usersAgentsData;
-  String? flightCompanies;
+  FlightCompanies? flightCompanies;
   VisaTypes? visaTypes;
   List<Vehicle>? vehicles;
 
@@ -175,7 +177,7 @@ class Data {
     source: json["source"],
     routes: Routes.fromJson(json["routes"]),
     usersAgentsData: UsersAgentsData.fromJson(json["users_agents_data"]),
-    flightCompanies: json["flight_companies"],
+    flightCompanies:json["flight_companies"] != null ? FlightCompanies.fromJson(json["flight_companies"]): null,
     // visaTypes: VisaTypes.fromJson(json["visa_types"]),
     visaTypes : json["visa_types"] != null ? VisaTypes.fromJson(json["visa_types"]) : null,
 

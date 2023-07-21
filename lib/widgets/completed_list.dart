@@ -138,7 +138,7 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
                   ),
                 ],
               ),
-              SizedBox(width: size.width * 0.15),
+              // SizedBox(width: size.width * 0.10),
               GestureDetector(
                 onTap: () {
                   // Navigator.push(
