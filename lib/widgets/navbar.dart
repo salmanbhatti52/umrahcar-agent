@@ -8,7 +8,8 @@ import 'package:umrahcar/screens/booking_process/bookings_screen.dart';
 import 'package:umrahcar/screens/create_booking_process/create_bookings_screen.dart';
 
 class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+  int? indexNmbr;
+   NavBar({super.key,this.indexNmbr});
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -17,6 +18,7 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
 
   int index = 0;
+
   final screens = const [
     HomePage(),
     BookingsPage(),
@@ -25,8 +27,20 @@ class _NavBarState extends State<NavBar> {
     ProfilePage(),
   ];
 
+
+  @override
+  void initState() {
+    if(widget.indexNmbr !=null)
+    index=widget.indexNmbr!;
+    // TODO: implement initState
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+
       return Scaffold(
         backgroundColor: mainColor,
         bottomNavigationBar: Container(

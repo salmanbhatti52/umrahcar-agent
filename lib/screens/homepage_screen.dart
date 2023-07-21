@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umrahcar/service/rest_api_serivice.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:umrahcar/widgets/navbar.dart';
 import 'package:umrahcar/widgets/top_boxes.dart';
 import 'package:umrahcar/widgets/homepage_get_booking_list.dart';
 
@@ -201,12 +202,38 @@ class _HomePageState extends State<HomePage> {
                     Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsPending}',
-                          'Pending Bookings', context),
-                      box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsAll}',
-                          'All Bookings', context),
-                      box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsCompleted}',
-                          'Completed Trips', context),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NavBar(indexNmbr: 1,)));
+                          setState(() {
+
+                          });
+                        },
+                        child: box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsPending}',
+                            'Pending Bookings', context),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NavBar(indexNmbr: 1,)));
+                          setState(() {
+
+                          });
+                        },
+
+                        child: box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsAll}',
+                            'All Bookings', context),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>NavBar(indexNmbr: 1,)));
+                          setState(() {
+
+                          });
+                        },
+
+                        child: box('assets/images/white-bookings-icon.svg', '${getAgentsWidgetData.data.bookingsCompleted}',
+                            'Completed Trips', context),
+                      ),
                     ],
                   ),
                   SizedBox(height: size.height * 0.01),
@@ -216,8 +243,24 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
 
-                      noimagebox('${getAgentsWidgetData.data.bookingsTotalDeposit}', 'Total Deposit', context),
-                      noimageredbox('${getAgentsWidgetData.data.bookingsTotalReamining}', 'Remaining', context),
+                      InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>NavBar(indexNmbr: 3,)));
+                            setState(() {
+
+                            });
+                          },
+
+                          child: noimagebox('${getAgentsWidgetData.data.bookingsTotalDeposit}', 'Total Deposit', context)),
+                      InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>NavBar(indexNmbr: 3,)));
+                            setState(() {
+
+                            });
+                          },
+
+                          child: noimageredbox('${getAgentsWidgetData.data.bookingsTotalReamining}', 'Remaining', context)),
                       nobox(context),
                     ],
                   ),

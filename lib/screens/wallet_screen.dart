@@ -109,7 +109,7 @@ class _WalletPageState extends State<WalletPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: size.height * 0.02),
+                    SizedBox(height: size.height * 0.029),
                     Container(
                       color: Colors.transparent,
                       height: size.height * 0.579,

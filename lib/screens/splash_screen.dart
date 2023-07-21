@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
     var uid=_sharedPref.getString('userId');
     print("uiduid: ${uid}");
     uid !=null? Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const NavBar())):
+        context, MaterialPageRoute(builder: (context) =>  NavBar())):
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LogInPage()));
   }

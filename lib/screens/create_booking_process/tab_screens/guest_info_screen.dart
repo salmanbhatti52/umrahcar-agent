@@ -686,7 +686,7 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                                           "no_of_infants":widget.numberOfInfants1,
                                           "no_of_adults":widget.numberOfAdults1,
                                           "no_of_passengers":widget.totalNumberOfPassengers1,
-                                          "extra_information": widget.extraInformation1,
+                                        if (widget.extraInformation1!.isNotEmpty)"extra_information" : widget.extraInformation1 else "extra_information" : "hiii",
                                           "vehicle":{
                                             "0":widget.vehicleId,
                                             if(widget.vehicleId1 !="null")  "1":widget.vehicleId1,
@@ -713,7 +713,7 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
 
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Booking successfull")));
                                           Navigator.pushReplacement(
-                                              context, MaterialPageRoute(builder: (context) => const NavBar()));
+                                              context, MaterialPageRoute(builder: (context) =>  NavBar()));
                                         }
                                       },
                                       child: dialogButton('OK', context),

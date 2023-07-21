@@ -15,7 +15,7 @@ class CreateBookingsPage extends StatefulWidget {
 
 class _CreateBookingsPageState extends State<CreateBookingsPage> {
   back(){
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>const NavBar()));
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> NavBar()));
     setState(() {
       
     });

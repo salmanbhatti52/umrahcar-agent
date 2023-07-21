@@ -73,7 +73,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
   int totalPassengers=0;
   int childs=0;
   int adult=0;
-  int infants=0;
+  // int infants=0;
   String? routesId;
   double? fare;
   double? fare1;
@@ -85,7 +85,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
     "credit",
     "cash"
   ];
-  String selectedPaymentMethod="credit";
+  String? selectedPaymentMethod;
   List<Widget> addDropdowns = [];
   String? selectedVehicle;
   String? selectedVehicle1;
@@ -277,8 +277,8 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
 
     print(childs);
     print(adult);
-    print(infants);
-    totalPassengers=infants+childs+adult;
+    // print(infants);
+    totalPassengers=childs+adult;
     print("total passengers ${totalPassengers}");
     return GestureDetector(
       onTap: () {
@@ -286,7 +286,8 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
       },
       child: Scaffold(
         backgroundColor: mainColor,
-        body: SingleChildScrollView(
+        body:getAllSystemData !=null?
+        SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
             color: Colors.transparent,
@@ -612,7 +613,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             onChanged: (v){
                               adult= int.parse(numberOfAdults.text);
 
-                              if(childs+adult+infants > totalNumberOfPassengers){
+                              if(childs+adult > totalNumberOfPassengers){
                                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Your childs are greater then total passengers")));
                               }
                               setState(() {
@@ -697,16 +698,16 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                         fit: BoxFit.scaleDown,
                       ),
                     ),
-                    onChanged: (v){
-                      infants= int.parse(numberOfinfants.text);
-                      if(childs+adult+infants > totalNumberOfPassengers){
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Your childs are greater then total passengers")));
-                      }
-                      setState(() {
-
-                      });
-
-                    },
+                    // onChanged: (v){
+                    //
+                    //   if(childs+adult > totalNumberOfPassengers){
+                    //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Your children or adults are greater then total passengers")));
+                    //   }
+                    //   setState(() {
+                    //
+                    //   });
+                    //
+                    // },
                   ),
                 ),
                 SizedBox(height: size.height * 0.03),
@@ -1162,7 +1163,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     print('newIndex $newIndex');
                     if(selectedVehicle !=null && numberOfinfants !=null && numberOfChilds !=null && numberOfAdults !=null && totalFare !=null && totalNumberOfPassengers !=null && routesId !=null && flightnumberController !=null && flightComapniesId !=null && flightdetailsController !=null && totalNumberOfPassengers !=null && selectedPaymentMethod !=null) {
                       if(totalPassengers > totalNumberOfPassengers){
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("your infants ,childs and adults are greater then total passengers")));
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("your children and adults are greater then total passengers")));
 
                       }
                      else{
@@ -1200,15 +1201,41 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                         );
                       }
                     }
-                    else{
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("SomeThing is missing")));
+                    else if(selectedVehicle ==null){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Vehicle is missing")));
                     }
+                    else if(numberOfinfants.text.isEmpty){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Infants are not selected")));
+                    }else if(numberOfChilds.text.isEmpty){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Children are not selected")));
+                    }else if(numberOfAdults.text.isEmpty){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Adults are not selected")));
+                    }else if(flightnumberController.text.isEmpty){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Flight Number is not selected")));
+                    }else if(flightdetailsController.text.isEmpty){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Flight Details is not selected")));
+                    }else if(airlineName ==null){
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Airline is not selected")));
+                    }
+                    else{
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Payment Type is not selected")));
+
+                    }
+
                   },
                   child: button('Next', context),
                 ),
                 SizedBox(height: size.height * 0.02),
               ],
             ),
+          ),
+        ):
+        const Padding(
+          padding: EdgeInsets.only(left: 175, top: 300),
+          child: Column(
+            children: [
+              CircularProgressIndicator(),
+            ],
           ),
         ),
       ),

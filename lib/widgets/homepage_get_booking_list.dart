@@ -6,7 +6,7 @@ import 'package:umrahcar/screens/tracking_process/track_completed_screen.dart';
 import 'package:umrahcar/screens/tracking_process/track_upcoming_screen.dart';
 import 'package:umrahcar/utils/const.dart';
 
-Widget homeList(BuildContext context,GetBookingListModel getBookingListModel) {
+Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
   var size = MediaQuery.of(context).size;
   print("data bookibg: ${getBookingListModel.data}");
   return ListView.builder(
@@ -15,161 +15,177 @@ Widget homeList(BuildContext context,GetBookingListModel getBookingListModel) {
     scrollDirection: Axis.vertical,
     itemCount: getBookingListModel.data!.length,
     itemBuilder: (BuildContext context, int index) {
-      var getData=getBookingListModel.data![index];
+      var getData = getBookingListModel.data![index];
       print("images:");
       print("${imageUrl}${getData.routes!.vehicles!.featureImage}");
-      return Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+      return Material(
+        color: Colors.transparent,
+        child: InkWell(
+          splashColor: Colors.grey.withOpacity(0.5),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TrackPage(getBookingData: getData),
+                ));
+          },
+          child: Column(
             children: [
-              Container(
-                width: 70,
-                height: 70,
-                decoration:  const BoxDecoration(
-                  shape: BoxShape.circle,
-                ),
-                child: Image.network("$imageUrl${getData.routes!.vehicles!.featureImage}"),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    getData.name!,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
-                      fontWeight: FontWeight.w500,
+                  Container(
+                    width: 70,
+                    height: 70,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
                     ),
+                    child: Image.network(
+                        "$imageUrl${getData.routes!.vehicles!.featureImage}"),
                   ),
-                  SizedBox(height: size.height * 0.005),
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SvgPicture.asset(
-                          'assets/images/small-black-location-icon.svg'),
-                      SizedBox(width: size.width * 0.01),
-                       Text(
-                        "${getData.routes!.pickup!.name}",
+                      Text(
+                        getData.name!,
                         style: const TextStyle(
-                          color: Color(0xFF565656),
-                          fontSize: 8,
+                          color: Colors.black,
+                          fontSize: 16,
                           fontFamily: 'Montserrat-Regular',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ],
-                  ),
-                  SizedBox(height: size.height * 0.005),
-                    Container(
-                      width: 180,
-
-                      child: Row(
+                      SizedBox(height: size.height * 0.005),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          for(int i=0; i<getData.vehicles!.length; i++)
-
-                            Padding(
-                              padding: const EdgeInsets.only(right: 2),
-                              child: getData.vehicles!.length <4?
-                              Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                              SvgPicture.asset('assets/images/small-black-car-icon.svg'),
-                              SizedBox(width: size.width * 0.01),
-                                Text(
-                                '${getData.vehicles![i].vehiclesName!.name}',
-                                style: const TextStyle(
-                                  color: Color(0xFF565656),
-                                  fontSize: 7,
-                                  fontFamily: 'Montserrat-Regular',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                          ],
-                  ):
-                              Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: Column(
-
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(bottom: 4),
-                                      child: SvgPicture.asset('assets/images/small-black-car-icon.svg'),
-                                    ),
-                                    Text(
-                                      '${getData.vehicles![i].vehiclesName!.name}',
-                                      style: const TextStyle(
-                                        color: Color(0xFF565656),
-                                        fontSize: 7,
-                                        fontFamily: 'Montserrat-Regular',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          SvgPicture.asset(
+                              'assets/images/small-black-location-icon.svg'),
+                          SizedBox(width: size.width * 0.01),
+                          Text(
+                            "${getData.routes!.pickup!.name}",
+                            style: const TextStyle(
+                              color: Color(0xFF565656),
+                              fontSize: 8,
+                              fontFamily: 'Montserrat-Regular',
+                              fontWeight: FontWeight.w500,
                             ),
+                          ),
                         ],
                       ),
-                    ),
-                  SizedBox(height: size.height * 0.005),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                          'assets/images/small-black-bookings-icon.svg'),
-                      SizedBox(width: size.width * 0.01),
-                       Text(
-                        '${getData.bookingTime} ${getData.bookingDate}',
-                        style: TextStyle(
-                          color: Color(0xFF565656),
-                          fontSize: 8,
+                      SizedBox(height: size.height * 0.005),
+                      Container(
+                        width: 180,
+                        child: Row(
+                          children: [
+                            for (int i = 0; i < getData.vehicles!.length; i++)
+                              Padding(
+                                padding: const EdgeInsets.only(right: 2),
+                                child: getData.vehicles!.length < 4
+                                    ? Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          SvgPicture.asset(
+                                              'assets/images/small-black-car-icon.svg'),
+                                          SizedBox(width: size.width * 0.01),
+                                          Text(
+                                            '${getData.vehicles![i].vehiclesName!.name}',
+                                            style: const TextStyle(
+                                              color: Color(0xFF565656),
+                                              fontSize: 7,
+                                              fontFamily: 'Montserrat-Regular',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    : Padding(
+                                        padding: const EdgeInsets.only(right: 5),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 4),
+                                              child: SvgPicture.asset(
+                                                  'assets/images/small-black-car-icon.svg'),
+                                            ),
+                                            Text(
+                                              '${getData.vehicles![i].vehiclesName!.name}',
+                                              style: const TextStyle(
+                                                color: Color(0xFF565656),
+                                                fontSize: 7,
+                                                fontFamily: 'Montserrat-Regular',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                              ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.005),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                              'assets/images/small-black-bookings-icon.svg'),
+                          SizedBox(width: size.width * 0.01),
+                          Text(
+                            '${getData.bookingTime} ${getData.bookingDate}',
+                            style: TextStyle(
+                              color: Color(0xFF565656),
+                              fontSize: 8,
+                              fontFamily: 'Montserrat-Regular',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  // SizedBox(width: size.width * 0.15),
+
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                TrackPage(getBookingData: getData),
+                          ));
+                    },
+                    child: SizedBox(
+                      // width: 72,
+                      // height: 18,
+                      width: size.width * 0.2,
+                      height: size.height * 0.024,
+                      child: Text(
+                        getData.status!,
+                        textAlign: TextAlign.end,
+                        style: const TextStyle(
+                          color: Color(0xFF0066FF),
+                          fontSize: 12,
                           fontFamily: 'Montserrat-Regular',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ],
+                    ),
                   ),
                 ],
               ),
-              // SizedBox(width: size.width * 0.15),
-
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>  TrackPage(getBookingData: getData),
-                        ));
-                  },
-                  child: SizedBox(
-                    // width: 72,
-                    // height: 18,
-                    width: size.width * 0.2,
-                    height: size.height * 0.024,
-                    child: Text(
-                      getData.status!,
-                      textAlign: TextAlign.end,
-                      style: const TextStyle(
-                        color: Color(0xFF0066FF),
-                        fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-
+              SizedBox(height: size.height * 0.02),
             ],
           ),
-          SizedBox(height: size.height * 0.02),
-        ],
+        ),
       );
     },
   );

@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
+import 'package:umrahcar/widgets/navbar.dart';
 
 import '../service/rest_api_serivice.dart';
 import 'homepage_screen.dart';
@@ -775,7 +776,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ProfilePage(),
+                                builder: (context) =>  NavBar(indexNmbr: 4),
                               ));
                           setState(() {
 
