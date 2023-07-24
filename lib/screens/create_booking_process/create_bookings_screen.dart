@@ -3,8 +3,12 @@ import 'package:umrahcar/utils/colors.dart';
 import 'package:umrahcar/widgets/navbar.dart';
 import 'package:umrahcar/widgets/tabbar_create_bookings.dart';
 
+import '../../widgets/tabbar_update_bookings .dart';
+
 class CreateBookingsPage extends StatefulWidget {
-  const CreateBookingsPage({super.key});
+  bool? updateBooking;
+  String? bookingId;
+   CreateBookingsPage({super.key,this.updateBooking,this.bookingId});
 
   @override
   State<CreateBookingsPage> createState() => _CreateBookingsPageState();
@@ -20,6 +24,15 @@ class _CreateBookingsPageState extends State<CreateBookingsPage> {
       
     });
 
+  }
+
+
+  @override
+  void initState() {
+    print("update: ${widget.updateBooking}");
+    print("biikingId: ${widget.bookingId}");
+    // TODO: implement initState
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {
@@ -50,7 +63,7 @@ class _CreateBookingsPageState extends State<CreateBookingsPage> {
           child: Column(
             children: [
               SizedBox(height: size.height * 0.02),
-              const TabbarCreateBookings(),
+              widget.updateBooking ==true ?  TabbarUpdateBookings(bookingId: widget.bookingId,) :const TabbarCreateBookings(),
             ],
           ),
         ),

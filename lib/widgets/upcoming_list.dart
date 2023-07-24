@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/models/get_booking_list_model.dart';
 import 'package:umrahcar/screens/tracking_process/track_upcoming_screen.dart';
+import 'package:umrahcar/widgets/navbar.dart';
 
 import '../screens/tracking_process/track_screen.dart';
 import '../utils/const.dart';
@@ -138,25 +139,26 @@ Widget upComingList(BuildContext context,GetBookingListModel getBookingUpcomingR
                   ),
                 ],
               ),
-              SizedBox(width: size.width * 0.15),
+              if(getData.pendingUpdate=="No")
               GestureDetector(
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>  TrackPage(getBookingData: getData),
+                        builder: (context) =>  NavBar(indexNmbr: 2,updateBooking: true,bookingId: getData.bookingsId),
                       ));
                 },
-                child: const Text(
-                  'Upcoming',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Color(0xFF0066FF),
-                    fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                child: SvgPicture.asset("assets/images/edit.svg"),
+                // child: const Text(
+                //   'Upcoming',
+                //   textAlign: TextAlign.center,
+                //   style: TextStyle(
+                //     color: Color(0xFF0066FF),
+                //     fontSize: 12,
+                //     fontFamily: 'Montserrat-Regular',
+                //     fontWeight: FontWeight.w500,
+                //   ),
+                // ),
               ),
             ],
           ),

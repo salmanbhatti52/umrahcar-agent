@@ -9,7 +9,9 @@ import 'package:umrahcar/screens/create_booking_process/create_bookings_screen.d
 
 class NavBar extends StatefulWidget {
   int? indexNmbr;
-   NavBar({super.key,this.indexNmbr});
+  bool? updateBooking=false;
+  String? bookingId="0";
+   NavBar({super.key,this.indexNmbr,this.updateBooking,this.bookingId});
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -19,19 +21,15 @@ class _NavBarState extends State<NavBar> {
 
   int index = 0;
 
-  final screens = const [
-    HomePage(),
-    BookingsPage(),
-    CreateBookingsPage(),
-    WalletPage(),
-    ProfilePage(),
-  ];
+
 
 
   @override
   void initState() {
     if(widget.indexNmbr !=null)
     index=widget.indexNmbr!;
+    print("update allow; ${widget.updateBooking}");
+    print("booking Id; ${widget.bookingId}");
     // TODO: implement initState
     super.initState();
   }
@@ -40,6 +38,13 @@ class _NavBarState extends State<NavBar> {
 
   @override
   Widget build(BuildContext context) {
+    final screens =  [
+      const HomePage(),
+      const BookingsPage(),
+      CreateBookingsPage(updateBooking: widget.updateBooking,bookingId: widget.bookingId),
+      const WalletPage(),
+      const ProfilePage(),
+    ];
 
       return Scaffold(
         backgroundColor: mainColor,

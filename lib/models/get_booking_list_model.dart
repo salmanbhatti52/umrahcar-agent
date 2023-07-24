@@ -74,6 +74,8 @@ class GetBookingData {
   FlightCompanies? flightCompanies;
   VisaTypes? visaTypes;
   List<Vehicle>? vehicles;
+  String? pendingUpdate;
+
 
   GetBookingData({
     this.bookingsId,
@@ -126,6 +128,7 @@ class GetBookingData {
     this.flightCompanies,
     this.visaTypes,
     this.vehicles,
+    this.pendingUpdate
   });
 
   factory GetBookingData.fromJson(Map<String, dynamic> json) => GetBookingData(
@@ -183,6 +186,8 @@ class GetBookingData {
     // visaTypes: VisaTypes.fromJson(json["visa_types"]),
     visaTypes : json["visa_types"] != null ? VisaTypes.fromJson(json["visa_types"]) : null,
     vehicles: List<Vehicle>.from(json["vehicles"].map((x) => Vehicle.fromJson(x))),
+    pendingUpdate: json["pending_update"],
+
   );
 
   Map<String, dynamic> toJson() => {
@@ -236,6 +241,8 @@ class GetBookingData {
     "flight_companies": flightCompanies,
     "visa_types": visaTypes!.toJson(),
     "vehicles": List<dynamic>.from(vehicles!.map((x) => x.toJson())),
+    "pending_update": pendingUpdate,
+
   };
 }
 class DriverTripStatus {

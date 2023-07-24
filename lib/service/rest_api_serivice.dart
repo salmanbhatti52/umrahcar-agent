@@ -223,6 +223,23 @@ class DioClient {
       rethrow;
     }
   }
+  Future<GetBookingListModel> getBookingById(Map<String,dynamic> model,BuildContext context) async {
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_bookings_by_id', data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetBookingListModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 
 
 
