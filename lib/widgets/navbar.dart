@@ -45,7 +45,7 @@ class _NavBarState extends State<NavBar> {
       const WalletPage(),
       const ProfilePage(),
     ];
-
+    widget.bookingId=null;
       return Scaffold(
         backgroundColor: mainColor,
         bottomNavigationBar: Container(

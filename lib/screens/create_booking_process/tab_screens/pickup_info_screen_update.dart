@@ -60,9 +60,11 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
   String? visaId;
   String hintValue = "Drop off Location";
   late List<String> visaTypeItems = [];
+  late List<String> visaTypeId = [];
   late List<String> pickupLocationData = [];
   late List<String> pickVehicleData = [];
   late List<String> serviceTypeData = [];
+  String? updatevisaTypeId;
   getHotelsDataList({String? area}) async {
     final result = area!.split(' ').take(1).join(' ');
     print(result);
@@ -128,9 +130,10 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
   getSystemAllData() async {
     getAllSystemData = await DioClient().getSystemAllData(context);
     if (getAllSystemData != null) {
-      getVisaTypeListData();
       getPickUpLocationData();
       getServiceTypeData();
+      getVisaTypeListData();
+
 
       print("GETSystemAllData: ${getAllSystemData.data}");
       setState(() {});
@@ -141,26 +144,17 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
     visaTypeItems.clear();
 
     if (getAllSystemData!.data != null) {
-      for (int i = 0; i <= getAllSystemData!.data!.visaTypes!.length; i++) {
+      for (int i = 0; i < getAllSystemData!.data!.visaTypes!.length; i++) {
         visaTypeItems.add(getAllSystemData!.data!.visaTypes![i].name!);
-
-          print("hellohello");
-
-            print("visaTypesId data: ${getAllSystemData.data!.visaTypes![i]
-                .visaTypesId}");
-
-        for (int index = 0; index < getBookingByidResponse.data!.length; i++) {
-          if (getBookingByidResponse.data![index].visaTypesId ==  getAllSystemData.data!.visaTypes![i].visaTypesId) {
-            selectedVisa = getAllSystemData!.data!.visaTypes![i].name;
-            print("selected visa: ${selectedVisa}");
+        print("visa items= $visaTypeItems");
+        print("updatevisaTypeId $updatevisaTypeId");
+        if(updatevisaTypeId !=null){
+          print("getSystemAllData(); ${updatevisaTypeId}");
+          if(updatevisaTypeId==getAllSystemData!.data!.visaTypes![i].visaTypesId){
+            selectedVisa=getAllSystemData!.data!.visaTypes![i].name;
+            print("selectedVisa(); $selectedVisa");
           }
         }
-
-
-          setState(() {});
-
-
-        print("visa items= $visaTypeItems");
       }
     }
   }
@@ -196,9 +190,21 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
       for (int i = 0; i < getBookingByidResponse.data!.length; i++) {
         print("Get Booking by  id: ${getBookingByidResponse.data![i].name}");
         serviceType = getBookingByidResponse.data![i].serviceType;
+        selectedPickupLocation = getBookingByidResponse.data![i].routes!.pickup!.name;
+        getDropOffDataList(routeId: int.parse(getBookingByidResponse.data![i].routes!.pickup!.routesPickupId!));
+        selectedDropOff = getBookingByidResponse.data![i].routes!.dropoff!.name;
+     if(getBookingByidResponse.data![i].pickupHotel !=null)   selectedHotel=getBookingByidResponse.data![i].pickupHotel;
+        if(getBookingByidResponse.data![i].dropoffHotel !=null)   selectedDropOffHotel=getBookingByidResponse.data![i].dropoffHotel!.name;
+        pickupDate = getBookingByidResponse.data![i].bookingDate;
+        pickupTime = getBookingByidResponse.data![i].bookingTime;
+        visaId=getBookingByidResponse.data![i].visaTypesId;
+        routesPickupId=int.parse(getBookingByidResponse.data![i].routes!.routesPickupId!);
+        routesDropOffId=int.parse(getBookingByidResponse.data![i].routes!.routesDropoffId!);
+        updatevisaTypeId=getBookingByidResponse.data![i].visaTypesId;
         print("visaTypesId: ${getBookingByidResponse.data![i].visaTypesId}");
-        getSystemAllData();
+        print("updatevisaTypeId1: $updatevisaTypeId");
         setState(() {
+          getSystemAllData();
 
         });
       }

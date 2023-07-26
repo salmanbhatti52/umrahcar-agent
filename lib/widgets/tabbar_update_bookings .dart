@@ -290,7 +290,9 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
                   dropOffLocation: dropOffLocation1,
                   dropOffHotel: dropOffHotel1,
                   serviceType: serviceType1,
-                  visaType: visaType1),
+                  visaType: visaType1,
+                 bookingId: widget.bookingId,
+              ),
               GuestInfoPageUpdate(
                 tabController: tabController,
                 visaType1: visaType1,
@@ -320,6 +322,7 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
                 vehicleId3: vid3,
                 vehicleName: vehicleName1,
                 selectedPaymentMethod: selectedPaymentMethod1,
+                bookingId: widget.bookingId,
               ),
             ],
           ),

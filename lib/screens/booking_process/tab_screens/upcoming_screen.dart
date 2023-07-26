@@ -4,9 +4,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:umrahcar/widgets/upcoming_list.dart';
 
+import '../../../models/ge_bookings_pending_by_id_model.dart';
 import '../../../models/get_booking_list_model.dart';
 import '../../../service/rest_api_serivice.dart';
+import '../../../utils/const.dart';
+import '../../../widgets/navbar.dart';
 import '../../homepage_screen.dart';
+import '../../tracking_process/track_screen.dart';
+import '../../tracking_process/track_screen_pending.dart';
 
 class UpcomingPage extends StatefulWidget {
   const UpcomingPage({super.key});
@@ -29,19 +34,27 @@ class _UpcomingPageState extends State<UpcomingPage> {
   ];
 
   bool isFocused = false;
-  GetBookingListModel getBookingUpcomingResponse=GetBookingListModel();
-  getBookingListUpcoming()async{
+  GetBookingListModel getBookingUpcomingResponse = GetBookingListModel();
+  getBookingListUpcoming() async {
     print("userIdId ${userId}");
-    var mapData={
-      "users_agents_id": userId.toString()
-    };
-    getBookingUpcomingResponse= await DioClient().getBookingupcoming(mapData, context);
+    var mapData = {"users_agents_id": userId.toString()};
+    getBookingUpcomingResponse =
+        await DioClient().getBookingupcoming(mapData, context);
     print("response id: ${getBookingUpcomingResponse.data}");
-    setState(() {
 
-    });
-
+    setState(() {});
   }
+
+  GetBookingPendingById getBookingPendingById = GetBookingPendingById();
+  getBookingListPending(String? bookingId) async {
+    print("bookingId ${bookingId}");
+    var mapData = {"bookings_id": bookingId};
+    getBookingPendingById =
+        await DioClient().getBookingPendingById(mapData, context);
+    print("response data: ${getBookingUpcomingResponse.data}");
+    setState(() {});
+  }
+
   @override
   void initState() {
     getBookingListUpcoming();
@@ -178,7 +191,277 @@ class _UpcomingPageState extends State<UpcomingPage> {
               height: size.height * 0.6,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: upComingList(context,getBookingUpcomingResponse),
+                child: getBookingUpcomingResponse.data != null
+                    ? ListView.builder(
+                        physics: const BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: getBookingUpcomingResponse.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var getData = getBookingUpcomingResponse.data![index];
+
+                          return Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => TrackPage(
+                                                    getBookingData: getData,
+                                                  )));
+                                    },
+                                    child: Container(
+                                      width: 70,
+                                      height: 70,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                          "$imageUrl${getData.routes!.vehicles!.featureImage}"),
+                                    ),
+                                  ),
+                                  SizedBox(width: size.width * 0.005),
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => TrackPage(
+                                                    getBookingData: getData,
+                                                  )));
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          getData.name!,
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontFamily: 'Montserrat-Regular',
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        SizedBox(height: size.height * 0.005),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/images/small-black-location-icon.svg'),
+                                            SizedBox(width: size.width * 0.01),
+                                            Text(
+                                              "${getData.routes!.pickup!.name}",
+                                              style: const TextStyle(
+                                                color: Color(0xFF565656),
+                                                fontSize: 8,
+                                                fontFamily:
+                                                    'Montserrat-Regular',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: size.height * 0.005),
+                                        Container(
+                                          width: 180,
+                                          child: Row(
+                                            children: [
+                                              for (int i = 0;
+                                                  i < getData.vehicles!.length;
+                                                  i++)
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 2),
+                                                  child: getData.vehicles!
+                                                              .length <
+                                                          4
+                                                      ? Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            SvgPicture.asset(
+                                                                'assets/images/small-black-car-icon.svg'),
+                                                            SizedBox(
+                                                                width:
+                                                                    size.width *
+                                                                        0.01),
+                                                            Text(
+                                                              '${getData.vehicles![i].vehiclesName!.name}',
+                                                              style:
+                                                                  const TextStyle(
+                                                                color: Color(
+                                                                    0xFF565656),
+                                                                fontSize: 7,
+                                                                fontFamily:
+                                                                    'Montserrat-Regular',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        )
+                                                      : Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  right: 5),
+                                                          child: Column(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        bottom:
+                                                                            4),
+                                                                child: SvgPicture
+                                                                    .asset(
+                                                                        'assets/images/small-black-car-icon.svg'),
+                                                              ),
+                                                              Text(
+                                                                '${getData.vehicles![i].vehiclesName!.name}',
+                                                                style:
+                                                                    const TextStyle(
+                                                                  color: Color(
+                                                                      0xFF565656),
+                                                                  fontSize: 7,
+                                                                  fontFamily:
+                                                                      'Montserrat-Regular',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                        SizedBox(height: size.height * 0.005),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SvgPicture.asset(
+                                                'assets/images/small-black-bookings-icon.svg'),
+                                            SizedBox(width: size.width * 0.01),
+                                            Text(
+                                              '${getData.bookingTime} ${getData.bookingDate}',
+                                              style: TextStyle(
+                                                color: Color(0xFF565656),
+                                                fontSize: 8,
+                                                fontFamily:
+                                                    'Montserrat-Regular',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  getData.pendingUpdate == "No"
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => NavBar(
+                                                      indexNmbr: 2,
+                                                      updateBooking: true,
+                                                      bookingId:
+                                                          getData.bookingsId),
+                                                ));
+                                          },
+                                          child: Row(
+                                            children: [
+                                              SizedBox(
+                                                width: 25,
+                                              ),
+                                              SvgPicture.asset(
+                                                  "assets/images/edit.svg"),
+                                              SizedBox(
+                                                width: 20,
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      : Row(
+                                          children: [
+                                            InkWell(
+                                                onTap: () async {
+                                                await  getBookingListPending(
+                                                      getData.bookingsId);
+
+                                                  if (getBookingPendingById
+                                                          .data !=
+                                                      null) {
+                                                    print("hello next");
+                                                    Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              TrackPagePending(
+                                                                  getBookingData:
+                                                                      getBookingPendingById!
+                                                                          .data![0]),
+                                                        ));
+                                                  }
+                                                  setState(() {
+
+                                                  });
+                                                },
+                                                child: const Text("Check Update",
+
+                                                  style:
+                                                TextStyle(
+                                                  color: Color(
+                                                      0xFF565656),
+                                                  fontSize: 12,
+                                                  fontFamily:
+                                                  'Montserrat-Regular',
+                                                  fontWeight:
+                                                  FontWeight
+                                                      .w500,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
+                                                )),
+
+                                          ],
+                                        )
+                                ],
+                              ),
+                              SizedBox(height: size.height * 0.02),
+                            ],
+                          );
+                        },
+                      )
+                    : Container(
+                        height: 300,
+                        width: 300,
+                        child: Center(child: const Text("No upcoming Booking")),
+                      ),
               ),
             ),
           ],

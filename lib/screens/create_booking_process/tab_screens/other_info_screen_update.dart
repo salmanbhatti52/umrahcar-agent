@@ -1,9 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 
 import '../../../models/get_all_system_data_model.dart';
+import '../../../models/get_booking_list_model.dart';
 import '../../../service/rest_api_serivice.dart';
 
 class OtherInfoPageUpdate extends StatefulWidget {
@@ -18,7 +20,7 @@ class OtherInfoPageUpdate extends StatefulWidget {
   String? serviceType;
   int? routesDropOffId;
   int? routesPickUpId;
-
+  String? bookingId;
   final Function(
       {String visaType,
       String serviceType,
@@ -55,7 +57,7 @@ class OtherInfoPageUpdate extends StatefulWidget {
 
 
 
-   OtherInfoPageUpdate({super.key,this.tabController,this.visaType,this.serviceType,this.routesPickUpId,this.routesDropOffId,this.pickUpTime,this.pickUpData,this.dropOffHotel,this.dropOffLocation,this.pickupHotel,this.pickupLocation,required this.onDataReceived});
+   OtherInfoPageUpdate({super.key,this.bookingId,this.tabController,this.visaType,this.serviceType,this.routesPickUpId,this.routesDropOffId,this.pickUpTime,this.pickUpData,this.dropOffHotel,this.dropOffLocation,this.pickupHotel,this.pickupLocation,required this.onDataReceived});
 
   @override
   State<OtherInfoPageUpdate> createState() => _OtherInfoPageUpdateState();
@@ -250,7 +252,58 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
   }
 
 
+  GetBookingListModel getBookingByidResponse = GetBookingListModel();
+  getBookingListByIdUpcoming() async {
+    print("bookingId ${widget.bookingId}");
+    var mapData = {"bookings_id": widget.bookingId};
+    getBookingByidResponse = await DioClient().getBookingById(mapData, context);
+    if (getBookingByidResponse != null) {
+      for (int i = 0; i < getBookingByidResponse.data!.length; i++) {
+        print("Get Booking by  id: ${getBookingByidResponse.data![i].name}");
+        numberOfChilds.text=getBookingByidResponse.data![i].noOfChilds!;
+        numberOfAdults.text=getBookingByidResponse.data![i].noOfAdults!;
+        numberOfinfants.text=getBookingByidResponse.data![i].noOfInfants!;
+        totalNumberOfPassengers=int.parse(getBookingByidResponse.data![i].noOfPassengers!);
+        selectedPaymentMethod=getBookingByidResponse.data![i].paymentType!;
+        airlineName=getBookingByidResponse.data![i].flightCompanies!.name!;
+        flightnumberController.text=getBookingByidResponse.data![i].flightNumber!;
+        flightdetailsController.text=getBookingByidResponse.data![i].flightDetails!;
+        instructionsController.text=getBookingByidResponse.data![i].extraInformation!;
+        totalFare=double.parse(getBookingByidResponse.data![i].actualFare!);
+        routesId=getBookingByidResponse.data![i].routesId;
+        flightComapniesId=getBookingByidResponse.data![i].flightCompaniesId;
+         int? lenth;
+        print("visaTypesId: ${getBookingByidResponse.data![i].visaTypesId}");
+        for(int veh=0; veh<getBookingByidResponse.data![i].vehicles!.length;veh++){
+          selectedVehicle=getBookingByidResponse.data![i].vehicles![0].vehiclesName!.name!;
+          selectedVehicleId=int.parse(getBookingByidResponse.data![i].vehicles![0]!.vehiclesId!);
 
+          lenth=getBookingByidResponse.data![i].vehicles!.length;
+          if(getBookingByidResponse.data![i].vehicles!.length==2){
+            selectedVehicle1 = getBookingByidResponse.data![i].vehicles![1].vehiclesName!.name;
+            selectedVehicle1Id=int.parse(getBookingByidResponse.data![i].vehicles![1]!.vehiclesId!);
+          }
+
+          if(getBookingByidResponse.data![i].vehicles!.length==3 )  {
+            selectedVehicle2 = getBookingByidResponse.data![i].vehicles![2].vehiclesName!.name;
+            selectedVehicle2Id=int.parse(getBookingByidResponse.data![i].vehicles![2]!.vehiclesId!);
+          }
+          if(getBookingByidResponse.data![i].vehicles!.length==4) {
+            selectedVehicle3 =
+                getBookingByidResponse.data![i].vehicles![3].vehiclesName!.name;
+            selectedVehicle3Id=int.parse(getBookingByidResponse.data![i].vehicles![3]!.vehiclesId!);
+          }
+
+        }
+        print("lnth: ${lenth}");
+     if(lenth! > 1 )   addDropdowns.add(additem1(length: lenth-1));
+        print("selectedVehicle1: ${selectedVehicle1}");
+        setState(() {
+
+        });
+      }
+    }
+  }
 
 
 
@@ -267,6 +320,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
   // print("get routes Pick Id::${widget.routesPickUpId}");
   // print("get Drop Off Pick Id:: ${widget.routesDropOffId}");
   getSystemAllData();
+  getBookingListByIdUpcoming();
     // TODO: implement initState
     super.initState();
   }
@@ -1192,7 +1246,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                             vehicleId: selectedVehicleId.toString(),
                             vehicleId1: selectedVehicle1Id.toString(),
                             vehicleId2: selectedVehicle2Id.toString(),
-                            vehicleId3: selectedVehicle2Id.toString(),
+                            vehicleId3: selectedVehicle3Id.toString(),
                             totalNumberOfPassengers: totalNumberOfPassengers.toString(),
                            vehicleName: selectedVehicle,
                           selectedPaymentMethod: selectedPaymentMethod
@@ -1218,6 +1272,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Airline is not selected")));
                     }
                     else{
+                      print("type: ${selectedPaymentMethod}");
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Payment Type is not selected")));
 
                     }
@@ -1340,6 +1395,211 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                           }
                         }
                         else if(length==1){
+                          selectedVehicle2=value;
+                          print("value${selectedVehicle2}");
+                          if(value !=null){
+                            for(int i=0;i< getAllSystemData.data!.vehicles!.length; i++){
+                              if(selectedVehicle2 == getAllSystemData.data!.vehicles![i].name){
+                                selectedVehicle2Passengers=int.parse(getAllSystemData.data!.vehicles![i].noOfPassengers!);
+                                totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!+selectedVehicle2Passengers!;
+
+                                selectedVehicle2Id=int.parse(getAllSystemData.data!.vehicles![i].vehiclesId!);
+                                print("no of passengers: ${selectedVehicle2Passengers}");
+                                print("Vehicle Id: ${selectedVehicle2Id}");
+                                if(selectedVehicle2Id !=null){
+                                  getRoutesData2(selectedVehicle2Id.toString());
+
+                                }
+                              }
+                            }
+                          }
+
+
+                        }
+                        else{
+                          selectedVehicle3=value;
+                          print("value${selectedVehicle3}");
+                          if(value !=null){
+                            for(int i=0;i< getAllSystemData.data!.vehicles!.length; i++){
+                              if(selectedVehicle3 == getAllSystemData.data!.vehicles![i].name){
+                                selectedVehicle3Passengers=int.parse(getAllSystemData.data!.vehicles![i].noOfPassengers!);
+                                totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!+selectedVehicle2Passengers!+selectedVehicle3Passengers!;
+
+                                selectedVehicle3Id=int.parse(getAllSystemData.data!.vehicles![i].vehiclesId!);
+                                print("no of passengers: ${selectedVehicle3Passengers}");
+                                print("Vehicle Id: ${selectedVehicle3Id}");
+                                if(selectedVehicle3Id !=null){
+                                  getRoutesData3(selectedVehicle3Id.toString());
+                                }
+                              }
+                            }
+                          }
+
+                        }
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: size.width * 0.02),
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  addDropdowns.removeAt(0);
+                  print("index: ${addDropdowns.length}");
+                  if(addDropdowns.isEmpty){
+                    fare1=0.0;
+                    selectedVehicle1Id=null;
+                    totalFare=fare!+fare1!;
+                    print("total fair: ${totalFare}");
+                    selectedVehicle1Passengers=0;
+                    totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!;
+
+                  }
+                  else if(addDropdowns.length == 1){
+                    fare2=0.0;
+                    selectedVehicle2Id=null;
+
+                    totalFare=fare!+fare1!+fare2!;
+                    print("total fair: $totalFare");
+                    selectedVehicle2Passengers=0;
+                    totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!+selectedVehicle2Passengers!;
+
+                  }
+                  else{
+                    fare3=0.0;
+                    selectedVehicle3Id=null;
+                    totalFare=fare!+fare1!+fare2!+fare3!;
+                    print("total fair: ${totalFare}");
+                    selectedVehicle3Passengers=0;
+                    totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!+selectedVehicle2Passengers!+selectedVehicle3Passengers!;
+
+                  }
+                });
+              },
+              child: Container(
+                width: size.width * 0.18,
+                height: size.height * 0.08,
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    width: 1,
+                    color: const Color(0xFF000000).withOpacity(0.15),
+                  ),
+                ),
+                child: Center(
+                  child: SvgPicture.asset(
+                    'assets/images/minus-icon.svg',
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: size.height * 0.02),
+      ],
+    );
+  }
+  Widget additem1({int? length}) {
+    var size = MediaQuery.of(context).size;
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: ButtonTheme(
+                alignedDropdown: true,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButtonFormField(
+                    icon: SvgPicture.asset(
+                      'assets/images/dropdown-icon.svg',
+                    ),
+                    iconSize: 5,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderSide: BorderSide(
+                          color: const Color(0xFF000000).withOpacity(0.15),
+                          width: 1,
+                        ),
+                      ),
+                      prefixIcon: SvgPicture.asset(
+                        'assets/images/big-black-car-icon.svg',
+                        width: 35,
+                        height: 35,
+                        fit: BoxFit.scaleDown,
+                      ),
+                      // suffixIcon: SvgPicture.asset(
+                      //   'assets/images/dropdown-icon.svg',
+                      //   width: 10,
+                      //   height: 10,
+                      //   fit: BoxFit.scaleDown,
+                      // ),
+                      hintText: 'Select Vehicle',
+                      hintStyle: const TextStyle(
+                        color: Color(0xFF929292),
+                        fontSize: 12,
+                        fontFamily: 'Montserrat-Regular',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    items: pickVehicleData
+                        .map(
+                          (item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: const TextStyle(
+                                color: Color(0xFF929292),
+                                fontSize: 12,
+                                fontFamily: 'Montserrat-Regular',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                    value: length==1?selectedVehicle1:length==2?selectedVehicle2:selectedVehicle3,
+                    onChanged: (value) {
+                      setState(() {
+                        if(length==1){
+                          selectedVehicle1 = value;
+                          print("value$selectedVehicle1");
+                          if(value !=null){
+                            for(int i=0;i< getAllSystemData.data!.vehicles!.length; i++){
+                              if(selectedVehicle1 == getAllSystemData.data!.vehicles![i].name){
+                                selectedVehicle1Passengers=int.parse(getAllSystemData.data!.vehicles![i].noOfPassengers!);
+                                totalNumberOfPassengers=selectedVehiclePassengers!+selectedVehicle1Passengers!;
+                                selectedVehicle1Id=int.parse(getAllSystemData.data!.vehicles![i].vehiclesId!);
+                                print("no of passengers: ${selectedVehicle1Passengers}");
+                                print("Vehicle Id: ${selectedVehicle1Id}");
+                                if(selectedVehicle1Id !=null){
+                                  getRoutesData1(selectedVehicle1Id.toString());
+
+                                }
+                              }
+                            }
+                          }
+                        }
+                        else if(length==2){
                           selectedVehicle2=value;
                           print("value${selectedVehicle2}");
                           if(value !=null){

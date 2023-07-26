@@ -14,6 +14,7 @@ import 'package:umrahcar/models/update_profile_model.dart';
 
 import '../models/add_booking_agent_model.dart';
 import '../models/forgot_verify_otp_model.dart';
+import '../models/ge_bookings_pending_by_id_model.dart';
 import '../models/get_booking_list_model.dart';
 import '../models/get_drop_off_location_model.dart';
 import '../models/login_model.dart';
@@ -390,6 +391,42 @@ class DioClient {
       }
       else  {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("All Fields are Required!")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future<AddBookingAgentModel> editBookingAgent(Map<String?,dynamic?> model,BuildContext context) async {
+   print("data: ${model}");
+    try {
+      final response =
+      await _dio.post('$baseUrl/bookings_edit_agents',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= AddBookingAgentModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("All Fields are Required!")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+  Future<GetBookingPendingById> getBookingPendingById(Map<String?,dynamic?> model,BuildContext context) async {
+   print("data: ${model}");
+    try {
+      final response =
+      await _dio.post('$baseUrl/get_bookings_pending_by_id',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetBookingPendingById.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received.")));
         throw 'SomeThing Missing';
       }
     } catch (e) {

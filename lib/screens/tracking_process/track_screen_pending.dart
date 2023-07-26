@@ -5,15 +5,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 import 'package:umrahcar/screens/tracking_process/tarcking/pickup_screen.dart';
 
-class TrackPage extends StatefulWidget {
-  GetBookingData getBookingData;
-   TrackPage({super.key,required this.getBookingData});
+import '../../models/ge_bookings_pending_by_id_model.dart';
+
+class TrackPagePending extends StatefulWidget {
+  GetBookingData1 getBookingData;
+   TrackPagePending({super.key,required this.getBookingData});
 
   @override
-  State<TrackPage> createState() => _TrackPageState();
+  State<TrackPagePending> createState() => _TrackPagePendingState();
 }
 
-class _TrackPageState extends State<TrackPage> {
+class _TrackPagePendingState extends State<TrackPagePending> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

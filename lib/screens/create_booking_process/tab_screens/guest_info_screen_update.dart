@@ -10,6 +10,7 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:fl_country_code_picker/fl_country_code_picker.dart';
 import 'package:umrahcar/widgets/navbar.dart';
 
+import '../../../models/get_booking_list_model.dart';
 import '../../../service/rest_api_serivice.dart';
 import '../../../widgets/booking_confirmation.dart';
 
@@ -42,7 +43,8 @@ class GuestInfoPageUpdate extends StatefulWidget {
   String? totalNumberOfPassengers1;
   String? vehicleName;
   String? selectedPaymentMethod;
-   GuestInfoPageUpdate({super.key,this.selectedPaymentMethod, this.vehicleName,this.tabController,this.pickupHotel1,this.vehicleId,this.flightCode1,this.dropOffHotel1,this.dropOffLocation1,this.extraInformation1,this.flightCompaniesId1,this.flightDetails1,this.flightNmbr1,this.numberOfAdults1,this.numberOfChilds1,this.numberOfInfants1,this.pickUpData1,this.pickupLocation1,this.pickUpTime1,this.routesDropOffId1,this.routesId1,this.routesPickUpId1,this.serviceType1,this.totalFare1,this.totalNumberOfPassengers1,this.vehicleId1,this.vehicleId2,this.vehicleId3,this.visaType1,});
+  String? bookingId;
+   GuestInfoPageUpdate({super.key,this.bookingId,this.selectedPaymentMethod, this.vehicleName,this.tabController,this.pickupHotel1,this.vehicleId,this.flightCode1,this.dropOffHotel1,this.dropOffLocation1,this.extraInformation1,this.flightCompaniesId1,this.flightDetails1,this.flightNmbr1,this.numberOfAdults1,this.numberOfChilds1,this.numberOfInfants1,this.pickUpData1,this.pickupLocation1,this.pickUpTime1,this.routesDropOffId1,this.routesId1,this.routesPickUpId1,this.serviceType1,this.totalFare1,this.totalNumberOfPassengers1,this.vehicleId1,this.vehicleId2,this.vehicleId3,this.visaType1,});
 
   @override
   State<GuestInfoPageUpdate> createState() => _GuestInfoPageUpdateState();
@@ -91,9 +93,27 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
     print("totalNumberOfPassengers: ${widget.totalNumberOfPassengers1}");
     print("totalFare: ${widget.totalFare1}");
     print("visa type: ${widget.visaType1}");
+    getBookingListByIdUpcoming();
     super.initState();
   }
+  GetBookingListModel getBookingByidResponse = GetBookingListModel();
+  getBookingListByIdUpcoming() async {
+    print("bookingId ${widget.bookingId}");
+    var mapData = {"bookings_id": widget.bookingId};
+    getBookingByidResponse = await DioClient().getBookingById(mapData, context);
+    if (getBookingByidResponse != null) {
+      for (int i = 0; i < getBookingByidResponse.data!.length; i++) {
+        print("Get Booking by  id: ${getBookingByidResponse.data![i].name}");
+        guestNameController.text = getBookingByidResponse.data![i].name!;
+        contactNumberController.text = getBookingByidResponse.data![i].contact!;
+        whatsappNumberController.text = getBookingByidResponse.data![i].whatsapp!;
+        print("visaTypesId: ${getBookingByidResponse.data![i].visaTypesId}");
+        setState(() {
 
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -281,33 +301,36 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                             children: [
 
 
+                              // Padding(
+                              //   padding: const EdgeInsets.only(left: 10),
+                              //   child: Text(
+                              //     countryCode?.dialCode ?? "+234",
+                              //     textAlign: TextAlign.center,
+                              //     style: const TextStyle(
+                              //       color: Colors.black54,
+                              //       fontSize: 12,
+                              //       fontFamily: 'Inter-Light',
+                              //     ),
+                              //   ),
+                              // ),
+                              // SizedBox(width: size.width * 0.02),
+                              // const Text(
+                              //   '|',
+                              //   style: TextStyle(
+                              //     color: Colors.black54,
+                              //     fontSize: 12,
+                              //     fontFamily: 'Inter-SemiBold',
+                              //   ),
+                              // ),
+                              // SizedBox(width: size.width * 0.02),
                               Padding(
                                 padding: const EdgeInsets.only(left: 10),
-                                child: Text(
-                                  countryCode?.dialCode ?? "+234",
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 12,
-                                    fontFamily: 'Inter-Light',
-                                  ),
+                                child: SvgPicture.asset(
+                                  'assets/images/contact-icon.svg',
+                                  width: 25,
+                                  height: 25,
+                                  fit: BoxFit.scaleDown,
                                 ),
-                              ),
-                              SizedBox(width: size.width * 0.02),
-                              const Text(
-                                '|',
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                  fontSize: 12,
-                                  fontFamily: 'Inter-SemiBold',
-                                ),
-                              ),
-                              SizedBox(width: size.width * 0.02),
-                              SvgPicture.asset(
-                                'assets/images/contact-icon.svg',
-                                width: 25,
-                                height: 25,
-                                fit: BoxFit.scaleDown,
                               ),
 
                             ],
@@ -422,7 +445,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                             setState(() {
                               status = val;
                               if(status==true){
-                                completeNumber="${countryCode?.dialCode}${contactNumberController.text}";
+                                completeNumber="${contactNumberController.text}";
 
                                 whatsappNumberController.text=completeNumber!;
 
@@ -441,7 +464,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                   SizedBox(height: size.height * 0.2),
                   GestureDetector(
                     onTap: () {
-                      if(guestInfoFormKey.currentState!.validate() && countryCode !=null){
+                      if(guestInfoFormKey.currentState!.validate()){
                         showDialog(
                           context: context,
                           barrierDismissible: false,
@@ -669,6 +692,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                       onTap: () async{
                                         print("uidZ: ${userId}");
                                         var mapData={
+                                          "bookings_id":"${widget.bookingId}",
                                           "source": "TEST API",
                                           "users_agents_id":userId.toString(),
                                           "routes_id":"${widget.routesId1}",
@@ -677,7 +701,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                           "service_type":"${widget.serviceType1}",
                                           "visa_types_id":"${widget.visaType1}",
                                           "name":guestNameController.text,
-                                          "contact":"${countryCode!.dialCode}${contactNumberController.text}",
+                                          "contact":contactNumberController.text,
                                           "whatsapp":whatsappNumberController.text,
                                           "payment_type":widget.selectedPaymentMethod,
                                           "pickup_date":widget.pickUpData1,
@@ -705,13 +729,13 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                           "flight_details": widget.flightDetails1
                                           // "flight_code": widget.flightCode1
                                         };
-                                        var response = await DioClient().addBookingAgent(
+                                        var response = await DioClient().editBookingAgent(
                                             mapData,context
                                         );
                                         print("hiiii data: ${response.data}");
                                         if(response !=null){
 
-                                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Booking successfull")));
+                                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Booking Update successfull")));
                                           Navigator.pushReplacement(
                                               context, MaterialPageRoute(builder: (context) =>  NavBar()));
                                         }
@@ -725,9 +749,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                           ),
                         );
                       }
-                      else{
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please Select Country Code")));
-                      }
+
 
                     },
                     child: button('Submit', context),
