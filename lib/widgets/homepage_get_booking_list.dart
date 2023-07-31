@@ -15,7 +15,8 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
     scrollDirection: Axis.vertical,
     itemCount: getBookingListModel.data!.length,
     itemBuilder: (BuildContext context, int index) {
-      var getData = getBookingListModel.data![index];
+      var reverselist = getBookingListModel.data!.reversed.toList();
+      var getData = reverselist[index];
       print("images:");
       print("${imageUrl}${getData.routes!.vehicles!.featureImage}");
       return Material(

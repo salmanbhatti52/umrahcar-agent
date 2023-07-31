@@ -336,13 +336,13 @@ class DioClient {
       rethrow;
     }
   }
-  Future<GetDropOffLocation> getDropOffHotelData(Map<String,dynamic> model,BuildContext context) async {
+  Future<GetHotelsData> getDropOffHotelData(Map<String,dynamic> model,BuildContext context) async {
     try {
       final response =
       await _dio.post('$baseUrl/get_dependent_bookings_data',data: model);
       if (response.statusCode == 200) {
         print("hiiii ${response.data}");
-        var res= GetDropOffLocation.fromJson(response.data);
+        var res= GetHotelsData.fromJson(response.data);
         return res;
       }
       else  {

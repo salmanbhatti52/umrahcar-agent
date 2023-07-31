@@ -294,6 +294,13 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // IconButton(onPressed: (){
+                //   final newIndex = widget.tabController!.index -1;
+                //    widget.tabController!.animateTo(newIndex);
+                //    setState(() {
+                //
+                //    });
+                // }, icon: Icon(Icons.arrow_back)),
                 SizedBox(height: size.height * 0.04),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),

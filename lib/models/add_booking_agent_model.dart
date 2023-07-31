@@ -34,7 +34,7 @@ class Data {
   String? bookingTime;
   String? routesId;
   String? routesDetails;
-  String? pickupHotel;
+  DropoffHotel? pickupHotel;
   DropoffHotel? dropoffHotel;
   String? noOfPassengers;
   String? noOfAdults;
@@ -139,7 +139,8 @@ class Data {
     bookingTime: json["booking_time"],
     routesId: json["routes_id"],
     routesDetails: json["routes_details"],
-    pickupHotel: json["pickup_hotel"],
+    // pickupHotel: json["pickup_hotel"],
+    pickupHotel : json["pickup_hotel"] != null ? DropoffHotel.fromJson(json["pickup_hotel"]) : null,
     dropoffHotel : json["dropoff_hotel"] != null ? DropoffHotel.fromJson(json["dropoff_hotel"]) : null,
 
 
@@ -196,7 +197,7 @@ class Data {
     "booking_time": bookingTime,
     "routes_id": routesId,
     "routes_details": routesDetails,
-    "pickup_hotel": pickupHotel,
+    "pickup_hotel": pickupHotel!.toJson(),
     "dropoff_hotel": dropoffHotel!.toJson(),
     "no_of_passengers": noOfPassengers,
     "no_of_adults": noOfAdults,

@@ -9,6 +9,7 @@ import 'package:umrahcar/widgets/button.dart';
 
 import '../../../models/get_booking_list_model.dart';
 import '../../../models/get_drop_off_location_model.dart';
+import '../../../models/get_hotels_data.dart';
 import '../../../service/rest_api_serivice.dart';
 
 class TouristInfoPageUpdate extends StatefulWidget {
@@ -65,6 +66,16 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
   late List<String> pickVehicleData = [];
   late List<String> serviceTypeData = [];
   String? updatevisaTypeId;
+
+
+  GetHotelsData? getDropOffHotelId;
+  GetHotelsData? getHotelIdList;
+  String? pickUpHotelId;
+  String? dropOffHotelId;
+
+
+
+
   getHotelsDataList({String? area}) async {
     final result = area!.split(' ').take(1).join(' ');
     print(result);
@@ -72,6 +83,8 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
     var mapData = {"data_type": "get_pickup_hotels", "hotel_name": result};
     var response = await DioClient().getHotelsData(mapData, context);
     print("data of hotels: $response");
+    getHotelIdList=response;
+
     if (response != null) {
       for (int i = 0; i < response.data!.length; i++) {
         getHotelsData!.add(response.data![i].name!);
@@ -90,6 +103,7 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
       var mapData = {"data_type": "get_dropoff_hotels", "hotel_name": result};
       var response = await DioClient().getDropOffHotelData(mapData, context);
       print("data of dropoff hotels: $response");
+      getDropOffHotelId=response;
       if (response != null) {
         for (int i = 0; i < response.data!.length; i++) {
           hintValue = "Drop off Location";
@@ -193,8 +207,10 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
         selectedPickupLocation = getBookingByidResponse.data![i].routes!.pickup!.name;
         getDropOffDataList(routeId: int.parse(getBookingByidResponse.data![i].routes!.pickup!.routesPickupId!));
         selectedDropOff = getBookingByidResponse.data![i].routes!.dropoff!.name;
-     if(getBookingByidResponse.data![i].pickupHotel !=null)   selectedHotel=getBookingByidResponse.data![i].pickupHotel;
+     if(getBookingByidResponse.data![i].pickupHotel !=null)   selectedHotel=getBookingByidResponse.data![i].pickupHotel!.name;
+     if(getBookingByidResponse.data![i].pickupHotel !=null)   pickUpHotelId=getBookingByidResponse.data![i].pickupHotel!.hotelsId;
         if(getBookingByidResponse.data![i].dropoffHotel !=null)   selectedDropOffHotel=getBookingByidResponse.data![i].dropoffHotel!.name;
+        if(getBookingByidResponse.data![i].dropoffHotel !=null)   dropOffHotelId=getBookingByidResponse.data![i].dropoffHotel!.hotelsId;
         pickupDate = getBookingByidResponse.data![i].bookingDate;
         pickupTime = getBookingByidResponse.data![i].bookingTime;
         visaId=getBookingByidResponse.data![i].visaTypesId;
@@ -203,6 +219,8 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
         updatevisaTypeId=getBookingByidResponse.data![i].visaTypesId;
         print("visaTypesId: ${getBookingByidResponse.data![i].visaTypesId}");
         print("updatevisaTypeId1: $updatevisaTypeId");
+        print("selectedHotel: $selectedHotel");
+        print("selectedDropOffHotel: $selectedDropOffHotel");
         setState(() {
           getSystemAllData();
 
@@ -609,7 +627,7 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
                                           selectedPickupLocation ==
                                               "Jeddah City"
                                       ? "No need to select Hotel"
-                                      : 'Pickup Hotel',
+                                      : selectedHotel  !=null ? selectedHotel: 'Pickup Hotel',
                                   hintStyle: const TextStyle(
                                     color: Color(0xFF929292),
                                     fontSize: 12,
@@ -654,6 +672,12 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
                                         setState(() {
                                           selectedHotel = value;
                                           print("Hotel: $selectedHotel");
+                                          for(int i=0;i<getHotelIdList!.data!.length;i++){
+                                            if(getHotelIdList!.data![i].name==selectedHotel){
+                                              pickUpHotelId=getHotelIdList!.data![i].hotelsId;
+                                              print("hotel Id ${pickUpHotelId}");
+                                            }
+                                          }
                                         });
                                       },
                               ),
@@ -830,7 +854,7 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
                                             selectedDropOff ==
                                                 "Madinah Hotel " ||
                                             selectedDropOff == "Makkah Hotel"
-                                        ? hintValue
+                                        ? selectedDropOffHotel !=null ? selectedDropOffHotel: hintValue
                                         : "No need to select Hotel",
                                     hintStyle: const TextStyle(
                                       color: Color(0xFF929292),
@@ -866,6 +890,13 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
                                     print("hiii");
                                     setState(() {
                                       selectedDropOffHotel = value;
+                                      for(int i=0;i<getDropOffHotelId!.data!.length;i++){
+                                        if(getDropOffHotelId!.data![i].name==selectedDropOffHotel){
+                                          dropOffHotelId=getDropOffHotelId!.data![i].hotelsId;
+                                          print("dropOffHotelId: ${dropOffHotelId}");
+                                        }
+
+                                      }
                                     });
                                   }),
                             ),
@@ -946,7 +977,7 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
                                       ? '$pickupDate'
                                       : "$currentDate",
                                   textAlign: TextAlign.center,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Color(0xFF79BF42),
                                     fontSize: 16,
                                     fontFamily: 'Montserrat-Regular',
@@ -1068,10 +1099,10 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
                               widget.onDataReceived(
                                   visaType: visaId!,
                                   serviceType: serviceType!,
-                                  dropOffHotel: selectedDropOffHotel,
+                                  dropOffHotel: dropOffHotelId,
                                   dropOffLocation: selectedDropOff!,
                                   pickUpData: pickupDate!,
-                                  pickupHotel: selectedHotel,
+                                  pickupHotel: pickUpHotelId,
                                   pickupLocation: selectedPickupLocation!,
                                   pickUpTime: pickupTime!,
                                   routesDropOffId: routesDropOffId,

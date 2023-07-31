@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 
 import '../../../models/get_drop_off_location_model.dart';
+import '../../../models/get_hotels_data.dart';
 import '../../../service/rest_api_serivice.dart';
 
 class TouristInfoPage extends StatefulWidget {
@@ -24,7 +25,7 @@ class TouristInfoPage extends StatefulWidget {
       int? routesPickUpId,
       int? tabbarIndex,
       String pickUpTime}) onDataReceived;
-  TouristInfoPage(
+  const TouristInfoPage(
       {super.key, this.tabController, required this.onDataReceived});
 
   @override
@@ -46,8 +47,10 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
   String? currentTime;
   String? selectedHotel;
   List<String>? getHotelsData = [];
+  GetHotelsData? getHotelIdList;
   String? selectedDropOffLocation;
   List<String>? getDropOffLocation = [];
+  GetHotelsData? getDropOffHotelId;
   String? selectedDropOffHotel;
   List<String>? getDropOffHotel = [];
   int routesPickupId = 0;
@@ -58,6 +61,8 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
   late List<String> pickupLocationData = [];
   late List<String> pickVehicleData = [];
   late List<String> serviceTypeData = [];
+  String? pickUpHotelId;
+  String? dropOffHotelId;
   getHotelsDataList({String? area}) async {
     final result = area!.split(' ').take(1).join(' ');
     print(result);
@@ -65,10 +70,13 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
     var mapData = {"data_type": "get_pickup_hotels", "hotel_name": result};
     var response = await DioClient().getHotelsData(mapData, context);
     print("data of hotels: $response");
+    getHotelIdList=response;
     if (response != null) {
       for (int i = 0; i < response.data!.length; i++) {
         getHotelsData!.add(response.data![i].name!);
+
         print("getHotelData: $getHotelsData");
+        print("getHotelIdList: ${getHotelIdList!.data}");
         setState(() {});
       }
     }
@@ -83,11 +91,14 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
       var mapData = {"data_type": "get_dropoff_hotels", "hotel_name": result};
       var response = await DioClient().getDropOffHotelData(mapData, context);
       print("data of dropoff hotels: $response");
+      getDropOffHotelId=response;
+
       if (response != null) {
         for (int i = 0; i < response.data!.length; i++) {
           hintValue = "Drop off Location";
           getDropOffHotel!.add(response.data![i].name!);
           print("getDropOffHotel: $getDropOffHotel");
+          print("getDropOffHotelId: $getDropOffHotelId");
           setState(() {});
         }
       }
@@ -609,6 +620,12 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                         setState(() {
                                           selectedHotel = value;
                                           print("Hotel: $selectedHotel");
+                                          for(int i=0;i<getHotelIdList!.data!.length;i++){
+                                            if(getHotelIdList!.data![i].name==selectedHotel){
+                                              pickUpHotelId=getHotelIdList!.data![i].hotelsId;
+                                              print("hotel Id ${pickUpHotelId}");
+                                            }
+                                          }
                                         });
                                       },
                               ),
@@ -811,6 +828,13 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                     print("hiii");
                                     setState(() {
                                       selectedDropOffHotel = value;
+                                      for(int i=0;i<getDropOffHotelId!.data!.length;i++){
+                                        if(getDropOffHotelId!.data![i].name==selectedDropOffHotel){
+                                          dropOffHotelId=getDropOffHotelId!.data![i].hotelsId;
+                                          print("dropOffHotelId: ${dropOffHotelId}");
+                                        }
+
+                                      }
                                     });
                                   }),
                             ),
@@ -1011,10 +1035,10 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                               widget.onDataReceived(
                                   visaType: visaId!,
                                   serviceType: serviceType!,
-                                  dropOffHotel: selectedDropOffHotel,
+                                  dropOffHotel: dropOffHotelId,
                                   dropOffLocation: selectedDropOff!,
                                   pickUpData: pickupDate!,
-                                  pickupHotel: selectedHotel,
+                                  pickupHotel: pickUpHotelId,
                                   pickupLocation: selectedPickupLocation!,
                                   pickUpTime: pickupTime!,
                                   routesDropOffId: routesDropOffId,

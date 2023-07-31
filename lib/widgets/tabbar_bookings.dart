@@ -3,6 +3,8 @@ import 'package:umrahcar/screens/booking_process/tab_screens/ongoing_screen.dart
 import 'package:umrahcar/screens/booking_process/tab_screens/upcoming_screen.dart';
 import 'package:umrahcar/screens/booking_process/tab_screens/completed_screen.dart';
 
+import '../screens/booking_process/tab_screens/pending_screen.dart';
+
 class TabbarBookings extends StatefulWidget {
   const TabbarBookings({super.key});
 
@@ -14,11 +16,11 @@ abstract class TickerProvider {}
 
 class _TabbarBookingsState extends State<TabbarBookings>
     with TickerProviderStateMixin {
-  List<String> tabs = ["On Going", "Upcoming", "Completed"];
+  List<String> tabs = ["On Going", "Upcoming", "Completed","Pending"];
 
   @override
   Widget build(BuildContext context) {
-    TabController tabController = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: 4, vsync: this);
     return Column(
       children: [
         Padding(
@@ -45,7 +47,7 @@ class _TabbarBookingsState extends State<TabbarBookings>
                   indicatorColor: const Color(0xFF79BF42),
                   isScrollable: true,
                   labelColor: Colors.white,
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 25),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 12),
                   labelStyle: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
@@ -63,6 +65,7 @@ class _TabbarBookingsState extends State<TabbarBookings>
                     Tab(text: "On Going"),
                     Tab(text: "Upcoming"),
                     Tab(text: "Completed"),
+                    Tab(text: "Pending"),
                   ],
                 ),
               )),
@@ -76,6 +79,7 @@ class _TabbarBookingsState extends State<TabbarBookings>
               OnGoingPage(),
               UpcomingPage(),
               CompletedPage(),
+              PendingPage(),
             ],
           ),
         ),
