@@ -259,7 +259,7 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
                     fontWeight: FontWeight.w500,
                   ),
                   tabs: const [
-                    Tab(text: "Tourist Info"),
+                    Tab(text: "Tour Info"),
                     Tab(text: "Other Info"),
                     Tab(text: "Guest Info"),
                   ],

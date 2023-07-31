@@ -53,7 +53,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
   int routesPickupId = 0;
   int routesDropOffId = 0;
   String? visaId;
-  String hintValue = "Drop off Location";
+  String hintValue = "Drop off Hotel";
   late List<String> visaTypeItems = [];
   late List<String> pickupLocationData = [];
   late List<String> pickVehicleData = [];

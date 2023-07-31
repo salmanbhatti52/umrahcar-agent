@@ -6,6 +6,7 @@ import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 import 'package:umrahcar/screens/edit_profile_screen.dart';
+import 'package:umrahcar/widgets/navbar.dart';
 
 import '../service/rest_api_serivice.dart';
 
@@ -67,6 +68,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 fontFamily: 'Montserrat-Regular',
                 fontWeight: FontWeight.w700),
           ),
+          leading: IconButton(onPressed: (){
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NavBar()));
+            setState(() {
+              
+            });
+          }, icon: const Icon(Icons.arrow_back,color: Colors.black,size: 25,)),
           centerTitle: true,
         ),
         body: SingleChildScrollView(

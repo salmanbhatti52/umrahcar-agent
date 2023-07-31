@@ -47,9 +47,9 @@ class _CreateBookingsPageState extends State<CreateBookingsPage> {
           backgroundColor: mainColor,
           elevation: 0,
           automaticallyImplyLeading: false,
-          title: const Text(
-            'Create Booking',
-            style: TextStyle(
+          title:  Text(
+            widget.updateBooking ==true? "Edit Booking" : 'Create Booking',
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 26,
               fontFamily: 'Montserrat-Regular',

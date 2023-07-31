@@ -58,7 +58,7 @@ class _TouristInfoPageUpdateState extends State<TouristInfoPageUpdate> {
   int routesPickupId = 0;
   int routesDropOffId = 0;
   String? visaId;
-  String hintValue = "Drop off Location";
+  String hintValue = "Drop off Hotel";
   late List<String> visaTypeItems = [];
   late List<String> visaTypeId = [];
   late List<String> pickupLocationData = [];
