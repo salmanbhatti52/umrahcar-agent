@@ -16,6 +16,7 @@ import '../models/add_booking_agent_model.dart';
 import '../models/forgot_verify_otp_model.dart';
 import '../models/ge_bookings_pending_by_id_model.dart';
 import '../models/get_booking_list_model.dart';
+import '../models/get_driver_profile.dart';
 import '../models/get_drop_off_location_model.dart';
 import '../models/login_model.dart';
 import '../models/login_model.dart';
@@ -297,6 +298,28 @@ class DioClient {
         throw 'SomeThing Missing';
       }
     } catch (e) {
+      rethrow;
+    }
+  }
+  Future<GetDriverProfile> getProfileDriver(String? uid,BuildContext context) async {
+    print("mapData: ${uid}");
+    String url= "$baseUrl/get_details_drivers/$uid";
+    print("url: ${url}");
+
+    try {
+      final response =
+      await _dio.post(url);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= GetDriverProfile.fromJson(response.data);
+        return res;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No Data Found")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No Data Found")));
+
       rethrow;
     }
   }

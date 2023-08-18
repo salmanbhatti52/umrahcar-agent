@@ -353,7 +353,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                             SizedBox(height: size.height * 0.02),
                             Text(
                               '${widget.getBookingData!.agentFare}',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Color(0xFF565656),
                                 fontSize: 12,
                                 fontFamily: 'Montserrat-Regular',
@@ -370,7 +370,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const PickUpPage(),
+                                  builder: (context) =>  PickUpPage(),
                                 ));
                           },
                           child: button('Track', context),

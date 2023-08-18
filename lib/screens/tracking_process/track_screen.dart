@@ -1,21 +1,30 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:umrahcar/models/get_booking_list_model.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/widgets/button.dart';
 import 'package:umrahcar/screens/tracking_process/tarcking/pickup_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'dart:ui' as ui;
+
+import '../../models/get_all_system_data_model.dart';
+import '../../models/get_driver_profile.dart';
+import '../../service/rest_api_serivice.dart';
 
 class TrackPage extends StatefulWidget {
-  GetBookingData getBookingData;
-   TrackPage({super.key,required this.getBookingData});
+  GetBookingData? getBookingData;
+  TrackPage({super.key, this.getBookingData});
 
   @override
   State<TrackPage> createState() => _TrackPageState();
 }
 
 class _TrackPageState extends State<TrackPage> {
-
   void _launchURL(_url) async => await canLaunch(_url)
       ? await launch(_url)
       : throw 'Could not launch $_url';
@@ -27,20 +36,163 @@ class _TrackPageState extends State<TrackPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
+  LatLng _initialcameraposition = LatLng(20.5937, 78.9629);
+  GoogleMapController? _controller;
+  Location _location = Location();
+
+  void _onMapCreated(GoogleMapController _cntlr) {
+    _controller = _cntlr;
+    _location.onLocationChanged.listen((l) {
+      _controller!.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(lat!, long!), zoom: 17),
+        ),
+      );
+    });
+  }
+
+  double? lat;
+  double? long;
+  @override
+  var icon;
+  BitmapDescriptor? markerIcon;
+  void addCustomIcon() async {
+    icon = await getBitmapDescriptorFromAssetBytes(
+        "assets/images/location.png", 50);
+    setState(() {});
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+  }
+
+  Future<BitmapDescriptor> getBitmapDescriptorFromAssetBytes(
+      String path, int width) async {
+    final Uint8List imageData = await getBytesFromAsset(path, width);
+    return BitmapDescriptor.fromBytes(imageData);
+  }
+
+  Timer? timer;
+  GetAllSystemData getAllSystemData = GetAllSystemData();
+
+  getSystemAllData() async {
+    getAllSystemData = await DioClient().getSystemAllData(context);
+    if (getAllSystemData != null) {
+      print("GETSystemAllData: ${getAllSystemData.data}");
+      setState(() {
+        getSettingsData();
+      });
+    }
+  }
+
+  late List<Setting> pickSettingsData = [];
+  int timerCount=3;
+  getSettingsData() {
+    if (getAllSystemData!.data! != null) {
+      for (int i = 0; i < getAllSystemData!.data!.settings!.length; i++) {
+        pickSettingsData.add(getAllSystemData!.data!.settings![i]);
+        print("Setting time= $pickSettingsData");
+      }
+
+      for (int i = 0; i < pickSettingsData.length; i++) {
+        if (pickSettingsData[i].type == "map_refresh_time") {
+
+          timerCount = int.parse(pickSettingsData[i].description!);
+          if (widget.getBookingData!.vehicles![0].vehiclesDrivers != null) {
+            print("timer refresh: ${timerCount}");
+            getProfile();
+            timer =
+                Timer.periodic( Duration(minutes: timerCount), (timer) => getProfile());
+            setState(() {});
+
+          }
+        } else if (pickSettingsData[i].type == "lattitude" && widget.getBookingData!.vehicles![0].vehiclesDrivers == null) {
+          lat = double.parse(pickSettingsData[i].description!);
+          print("timer lat: ${timerCount}");
+        } else if (pickSettingsData[i].type == "longitude"  && widget.getBookingData!.vehicles![0].vehiclesDrivers == null) {
+          long = double.parse(pickSettingsData[i].description!);
+          print("timer long: ${timerCount}");
+        }
+      }
+    }
+  }
+
+  void initState() {
+    getSystemAllData();
+
+    addCustomIcon();
+    if (widget.getBookingData!.vehicles![0].vehiclesDrivers != null) {
+
+      print(
+          "lat: ${widget.getBookingData!.vehicles![0].vehiclesDrivers!.lattitude}");
+      print(
+          "log: ${widget.getBookingData!.vehicles![0].vehiclesDrivers!.longitude}");
+    }
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer!.cancel();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  GetDriverProfile getProfileResponse = GetDriverProfile();
+  getProfile() async {
+    print("userIdId ${widget.getBookingData!.vehicles![0].usersDriversId}");
+
+    getProfileResponse = await DioClient().getProfileDriver(
+        widget.getBookingData!.vehicles![0].usersDriversId, context);
+    if (getProfileResponse.data != null) {
+      print(
+          "getProfileResponse name: ${getProfileResponse.data!.userData!.name}");
+      long = double.parse(getProfileResponse.data!.userData!.longitude!);
+      lat = double.parse(getProfileResponse.data!.userData!.lattitude!);
+      setState(() {});
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    print("latlat: ${lat}");
+    print("long: ${long}");
     return Scaffold(
       backgroundColor: mainColor,
-      body: Container(
+      body: getProfileResponse.data != null || long != null
+          ? Container(
         color: Colors.transparent,
         width: size.width,
         height: size.height,
         child: Stack(
           children: [
-            Image.asset(
-              'assets/images/track-map.png',
-              fit: BoxFit.cover,
+            Container(
+              height: MediaQuery.sizeOf(context).height / 2.28,
+              child: GoogleMap(
+                initialCameraPosition:
+                CameraPosition(target: _initialcameraposition),
+                mapType: MapType.normal,
+                onMapCreated: _onMapCreated,
+                myLocationEnabled: false,
+                markers: {
+                  Marker(
+                      markerId: MarkerId('Pakistan'),
+                      position: LatLng(lat!, long!),
+                      draggable: true,
+                      icon: icon != null
+                          ? icon!
+                          : BitmapDescriptor.defaultMarker)
+                },
+              ),
             ),
             Positioned(
               bottom: 0,
@@ -86,9 +238,9 @@ class _TrackPageState extends State<TrackPage> {
                           ),
                         ),
                         SizedBox(height: size.height * 0.02),
-                         Text(
+                        Text(
                           '${widget.getBookingData!.routes!.pickup!.name} (${widget.getBookingData!.routes!.pickup!.type})',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Color(0xFF565656),
                             fontSize: 12,
                             fontFamily: 'Montserrat-Regular',
@@ -106,7 +258,7 @@ class _TrackPageState extends State<TrackPage> {
                           ),
                         ),
                         SizedBox(height: size.height * 0.02),
-                         Text(
+                        Text(
                           '${widget.getBookingData!.routes!.dropoff!.name} (${widget.getBookingData!.routes!.dropoff!.type})',
                           style: const TextStyle(
                             color: Color(0xFF565656),
@@ -118,28 +270,32 @@ class _TrackPageState extends State<TrackPage> {
                         SizedBox(height: size.height * 0.025),
                         Row(
                           children: [
-                            for(int i=0; i<widget.getBookingData!.vehicles!.length; i++)
+                            for (int i = 0;
+                            i <
+                                widget
+                                    .getBookingData!.vehicles!.length;
+                            i++)
                               Padding(
                                 padding: const EdgeInsets.only(right: 7),
                                 child: Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/fast-car-icon.svg',
-                                    width: 10,
-                                    height: 10,
-                                  ),
-                                  SizedBox(width: size.width * 0.01),
-                                   Text(
-                                    '${widget.getBookingData!.vehicles![i]!.vehiclesName!.name}',
-                                    style: const TextStyle(
-                                      color: Color(0xFF565656),
-                                      fontSize: 10,
-                                      fontFamily: 'Montserrat-Regular',
-                                      fontWeight: FontWeight.w500,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/images/fast-car-icon.svg',
+                                      width: 10,
+                                      height: 10,
                                     ),
-                                  ),
-                                ],
-                            ),
+                                    SizedBox(width: size.width * 0.01),
+                                    Text(
+                                      '${widget.getBookingData!.vehicles![i]!.vehiclesName!.name}',
+                                      style: const TextStyle(
+                                        color: Color(0xFF565656),
+                                        fontSize: 10,
+                                        fontFamily: 'Montserrat-Regular',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                           ],
                         ),
@@ -154,7 +310,7 @@ class _TrackPageState extends State<TrackPage> {
                                   height: 20,
                                 ),
                                 SizedBox(width: size.width * 0.032),
-                                 Text(
+                                Text(
                                   '${widget.getBookingData!.flightDate}',
                                   style: const TextStyle(
                                     color: Color(0xFF565656),
@@ -174,9 +330,9 @@ class _TrackPageState extends State<TrackPage> {
                                   height: 20,
                                 ),
                                 SizedBox(width: size.width * 0.032),
-                                 Text(
+                                Text(
                                   '${widget.getBookingData!.pickupTime}',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Color(0xFF565656),
                                     fontSize: 12,
                                     fontFamily: 'Montserrat-Regular',
@@ -207,9 +363,9 @@ class _TrackPageState extends State<TrackPage> {
                                 SizedBox(width: size.width * 0.032),
                                 SizedBox(
                                   width: size.width * 0.275,
-                                  child:  Text(
+                                  child: Text(
                                     '${widget.getBookingData!.name}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       color: Color(0xFF565656),
                                       fontSize: 12,
                                       fontFamily: 'Montserrat-Regular',
@@ -230,7 +386,7 @@ class _TrackPageState extends State<TrackPage> {
                                 SizedBox(width: size.width * 0.045),
                                 SizedBox(
                                   width: size.width * 0.275,
-                                  child:  Text(
+                                  child: Text(
                                     '(${widget.getBookingData!.noOfPassengers} Passengers)',
                                     style: const TextStyle(
                                       color: Color(0xFF565656),
@@ -254,7 +410,7 @@ class _TrackPageState extends State<TrackPage> {
                                 SizedBox(width: size.width * 0.032),
                                 SizedBox(
                                   width: size.width * 0.275,
-                                  child:  Text(
+                                  child: Text(
                                     '${widget.getBookingData!.contact}',
                                     style: const TextStyle(
                                       color: Color(0xFF565656),
@@ -268,12 +424,10 @@ class _TrackPageState extends State<TrackPage> {
                             ),
                             SizedBox(width: size.width * 0.14),
                             InkWell(
-                              onTap: (){
+                              onTap: () {
                                 _launchURL(
                                     'https://wa.me/${widget.getBookingData!.whatsapp}/?text=hello');
-                                setState(() {
-
-                                });
+                                setState(() {});
                               },
                               child: Row(
                                 children: [
@@ -282,7 +436,7 @@ class _TrackPageState extends State<TrackPage> {
                                   SizedBox(width: size.width * 0.032),
                                   SizedBox(
                                     width: size.width * 0.275,
-                                    child:  Text(
+                                    child: Text(
                                       '${widget.getBookingData!.whatsapp}',
                                       style: const TextStyle(
                                         color: Color(0xFF565656),
@@ -302,64 +456,70 @@ class _TrackPageState extends State<TrackPage> {
                           color: const Color(0xFF929292).withOpacity(0.3),
                           thickness: 1,
                         ),
-                        if(widget.getBookingData!.bookedFare !="0")
+                        if (widget.getBookingData!.bookedFare != "0")
                           SizedBox(height: size.height * 0.01),
-                       if(widget.getBookingData!.bookedFare !="0")
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                         children: [
-                           const Text(
-                             'Booked Fare',
-                             style: TextStyle(
-                               color: Color(0xFF929292),
-                               fontSize: 12,
-                               fontFamily: 'Montserrat-Regular',
-                               fontWeight: FontWeight.w400,
-                             ),
-                           ),
-                           SizedBox(height: size.height * 0.03),
-                           Text(
-                             'credit (${widget.getBookingData!.bookedFare})',
-                             style: TextStyle(
-                               color: Color(0xFF565656),
-                               fontSize: 12,
-                               fontFamily: 'Montserrat-Regular',
-                               fontWeight: FontWeight.w500,
-                             ),
-                           ),
-                         ],
-                       ),
-                        if(widget.getBookingData!.cashReceiveFromCustomer != "0")
-
+                        if (widget.getBookingData!.bookedFare != "0")
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Booked Fare',
+                                style: TextStyle(
+                                  color: Color(0xFF929292),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(height: size.height * 0.03),
+                              Text(
+                                'credit (${widget.getBookingData!.bookedFare})',
+                                style: TextStyle(
+                                  color: Color(0xFF565656),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        if (widget.getBookingData!
+                            .cashReceiveFromCustomer !=
+                            "0")
                           SizedBox(height: size.height * 0.02),
-                        if(widget.getBookingData!.cashReceiveFromCustomer != "0")
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Cash Receive From Customer',
-                              style: TextStyle(
-                                color: Color(0xFF929292),
-                                fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w400,
+                        if (widget.getBookingData!
+                            .cashReceiveFromCustomer !=
+                            "0")
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Cash Receive From Customer',
+                                style: TextStyle(
+                                  color: Color(0xFF929292),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
-                            ),
-                            SizedBox(height: size.height * 0.02),
-                            Text(
-                              'credit (${widget.getBookingData!.cashReceiveFromCustomer})',
-                              style: TextStyle(
-                                color: Color(0xFF565656),
-                                fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w500,
+                              SizedBox(height: size.height * 0.02),
+                              Text(
+                                'credit (${widget.getBookingData!.cashReceiveFromCustomer})',
+                                style: TextStyle(
+                                  color: Color(0xFF565656),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
                         SizedBox(height: size.height * 0.02),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
                               'Agent Fare',
@@ -383,20 +543,20 @@ class _TrackPageState extends State<TrackPage> {
                           ],
                         ),
                         SizedBox(height: size.height * 0.03),
-
-
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PickUpPage(),
-                                ));
-                          },
-                          child: button('Track', context),
-                        ),
+                        if (widget.getBookingData!.vehicles![0]
+                            .vehiclesDrivers !=
+                            null)
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PickUpPage(),
+                                  ));
+                            },
+                            child: button('Track', context),
+                          ),
                         SizedBox(height: size.height * 0.02),
-
                       ],
                     ),
                   ),
@@ -415,6 +575,16 @@ class _TrackPageState extends State<TrackPage> {
             ),
           ],
         ),
+      )
+          : Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 175, top: 30),
+            child: CircularProgressIndicator(),
+          ),
+        ],
       ),
     );
   }

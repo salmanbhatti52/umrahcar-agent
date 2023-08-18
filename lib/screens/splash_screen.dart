@@ -30,14 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
     return Timer(duration, route);
   }
 
-  route() async{
+  route() async {
     final _sharedPref = await SharedPreferences.getInstance();
-    var uid=_sharedPref.getString('userId');
+    var uid = _sharedPref.getString('userId');
     print("uiduid: ${uid}");
-    uid !=null? Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) =>  NavBar())):
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const LogInPage()));
+    uid != null
+        ? Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => NavBar()))
+        : Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LogInPage()));
   }
 
   initScreen(BuildContext context) {
@@ -47,8 +48,11 @@ class _SplashScreenState extends State<SplashScreen> {
       },
       child: Scaffold(
           backgroundColor: mainColor,
-          body: Center(
-            child: SvgPicture.asset("assets/images/splash-icon.svg"),
+          body: SvgPicture.asset(
+            "assets/images/splash-icon.svg",
+            height: double.infinity,
+            width: double.infinity,
+            fit: BoxFit.fill,
           )),
     );
   }
