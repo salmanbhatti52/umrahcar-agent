@@ -176,14 +176,19 @@ class _PendingPageState extends State<PendingPage> {
               ),
             ),
             SizedBox(height: size.height * 0.03),
-            getBookingResponse !=null?    Container(
+             Container(
               color: Colors.transparent,
               height: size.height * 0.6,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: onPendingList(context,getBookingResponse),
+                child: getBookingResponse !=null ? onPendingList(context,getBookingResponse): const Column(
+                  children: [
+                    SizedBox(height: 250,),
+                    Text("No Pending Booking"),
+                  ],
+                ),
               ),
-            ): CircularProgressIndicator(),
+            ),
           ],
         ),
       ),

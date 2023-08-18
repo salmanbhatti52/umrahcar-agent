@@ -171,7 +171,7 @@ Widget onPendingList(BuildContext context,GetBookingListModel getBookingPendingD
   ):Container(
     height: 300,
     width: 300,
-    child: const Center(child: Text("No Ongoing Booking")),
+    child: const Center(child: Text("No Pending Booking")),
   );
 }
 
