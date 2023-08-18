@@ -3,6 +3,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    <uses-permission
+            android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+            android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:label="Umrah Car\nAgent"
@@ -33,8 +37,10 @@
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
-            android:name="flutterEmbedding"
-            android:value="2" />
+                android:name="flutterEmbedding"
+                android:value="2" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+                   android:value="AIzaSyAk-CA4yYf-txNZvvwmCshykjpLiASEkcw"/>
 
     </application>
     <!-- Provide required visibility configuration for API level 30 and above -->
