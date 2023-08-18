@@ -60,7 +60,7 @@ class GetBookingData {
   String? paymentType;
   String? dateAdded;
   String? dateModified;
-  String? finalStatus;
+  FinalStatus? finalStatus;
   String? finalStatusOther;
   String? paymentStatus;
   String? completedStatus;
@@ -171,7 +171,7 @@ class GetBookingData {
     paymentType: json["payment_type"],
     dateAdded: json["date_added"],
     dateModified: json["date_modified"],
-    finalStatus: json["final_status"],
+    finalStatus:json["final_status"] !=null ? FinalStatus.fromJson(json["final_status"]): null,
     finalStatusOther: json["final_status_other"],
     paymentStatus: json["payment_status"],
     completedStatus: json["completed_status"],
@@ -228,7 +228,7 @@ class GetBookingData {
     "payment_type": paymentType,
     "date_added": dateAdded,
     "date_modified": dateModified,
-    "final_status": finalStatus,
+    "final_status": finalStatus!.toJson(),
     "final_status_other": finalStatusOther,
     "payment_status": paymentStatus,
     "completed_status": completedStatus,
@@ -269,7 +269,29 @@ class DriverTripStatus {
     "status": statusValues.reverse[status],
   };
 }
+class FinalStatus {
+  String? bookingsFinalStatusId;
+  String? name;
+  String? status;
 
+  FinalStatus({
+    this.bookingsFinalStatusId,
+    this.name,
+    this.status,
+  });
+
+  factory FinalStatus.fromJson(Map<String, dynamic> json) => FinalStatus(
+    bookingsFinalStatusId: json["bookings_final_status_id"],
+    name: json["name"],
+    status: json["status"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "bookings_final_status_id": bookingsFinalStatusId,
+    "name": name,
+    "status": status,
+  };
+}
 class DropoffHotel {
   String? hotelsId;
   String? citiesId;

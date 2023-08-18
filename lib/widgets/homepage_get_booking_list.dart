@@ -49,13 +49,18 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        getData.name!,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontFamily: 'Montserrat-Regular',
-                          fontWeight: FontWeight.w500,
+                      Container(
+                        width: 175,
+                        child: Text(
+                          getData.name!,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontFamily: 'Montserrat-Regular',
+                            fontWeight: FontWeight.w500,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                       SizedBox(height: size.height * 0.005),
