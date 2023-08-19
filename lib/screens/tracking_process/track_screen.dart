@@ -218,14 +218,28 @@ class _TrackPageState extends State<TrackPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: size.height * 0.03),
-                        const Text(
-                          'Bookings Details',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Row(
+                          children: [
+                             const Text(
+                              'Bookings Details',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontFamily: 'Montserrat-Regular',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                             const SizedBox(width: 20,),
+                             Text(
+                              '(Booking Id ${widget.getBookingData!.bookingsId})',
+                              style: const TextStyle(
+                                color: Colors.black,
+                                fontSize: 12,
+                                fontFamily: 'Montserrat-Regular',
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(height: size.height * 0.02),
                         const Text(

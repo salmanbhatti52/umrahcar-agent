@@ -11,7 +11,8 @@ class NavBar extends StatefulWidget {
   int? indexNmbr;
   bool? updateBooking=false;
   String? bookingId="0";
-   NavBar({super.key,this.indexNmbr,this.updateBooking,this.bookingId});
+  int? walletPage;
+   NavBar({super.key,this.indexNmbr,this.updateBooking,this.bookingId,this.walletPage});
 
   @override
   State<NavBar> createState() => _NavBarState();
@@ -42,10 +43,11 @@ class _NavBarState extends State<NavBar> {
       const HomePage(),
       const BookingsPage(),
       CreateBookingsPage(updateBooking: widget.updateBooking,bookingId: widget.bookingId),
-      const WalletPage(),
+       WalletPage(indexNmbr: widget.walletPage,),
       const ProfilePage(),
     ];
     widget.bookingId=null;
+    widget.indexNmbr=null;
       return Scaffold(
         backgroundColor: mainColor,
         bottomNavigationBar: Container(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:umrahcar/models/add_card_model.dart';
 import 'package:umrahcar/models/forgot_password_otp_model.dart';
 import 'package:umrahcar/models/get_agent_widget_data_model.dart';
 import 'package:umrahcar/models/get_all_system_data_model.dart';
@@ -498,6 +499,28 @@ class DioClient {
       rethrow;
     }
   }
+ Future<AddCardModel> addCard(Map<String?,dynamic?> model,BuildContext context) async {
+   print("data: ${model}");
+    try {
+      final response =
+      await _dio.post('$baseUrl/transactions_agents_add',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= AddCardModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received.")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received.")));
+
+      rethrow;
+    }
+  }
+
+
 
 
 

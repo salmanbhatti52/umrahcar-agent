@@ -113,7 +113,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                       ),
                     ),SizedBox(height: size.height * 0.005),
                     Text(
-                      "User Agent Id: ${summaryAgentModel.data![i].usersAgentsId!}",
+                      "Accounts Head Name: ${summaryAgentModel.data![i].accountsHeadsId!.name!}",
                       style: const TextStyle(
                         color: Color(0xFF565656),
                         fontSize: 10,
@@ -122,7 +122,16 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                       ),
                     ),SizedBox(height: size.height * 0.005),
                     Text(
-                      "User Agent Account Id: ${summaryAgentModel.data![i].usersAgentsAccountsId!}",
+                      "Agent Name: ${summaryAgentModel.data![i].usersAgentsId!.name!}",
+                      style: const TextStyle(
+                        color: Color(0xFF565656),
+                        fontSize: 10,
+                        fontFamily: 'Montserrat-Regular',
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),SizedBox(height: size.height * 0.005),
+                    Text(
+                      "Company Name: ${summaryAgentModel.data![i].usersAgentsId!.agency!}",
                       style: const TextStyle(
                         color: Color(0xFF565656),
                         fontSize: 10,
@@ -153,6 +162,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
 
               ],
         ),
+            SizedBox(height: 30,),
           ]
             );
       }):const Column(

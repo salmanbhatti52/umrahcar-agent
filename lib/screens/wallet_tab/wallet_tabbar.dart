@@ -8,7 +8,8 @@ import 'package:umrahcar/screens/wallet_tab/summary_agent_page.dart';
 import 'package:umrahcar/service/rest_api_serivice.dart';
 
 class WalletTabBarScreen extends StatefulWidget {
-  const WalletTabBarScreen({super.key});
+  int? indexNmbr=0;
+   WalletTabBarScreen({super.key,this.indexNmbr});
 
   @override
   State<WalletTabBarScreen> createState() => _WalletTabBarScreenState();
@@ -19,9 +20,11 @@ abstract class TickerProvider {}
 class _WalletTabBarScreenState extends State<WalletTabBarScreen>
     with TickerProviderStateMixin {
 
-
+int index=0;
   @override
   void initState() {
+    print("indexxxx: ${widget.indexNmbr}");
+   index= widget.indexNmbr!;
     // TODO: implement initState
     super.initState();
   }
@@ -29,7 +32,7 @@ class _WalletTabBarScreenState extends State<WalletTabBarScreen>
   @override
   Widget build(BuildContext context) {
     TabController tabController =
-    TabController(length: 2, vsync: this, initialIndex: 0);
+    TabController(length: 2, vsync: this, initialIndex: index);
     return Column(
       children: [
         Padding(

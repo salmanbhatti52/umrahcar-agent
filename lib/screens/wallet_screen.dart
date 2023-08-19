@@ -4,11 +4,13 @@ import 'package:umrahcar/widgets/top_boxes.dart';
 import 'package:umrahcar/widgets/wallet_list.dart';
 
 import '../service/rest_api_serivice.dart';
+import 'booking_process/tab_screens/add_card_page.dart';
 import 'wallet_tab/wallet_tabbar.dart';
 import 'homepage_screen.dart';
 
 class WalletPage extends StatefulWidget {
-  const WalletPage({super.key});
+  int? indexNmbr=0;
+   WalletPage({super.key,this.indexNmbr});
 
   @override
   State<WalletPage> createState() => _WalletPageState();
@@ -34,6 +36,7 @@ class _WalletPageState extends State<WalletPage> {
   @override
   void initState() {
     getAgentWidgetData();
+    print(" widget.indexNmbr: ${ widget.indexNmbr}");
     // TODO: implement initState
     super.initState();
   }
@@ -94,11 +97,18 @@ class _WalletPageState extends State<WalletPage> {
                       children: [
                         bignoimagebox('${getAgentsWidgetData.data.bookingsTotalDeposit}', 'Wallet Amount', context),
                         SizedBox(width: size.width * 0.04),
-                        bignoimageredbox('Add', 'Debit/Credit card', context),
+                        InkWell(
+                            onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>const AddCardPage()));
+                            setState(() {
+
+                            });
+                            },
+                            child: bignoimageredbox('Add', 'Debit/Credit card', context)),
                       ],
                     ),
                     SizedBox(height: size.height * 0.03),
-                    WalletTabBarScreen(),
+                 widget.indexNmbr==null?   WalletTabBarScreen(indexNmbr: 0): WalletTabBarScreen(indexNmbr: 1),
                   ],
                 ),
               ),

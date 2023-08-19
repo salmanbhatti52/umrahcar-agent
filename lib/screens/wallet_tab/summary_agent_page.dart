@@ -55,7 +55,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 const Text(
                   'Company Name',
                   style: TextStyle(
-                    color: Color(0xFF929292),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w400,
@@ -66,7 +66,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                  Text(
                   '${summaryAgentModel.data!.agencyName}',
                   style: const TextStyle(
-                    color: Color(0xFF565656),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w500,
@@ -83,7 +83,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 const Text(
                   'Total Completed Trips',
                   style: TextStyle(
-                    color: Color(0xFF929292),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w400,
@@ -94,7 +94,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 Text(
                   '${summaryAgentModel.data!.totalCompletedTrips}',
                   style: const TextStyle(
-                    color: Color(0xFF565656),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w500,
@@ -111,7 +111,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 const Text(
                   'Total Agent Fare',
                   style: TextStyle(
-                    color: Color(0xFF929292),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w400,
@@ -122,7 +122,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 Text(
                   '${summaryAgentModel.data!.totalAgentFare}',
                   style: const TextStyle(
-                    color: Color(0xFF565656),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w500,
@@ -139,7 +139,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 const Text(
                   'Total Agent Receiving Debit',
                   style: TextStyle(
-                    color: Color(0xFF929292),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w400,
@@ -150,7 +150,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 Text(
                   '${summaryAgentModel.data!.totalAgentsReceivingsDebit}',
                   style: const TextStyle(
-                    color: Color(0xFF565656),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w500,
@@ -167,7 +167,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 const Text(
                   'Total Agent Receiving Credit',
                   style: TextStyle(
-                    color: Color(0xFF929292),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w400,
@@ -178,7 +178,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 Text(
                   '${summaryAgentModel.data!.totalAgentsReceivingsCredit}',
                   style: const TextStyle(
-                    color: Color(0xFF565656),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w500,
@@ -194,10 +194,10 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 const Text(
                   'Total Agent Balance',
                   style: TextStyle(
-                    color: Color(0xFF929292),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(height: size.height * 0.03),
@@ -205,7 +205,7 @@ class _SummaryAgentPageState extends State<SummaryAgentPage> {
                 Text(
                   '${summaryAgentModel.data!.totalAgentsBalance}',
                   style: const TextStyle(
-                    color: Color(0xFF565656),
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Montserrat-Regular',
                     fontWeight: FontWeight.w500,
