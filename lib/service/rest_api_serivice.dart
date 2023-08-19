@@ -10,6 +10,8 @@ import 'package:umrahcar/models/get_hotels_data.dart';
 import 'package:umrahcar/models/get_profile_model.dart';
 import 'package:umrahcar/models/gets_routes_data_model.dart';
 import 'package:umrahcar/models/login_model.dart';
+import 'package:umrahcar/models/pending_transaction_model.dart';
+import 'package:umrahcar/models/summary_agent_model.dart';
 import 'package:umrahcar/models/update_profile_model.dart';
 
 import '../models/add_booking_agent_model.dart';
@@ -453,6 +455,46 @@ class DioClient {
         throw 'SomeThing Missing';
       }
     } catch (e) {
+      rethrow;
+    }
+  }
+  Future<SummaryAgentModel> summaryAgent(Map<String?,dynamic?> model,BuildContext context) async {
+   print("data: ${model}");
+    try {
+      final response =
+      await _dio.post('$baseUrl/summary_agents',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= SummaryAgentModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received.")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received.")));
+
+      rethrow;
+    }
+  }
+  Future<PendingTransactiontModel> pendingTransactions(Map<String?,dynamic?> model,BuildContext context) async {
+   print("data: ${model}");
+    try {
+      final response =
+      await _dio.post('$baseUrl/transactions_agents',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= PendingTransactiontModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received.")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No data received.")));
+
       rethrow;
     }
   }

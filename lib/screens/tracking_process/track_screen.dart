@@ -343,101 +343,46 @@ class _TrackPageState extends State<TrackPage> {
                             ),
                           ],
                         ),
-                        SizedBox(height: size.height * 0.02),
-                        Divider(
-                          color: const Color(0xFF929292).withOpacity(0.3),
-                          thickness: 1,
-                        ),
-                        SizedBox(height: size.height * 0.02),
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 15,
-                                  child: Image.asset(
-                                    'assets/images/user-profile.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                SizedBox(width: size.width * 0.032),
-                                SizedBox(
-                                  width: size.width * 0.275,
-                                  child: Text(
-                                    '${widget.getBookingData!.name}',
-                                    style: const TextStyle(
-                                      color: Color(0xFF565656),
-                                      fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
+
+                          SizedBox(height: size.height * 0.02),
+                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
+                          Divider(
+                            color: const Color(0xFF929292).withOpacity(0.3),
+                            thickness: 1,
+                          ),
+                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
+
+                          SizedBox(height: size.height * 0.01),
+                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
+                          const Text(
+                            'Driver Details',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontFamily: 'Montserrat-Regular',
+                              fontWeight: FontWeight.w600,
                             ),
-                            SizedBox(width: size.width * 0.115),
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/images/passenger-icon.svg',
-                                  width: 20,
-                                  height: 20,
-                                ),
-                                SizedBox(width: size.width * 0.045),
-                                SizedBox(
-                                  width: size.width * 0.275,
-                                  child: Text(
-                                    '(${widget.getBookingData!.noOfPassengers} Passengers)',
-                                    style: const TextStyle(
-                                      color: Color(0xFF565656),
-                                      fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.02),
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                    'assets/images/contact-icon.svg'),
-                                SizedBox(width: size.width * 0.032),
-                                SizedBox(
-                                  width: size.width * 0.275,
-                                  child: Text(
-                                    '${widget.getBookingData!.contact}',
-                                    style: const TextStyle(
-                                      color: Color(0xFF565656),
-                                      fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: size.width * 0.14),
-                            InkWell(
-                              onTap: () {
-                                _launchURL(
-                                    'https://wa.me/${widget.getBookingData!.whatsapp}/?text=hello');
-                                setState(() {});
-                              },
-                              child: Row(
+                          ),
+                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
+                          SizedBox(height: size.height * 0.04),
+                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
+                          Row(
+                            children: [
+                              Row(
                                 children: [
-                                  SvgPicture.asset(
-                                      'assets/images/whatsapp-icon.svg'),
+                                  CircleAvatar(
+                                    radius: 15,
+                                    child: Image.asset(
+                                      'assets/images/user-profile.png',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                   SizedBox(width: size.width * 0.032),
                                   SizedBox(
                                     width: size.width * 0.275,
                                     child: Text(
-                                      '${widget.getBookingData!.whatsapp}',
+                                      '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.name}',
                                       style: const TextStyle(
                                         color: Color(0xFF565656),
                                         fontSize: 12,
@@ -448,9 +393,87 @@ class _TrackPageState extends State<TrackPage> {
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
+                              SizedBox(width: size.width * 0.115),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/images/location-icon.svg',
+                                    width: 20,
+                                    height: 20,
+                                  ),
+                                  SizedBox(width: size.width * 0.045),
+                                  SizedBox(
+                                    width: size.width * 0.275,
+                                    child: Text(
+                                      '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.city}',
+                                      style: const TextStyle(
+                                        color: Color(0xFF565656),
+                                        fontSize: 12,
+                                        fontFamily: 'Montserrat-Regular',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
+
+                          SizedBox(height: size.height * 0.02),
+                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
+
+                          Row(
+                            children: [
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                      'assets/images/contact-icon.svg'),
+                                  SizedBox(width: size.width * 0.032),
+                                  SizedBox(
+                                    width: size.width * 0.275,
+                                    child: Text(
+                                      '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.contact}',
+                                      style: const TextStyle(
+                                        color: Color(0xFF565656),
+                                        fontSize: 12,
+                                        fontFamily: 'Montserrat-Regular',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(width: size.width * 0.14),
+                              InkWell(
+                                onTap: () {
+                                  print("nmbr: ${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}");
+                                  _launchURL(
+                                      'https://wa.me/${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}/?text=hello');
+                                  setState(() {});
+                                },
+                                child: Row(
+                                  children: [
+                                    SvgPicture.asset(
+                                        'assets/images/whatsapp-icon.svg'),
+                                    SizedBox(width: size.width * 0.032),
+                                    SizedBox(
+                                      width: size.width * 0.275,
+                                      child: Text(
+                                        '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}',
+                                        style: const TextStyle(
+                                          color: Color(0xFF565656),
+                                          fontSize: 12,
+                                          fontFamily: 'Montserrat-Regular',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         SizedBox(height: size.height * 0.02),
                         Divider(
                           color: const Color(0xFF929292).withOpacity(0.3),
@@ -473,15 +496,26 @@ class _TrackPageState extends State<TrackPage> {
                                 ),
                               ),
                               SizedBox(height: size.height * 0.03),
-                              Text(
-                                'credit (${widget.getBookingData!.bookedFare})',
+                              widget.getBookingData!.paymentType=="credit"?
+                              const Text(
+                                'credit',
                                 style: TextStyle(
                                   color: Color(0xFF565656),
                                   fontSize: 12,
                                   fontFamily: 'Montserrat-Regular',
                                   fontWeight: FontWeight.w500,
                                 ),
-                              ),
+                              ):
+                              Text(
+                                '${widget.getBookingData!.bookedFare}',
+                                style: const TextStyle(
+                                  color: Color(0xFF565656),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+
                             ],
                           ),
                         if (widget.getBookingData!
@@ -507,7 +541,7 @@ class _TrackPageState extends State<TrackPage> {
                               SizedBox(height: size.height * 0.02),
                               Text(
                                 'credit (${widget.getBookingData!.cashReceiveFromCustomer})',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Color(0xFF565656),
                                   fontSize: 12,
                                   fontFamily: 'Montserrat-Regular',
@@ -516,32 +550,7 @@ class _TrackPageState extends State<TrackPage> {
                               ),
                             ],
                           ),
-                        SizedBox(height: size.height * 0.02),
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text(
-                              'Agent Fare',
-                              style: TextStyle(
-                                color: Color(0xFF929292),
-                                fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            SizedBox(height: size.height * 0.02),
-                            Text(
-                              '${widget.getBookingData!.agentFare}',
-                              style: TextStyle(
-                                color: Color(0xFF565656),
-                                fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
+
                         SizedBox(height: size.height * 0.03),
                         if (widget.getBookingData!.vehicles![0]
                             .vehiclesDrivers !=
@@ -551,7 +560,9 @@ class _TrackPageState extends State<TrackPage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => PickUpPage(),
+                                    builder: (context) => PickUpPage(
+                                        getBookingData:
+                                        widget.getBookingData),
                                   ));
                             },
                             child: button('Track', context),

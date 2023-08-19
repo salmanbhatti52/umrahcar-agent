@@ -4,6 +4,7 @@ import 'package:umrahcar/widgets/top_boxes.dart';
 import 'package:umrahcar/widgets/wallet_list.dart';
 
 import '../service/rest_api_serivice.dart';
+import 'wallet_tab/wallet_tabbar.dart';
 import 'homepage_screen.dart';
 
 class WalletPage extends StatefulWidget {
@@ -91,33 +92,13 @@ class _WalletPageState extends State<WalletPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        bignoimagebox('${getAgentsWidgetData.data.bookingsTotalDeposit}', 'Total Deposit', context),
+                        bignoimagebox('${getAgentsWidgetData.data.bookingsTotalDeposit}', 'Wallet Amount', context),
                         SizedBox(width: size.width * 0.04),
-                        bignoimageredbox('${getAgentsWidgetData.data.bookingsTotalReamining}', 'Remaining', context),
+                        bignoimageredbox('Add', 'Debit/Credit card', context),
                       ],
                     ),
                     SizedBox(height: size.height * 0.03),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: Text(
-                        'Transaction History',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Montserrat-Regular',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: size.height * 0.029),
-                    Container(
-                      color: Colors.transparent,
-                      height: size.height * 0.579,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: walletList(context),
-                      ),
-                    ),
+                    WalletTabBarScreen(),
                   ],
                 ),
               ),

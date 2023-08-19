@@ -4,8 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:umrahcar/screens/tracking_process/tarcking/reached_screen.dart';
 
+import '../../../models/get_booking_list_model.dart';
+
 class PickUpPage extends StatefulWidget {
-  const PickUpPage({super.key});
+  GetBookingData? getBookingData;
+  PickUpPage({super.key, this.getBookingData});
 
   @override
   State<PickUpPage> createState() => _PickUpPageState();
