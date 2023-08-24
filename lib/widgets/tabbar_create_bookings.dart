@@ -49,6 +49,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
   String? vid2;
   String? vid3;
   String? selectedPaymentMethod1;
+  String? cashFromGuest1;
 
   void onDataReceived(
       {int? tabbarIndex,
@@ -120,6 +121,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
       String? totalNumberOfPassengers,
         String? vehicleName,
         String? selectedPaymentMethod,
+        String? cashFromGuest,
 
       }) {
     setState(() {
@@ -180,6 +182,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
        currentIndex=tabbarIndex;
        vehicleName1=vehicleName;
       selectedPaymentMethod1=selectedPaymentMethod;
+      cashFromGuest1=cashFromGuest;
 
       print("vid: $vid");
       print("vid1: $vid1");
@@ -307,6 +310,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                 vehicleId3: vid3,
                 vehicleName: vehicleName1,
                 selectedPaymentMethod: selectedPaymentMethod1,
+                cashFromGuest: cashFromGuest1,
               ),
             ],
           ),

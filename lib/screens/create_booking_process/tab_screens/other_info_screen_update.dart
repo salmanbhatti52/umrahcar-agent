@@ -50,6 +50,7 @@ class OtherInfoPageUpdate extends StatefulWidget {
       String? vehicleName,
       String? totalNumberOfPassengers,
       String? selectedPaymentMethod,
+      String? cashFromGuest,
 
 
 
@@ -71,6 +72,8 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
   TextEditingController numberOfinfants = TextEditingController();
   TextEditingController numberOfAdults = TextEditingController();
   TextEditingController nmbrOfLuggage = TextEditingController();
+  TextEditingController cashAmountController = TextEditingController();
+
   final GlobalKey<FormState> guestInfoFormKey = GlobalKey<FormState>();
   int totalPassengers=0;
   int childs=0;
@@ -265,6 +268,9 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
         numberOfinfants.text=getBookingByidResponse.data![i].noOfInfants!;
         totalNumberOfPassengers=int.parse(getBookingByidResponse.data![i].noOfPassengers!);
         selectedPaymentMethod=getBookingByidResponse.data![i].paymentType!;
+        if(selectedPaymentMethod=="cash"){
+          cashAmountController.text=getBookingByidResponse.data![i].cashReceiveFromCustomer!;
+        }
         airlineName=getBookingByidResponse.data![i].flightCompanies!.name!;
         flightnumberController.text=getBookingByidResponse.data![i].flightNumber!;
         flightdetailsController.text=getBookingByidResponse.data![i].flightDetails!;
@@ -873,6 +879,81 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                     ),
                   ),
                 ),
+                if(selectedPaymentMethod=="cash")
+
+                  SizedBox(height: size.height * 0.03),
+                if(selectedPaymentMethod=="cash")
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: TextFormField(
+                      controller: cashAmountController,
+                      keyboardType: TextInputType.text,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Cash Amount field is required!';
+                        }
+                        return null;
+                      },
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Montserrat-Regular',
+                        fontSize: 16,
+                        color: Color(0xFF6B7280),
+                      ),
+                      decoration: InputDecoration(
+                        filled: false,
+                        errorStyle: const TextStyle(
+                          color: Colors.red,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          wordSpacing: 2,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(Radius.circular(16)),
+                          borderSide: BorderSide(
+                            color: const Color(0xFF000000).withOpacity(0.15),
+                            width: 1,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(Radius.circular(16)),
+                          borderSide: BorderSide(
+                            color: const Color(0xFF000000).withOpacity(0.15),
+                            width: 1,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(Radius.circular(16)),
+                          borderSide: BorderSide(
+                            color: const Color(0xFF000000).withOpacity(0.15),
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(16)),
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                            width: 1,
+                          ),
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        hintText: "Enter Cash From Guest",
+                        hintStyle: const TextStyle(
+                          color: Color(0xFF929292),
+                          fontSize: 12,
+                          fontFamily: 'Montserrat-Regular',
+                          fontWeight: FontWeight.w500,
+                        ),
+                        prefixIcon: SvgPicture.asset(
+                          'assets/images/wallet-icon.svg',
+                          width: 25,
+                          height: 25,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                    ),
+                  ),
                 SizedBox(height: size.height * 0.03),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -1220,6 +1301,10 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("your children and adults are greater then total passengers")));
 
                       }
+                      else if(selectedPaymentMethod=="cash" && cashAmountController.text.isEmpty){
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Enter guest amount")));
+
+                      }
                      else{
                         widget.onDataReceived(
                             visaType: widget.visaType!,
@@ -1249,9 +1334,8 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                             vehicleId3: selectedVehicle3Id.toString(),
                             totalNumberOfPassengers: totalNumberOfPassengers.toString(),
                            vehicleName: selectedVehicle,
-                          selectedPaymentMethod: selectedPaymentMethod
-
-
+                          selectedPaymentMethod: selectedPaymentMethod,
+                            cashFromGuest: cashAmountController.text
                         );
                       }
                     }

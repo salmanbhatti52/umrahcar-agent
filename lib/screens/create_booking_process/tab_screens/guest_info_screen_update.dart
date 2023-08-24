@@ -44,7 +44,9 @@ class GuestInfoPageUpdate extends StatefulWidget {
   String? vehicleName;
   String? selectedPaymentMethod;
   String? bookingId;
-   GuestInfoPageUpdate({super.key,this.bookingId,this.selectedPaymentMethod, this.vehicleName,this.tabController,this.pickupHotel1,this.vehicleId,this.flightCode1,this.dropOffHotel1,this.dropOffLocation1,this.extraInformation1,this.flightCompaniesId1,this.flightDetails1,this.flightNmbr1,this.numberOfAdults1,this.numberOfChilds1,this.numberOfInfants1,this.pickUpData1,this.pickupLocation1,this.pickUpTime1,this.routesDropOffId1,this.routesId1,this.routesPickUpId1,this.serviceType1,this.totalFare1,this.totalNumberOfPassengers1,this.vehicleId1,this.vehicleId2,this.vehicleId3,this.visaType1,});
+  String? cashFromGuest;
+
+   GuestInfoPageUpdate({super.key,this.cashFromGuest,this.bookingId,this.selectedPaymentMethod, this.vehicleName,this.tabController,this.pickupHotel1,this.vehicleId,this.flightCode1,this.dropOffHotel1,this.dropOffLocation1,this.extraInformation1,this.flightCompaniesId1,this.flightDetails1,this.flightNmbr1,this.numberOfAdults1,this.numberOfChilds1,this.numberOfInfants1,this.pickUpData1,this.pickupLocation1,this.pickUpTime1,this.routesDropOffId1,this.routesId1,this.routesPickUpId1,this.serviceType1,this.totalFare1,this.totalNumberOfPassengers1,this.vehicleId1,this.vehicleId2,this.vehicleId3,this.visaType1,});
 
   @override
   State<GuestInfoPageUpdate> createState() => _GuestInfoPageUpdateState();
@@ -704,6 +706,8 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                           "contact":contactNumberController.text,
                                           "whatsapp":whatsappNumberController.text,
                                           "payment_type":widget.selectedPaymentMethod,
+                                          if(widget.selectedPaymentMethod=="cash")   "cash_from_guest": "${widget.cashFromGuest}",
+
                                           "pickup_date":widget.pickUpData1,
                                           "pickup_time":widget.pickUpTime1,
                                           "no_of_childs":widget.numberOfChilds1,

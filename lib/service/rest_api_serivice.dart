@@ -415,11 +415,14 @@ class DioClient {
         var res= AddBookingAgentModel.fromJson(response.data);
         return res;
       }
+
       else  {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("All Fields are Required!")));
         throw 'SomeThing Missing';
       }
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("All Fields are Required!")));
+
       rethrow;
     }
   }

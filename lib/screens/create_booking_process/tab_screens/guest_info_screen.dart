@@ -42,7 +42,8 @@ class GuestInfoPage extends StatefulWidget {
   String? totalNumberOfPassengers1;
   String? vehicleName;
   String? selectedPaymentMethod;
-   GuestInfoPage({super.key,this.selectedPaymentMethod, this.vehicleName,this.tabController,this.pickupHotel1,this.vehicleId,this.flightCode1,this.dropOffHotel1,this.dropOffLocation1,this.extraInformation1,this.flightCompaniesId1,this.flightDetails1,this.flightNmbr1,this.numberOfAdults1,this.numberOfChilds1,this.numberOfInfants1,this.pickUpData1,this.pickupLocation1,this.pickUpTime1,this.routesDropOffId1,this.routesId1,this.routesPickUpId1,this.serviceType1,this.totalFare1,this.totalNumberOfPassengers1,this.vehicleId1,this.vehicleId2,this.vehicleId3,this.visaType1,});
+  String? cashFromGuest;
+   GuestInfoPage({super.key,this.selectedPaymentMethod, this.vehicleName,this.tabController,this.pickupHotel1,this.vehicleId,this.flightCode1,this.dropOffHotel1,this.dropOffLocation1,this.cashFromGuest,this.extraInformation1,this.flightCompaniesId1,this.flightDetails1,this.flightNmbr1,this.numberOfAdults1,this.numberOfChilds1,this.numberOfInfants1,this.pickUpData1,this.pickupLocation1,this.pickUpTime1,this.routesDropOffId1,this.routesId1,this.routesPickUpId1,this.serviceType1,this.totalFare1,this.totalNumberOfPassengers1,this.vehicleId1,this.vehicleId2,this.vehicleId3,this.visaType1,});
 
   @override
   State<GuestInfoPage> createState() => _GuestInfoPageState();
@@ -59,7 +60,7 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
 
   bool status = false;
 
-
+  bool isLoading = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -665,8 +666,13 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                                     //   ),
                                     // ),
                                     SizedBox(height: size.height * 0.06),
+                                    isLoading==false ?
                                     GestureDetector(
                                       onTap: () async{
+                                        isLoading = true;
+                                        setState(() {
+
+                                        });
                                         print("uidZ: ${userId}");
                                         var mapData={
                                           "source": "TEST API",
@@ -680,7 +686,8 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                                           "contact":"${countryCode!.dialCode}${contactNumberController.text}",
                                           "whatsapp":whatsappNumberController.text,
                                           "payment_type":widget.selectedPaymentMethod,
-                                          "pickup_date":widget.pickUpData1,
+                                          if(widget.selectedPaymentMethod=="cash")"cash_from_guest": "${widget.cashFromGuest}",
+                                        "pickup_date":widget.pickUpData1,
                                           "pickup_time":widget.pickUpTime1,
                                           "no_of_childs":widget.numberOfChilds1,
                                           "no_of_infants":widget.numberOfInfants1,
@@ -710,14 +717,17 @@ class _GuestInfoPageState extends State<GuestInfoPage> {
                                         );
                                         print("hiiii data: ${response.data}");
                                         if(response !=null){
-
+                                          isLoading = false;
                                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Booking successfull")));
                                           Navigator.pushReplacement(
                                               context, MaterialPageRoute(builder: (context) =>  NavBar()));
                                         }
+                                        else{
+                                          CircularProgressIndicator();
+                                        }
                                       },
                                       child: dialogButton('OK', context),
-                                    ),
+                                    ): CircularProgressIndicator(),
                                   ],
                                 ),
                               ),

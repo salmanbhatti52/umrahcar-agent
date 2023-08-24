@@ -57,6 +57,8 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
   String? vid2;
   String? vid3;
   String? selectedPaymentMethod1;
+  String? cashFromGuest1;
+
 
 
 
@@ -131,6 +133,7 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
       String? totalNumberOfPassengers,
         String? vehicleName,
         String? selectedPaymentMethod,
+        String? cashFromGuest,
 
       }) {
     setState(() {
@@ -192,7 +195,12 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
        vehicleName1=vehicleName;
       selectedPaymentMethod1=selectedPaymentMethod;
 
-      print("vid: $vid");
+      cashFromGuest1=cashFromGuest;
+      print("cashFromGuest1: $cashFromGuest1");
+      print("cashFromGuest1: $cashFromGuest");
+
+
+          print("vid: $vid");
       print("vid1: $vid1");
       print("vid2: $vid2");
       print("vid3: $vid3");
@@ -323,6 +331,7 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
                 vehicleName: vehicleName1,
                 selectedPaymentMethod: selectedPaymentMethod1,
                 bookingId: widget.bookingId,
+                cashFromGuest: cashFromGuest1,
               ),
             ],
           ),
