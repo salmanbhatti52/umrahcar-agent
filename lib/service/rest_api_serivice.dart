@@ -16,6 +16,7 @@ import 'package:umrahcar/models/summary_agent_model.dart';
 import 'package:umrahcar/models/update_profile_model.dart';
 
 import '../models/add_booking_agent_model.dart';
+import '../models/driver_status_model.dart';
 import '../models/forgot_verify_otp_model.dart';
 import '../models/ge_bookings_pending_by_id_model.dart';
 import '../models/get_booking_list_model.dart';
@@ -524,7 +525,29 @@ class DioClient {
   }
 
 
+  Future<DriverStatusModel> deleteTransaction(Map<String?,dynamic?> model,BuildContext context) async {
+    print("data: ${model}");
+    try {
+      final response =
+      await _dio.post('$baseUrl/transactions_agents_delete',data: model);
+      if (response.statusCode == 200) {
+        print("hiiii ${response.data}");
+        var res= DriverStatusModel.fromJson(response.data);
+        return res;
+      }
+      else  {
+        Navigator.pop(context);
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Unable To Delete Transaction. Only Pending transactions can be deleted")));
+        throw 'SomeThing Missing';
+      }
+    } catch (e) {
+      Navigator.pop(context);
 
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Unable To Delete Transaction. Only Pending transactions can be deleted")));
+
+      rethrow;
+    }
+  }
 
 
 }

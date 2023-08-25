@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:umrahcar/utils/colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -96,6 +97,15 @@ class _LogInPageState extends State<LogInPage> {
                         fontSize: 20,
                         fontFamily: 'Montserrat-Regular',
                         fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: size.height * 0.02),
+                    const Text(
+                      '(For Agents)',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Montserrat-Regular',
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                     SizedBox(height: size.height * 0.06),
@@ -308,10 +318,15 @@ class _LogInPageState extends State<LogInPage> {
                     GestureDetector(
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
+                            final status =
+                            await OneSignal.shared.getDeviceState();
+                            String? onesignalId = status?.userId;
+
+                            print("onesignalId: ${onesignalId}");
                             print("email: ${emailController.text}");
                             print("password: ${passwordController.text}");
                             var mapData={
-                              "onesignal_id": "123",
+                              "onesignal_id": "$onesignalId",
                               "email": emailController.text,
                               "password": passwordController.text,
                             };
