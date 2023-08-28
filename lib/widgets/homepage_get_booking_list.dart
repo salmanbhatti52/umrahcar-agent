@@ -10,7 +10,7 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
   var size = MediaQuery.of(context).size;
   print("data bookibg: ${getBookingListModel.data}");
   return ListView.builder(
-    physics: const BouncingScrollPhysics(),
+    physics: const AlwaysScrollableScrollPhysics(),
     shrinkWrap: true,
     scrollDirection: Axis.vertical,
     itemCount: getBookingListModel.data!.length,

@@ -104,7 +104,7 @@ class _WalletPageState extends State<WalletPage> {
 
                             });
                             },
-                            child: bignoimageredbox('Add', 'Debit/Credit card', context)),
+                            child:  bignoimageredbox('Debit/Credit', 'Transactions', context)),
                       ],
                     ),
                     SizedBox(height: size.height * 0.03),

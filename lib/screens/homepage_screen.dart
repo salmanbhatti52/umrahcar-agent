@@ -251,23 +251,23 @@ class _HomePageState extends State<HomePage> {
                                   },
                                   child: noimagebox(
                                       '${getAgentsWidgetData.data.bookingsTotalDeposit}',
-                                      'Total Deposit',
+                                      'Balance',
                                       context)),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => NavBar(
-                                                  indexNmbr: 3,
-                                                )));
-                                    setState(() {});
-                                  },
-                                  child: noimageredbox(
-                                      '${getAgentsWidgetData.data.bookingsTotalReamining}',
-                                      'Remaining',
-                                      context)),
-                              nobox(context),
+                              // InkWell(
+                              //     onTap: () {
+                              //       Navigator.push(
+                              //           context,
+                              //           MaterialPageRoute(
+                              //               builder: (context) => NavBar(
+                              //                     indexNmbr: 3,
+                              //                   )));
+                              //       setState(() {});
+                              //     },
+                              //     child: noimageredbox(
+                              //         '${getAgentsWidgetData.data.bookingsTotalReamining}',
+                              //         'Remaining',
+                              //         context)),
+                              nobox(context),nobox(context),
                             ],
                           ),
                         SizedBox(height: size.height * 0.03),
@@ -315,7 +315,14 @@ class _HomePageState extends State<HomePage> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: getBookingResponse != null
-                                  ? homeList(context, getBookingResponse)
+                                  ? RefreshIndicator(
+                                  onRefresh: ()async{
+                                    getBookingList();
+                                    setState(() {
+
+                                    });
+                                  },
+                                  child: homeList(context, getBookingResponse))
                                   : const Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,

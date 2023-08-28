@@ -258,7 +258,7 @@ Widget bignoimageredbox(priceText, titleText, context) {
               color: Colors.white,
               fontFamily: 'Montserrat-Regular',
               fontWeight: FontWeight.w600,
-              fontSize: 22,
+              fontSize: 18,
             ),
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
