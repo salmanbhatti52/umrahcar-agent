@@ -33,7 +33,7 @@ class _OnGoingPageState extends State<OnGoingPage> {
   GetBookingListModel getBookingOngoingResponse=GetBookingListModel();
 
   getBookingListOngoing()async{
-    print("userIdId ${userId}");
+    print("userIdIdId ${userId}");
     var mapData={
       "users_agents_id": userId.toString()
     };
@@ -51,6 +51,22 @@ class _OnGoingPageState extends State<OnGoingPage> {
     super.initState();
   }
 
+
+  GetBookingListModel getBookingOngoingResponseForSearch=GetBookingListModel();
+  getBookingListOngoingSearch(String? searchText)async{
+    print("userIdId ${userId}");
+    getBookingOngoingResponseForSearch.data=[];
+    var mapData={
+      "users_agents_id": userId.toString(),
+      "bookings_id": searchText
+    };
+    getBookingOngoingResponseForSearch= await DioClient().getBookingOngoing(mapData, context);
+    print("response id: ${getBookingOngoingResponseForSearch.data}");
+    setState(() {
+      getBookingOngoingResponse.data=[];
+    });
+
+  }
 
 
   @override
@@ -147,8 +163,16 @@ class _OnGoingPageState extends State<OnGoingPage> {
                   onSearchTextChanged: (value) {
                     setState(() {
                       isFocused = true;
+                      if(value.isNotEmpty){
+                      getBookingListOngoingSearch(value);}
+                      else{
+                        getBookingListOngoing();
+                      }
                     });
                     return null;
+                  },
+                  onSubmit: (value){
+
                   },
                   // validator: (value) {
                   //   if (value!.isEmpty) {
@@ -157,6 +181,7 @@ class _OnGoingPageState extends State<OnGoingPage> {
                   //   return null;
                   // },
                   scrollbarAlwaysVisible: false,
+
                   suggestionState: Suggestion.hidden,
                   suggestions: suggestions
                       .map((e) => SearchFieldListItem<String>(e))
@@ -177,6 +202,7 @@ class _OnGoingPageState extends State<OnGoingPage> {
               ),
             ),
             SizedBox(height: size.height * 0.03),
+            getBookingOngoingResponseForSearch.data ==null && searchController.text.isEmpty || searchController.text==""?
             Container(
               color: Colors.transparent,
               height: size.height * 0.6,
@@ -184,7 +210,16 @@ class _OnGoingPageState extends State<OnGoingPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: onGoingList(context,getBookingOngoingResponse),
               ),
-            ),
+            ):
+            Container(
+              color: Colors.transparent,
+              height: size.height * 0.6,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: onGoingList(context,getBookingOngoingResponseForSearch),
+              ),
+            )
+            ,
           ],
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:searchfield/searchfield.dart';
 
+import '../../../models/get_booking_list_model.dart';
 import '../../../service/rest_api_serivice.dart';
 import '../../../utils/colors.dart';
 import '../../../widgets/ongoing_list.dart';
@@ -30,7 +31,7 @@ class _PendingPageState extends State<PendingPage> {
 
   bool isFocused = false;
 
-  var getBookingResponse;
+  GetBookingListModel getBookingResponse=GetBookingListModel();
 
   getBookingList()async{
     print("userIdId ${userId}");
@@ -43,7 +44,25 @@ class _PendingPageState extends State<PendingPage> {
 
     });
 
-  }  @override
+  }
+
+  GetBookingListModel getBookingPendingResponseForSearch=GetBookingListModel();
+  getBookingListOngoingSearch(String? searchText)async{
+    print("userIdId ${userId}");
+    getBookingPendingResponseForSearch.data=[];
+    var mapData={
+      "users_agents_id": userId.toString(),
+      "bookings_id": searchText
+    };
+    getBookingPendingResponseForSearch= await DioClient().getBookingList(mapData, context);
+    print("response id: ${getBookingPendingResponseForSearch.data}");
+    setState(() {
+      getBookingResponse.data=[];
+    });
+
+  }
+
+  @override
   void initState() {
     getBookingList();
     // TODO: implement initState
@@ -146,6 +165,11 @@ class _PendingPageState extends State<PendingPage> {
                   onSearchTextChanged: (value) {
                     setState(() {
                       isFocused = true;
+                      if(value.isNotEmpty){
+                        getBookingListOngoingSearch(value);}
+                      else{
+                        getBookingList();
+                      }
                     });
                     return null;
                   },
@@ -176,7 +200,8 @@ class _PendingPageState extends State<PendingPage> {
               ),
             ),
             SizedBox(height: size.height * 0.03),
-             Container(
+            getBookingPendingResponseForSearch.data ==null && searchController.text.isEmpty || searchController.text==""?
+            Container(
               color: Colors.transparent,
               height: size.height * 0.6,
               child: Padding(
@@ -188,7 +213,19 @@ class _PendingPageState extends State<PendingPage> {
                   ],
                 ),
               ),
-            ),
+            ):Container(
+              color: Colors.transparent,
+              height: size.height * 0.6,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: getBookingPendingResponseForSearch !=null ? onPendingList(context,getBookingPendingResponseForSearch): const Column(
+                  children: [
+                    SizedBox(height: 250,),
+                    Text("No Pending Booking"),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
