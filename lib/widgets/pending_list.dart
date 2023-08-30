@@ -9,7 +9,7 @@ Widget onPendingList(BuildContext context,GetBookingListModel getBookingPendingD
   var size = MediaQuery.of(context).size;
   return getBookingPendingData.data !=null ?
   ListView.builder(
-    physics: const BouncingScrollPhysics(),
+    physics: const AlwaysScrollableScrollPhysics(),
     shrinkWrap: true,
     scrollDirection: Axis.vertical,
     itemCount: getBookingPendingData.data!.length,
