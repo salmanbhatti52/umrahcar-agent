@@ -14,6 +14,7 @@ import 'package:umrahcar/screens/forgot_password_screen.dart';
 import '../models/login_model.dart';
 import '../service/local_db.dart';
 import '../service/rest_api_serivice.dart';
+import '../utils/const.dart';
 import 'homepage_screen.dart';
 
 class LogInPage extends StatefulWidget {
@@ -62,6 +63,21 @@ class _LogInPageState extends State<LogInPage> {
     }
     return Future.value(true);
   }
+
+  void configOneSignel()
+  {
+    OneSignal.shared.setAppId(onesignalAppId);
+  }
+
+
+
+  @override
+  void initState() {
+    configOneSignel();
+    // TODO: implement initState
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {

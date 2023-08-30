@@ -118,6 +118,9 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
       "data_type": "get_dropoff_locations",
       "routes_pickup_id": "$routeId"
     };
+
+    print("mapdata: ${mapData}");
+
     _getDropOffLocation = await DioClient().getDropOffData(mapData, context);
     print("data of dropoff hotels: $_getDropOffLocation");
     if (_getDropOffLocation != null) {
