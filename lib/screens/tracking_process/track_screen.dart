@@ -92,7 +92,7 @@ class _TrackPageState extends State<TrackPage> {
   }
 
   late List<Setting> pickSettingsData = [];
-  int timerCount=3;
+  int timerCount = 3;
   getSettingsData() {
     if (getAllSystemData!.data! != null) {
       for (int i = 0; i < getAllSystemData!.data!.settings!.length; i++) {
@@ -102,20 +102,20 @@ class _TrackPageState extends State<TrackPage> {
 
       for (int i = 0; i < pickSettingsData.length; i++) {
         if (pickSettingsData[i].type == "map_refresh_time") {
-
           timerCount = int.parse(pickSettingsData[i].description!);
           if (widget.getBookingData!.vehicles![0].vehiclesDrivers != null) {
             print("timer refresh: ${timerCount}");
             getProfile();
-            timer =
-                Timer.periodic( Duration(minutes: timerCount), (timer) => getProfile());
+            timer = Timer.periodic(
+                Duration(minutes: timerCount), (timer) => getProfile());
             setState(() {});
-
           }
-        } else if (pickSettingsData[i].type == "lattitude" && widget.getBookingData!.vehicles![0].vehiclesDrivers == null) {
+        } else if (pickSettingsData[i].type == "lattitude" &&
+            widget.getBookingData!.vehicles![0].vehiclesDrivers == null) {
           lat = double.parse(pickSettingsData[i].description!);
           print("timer lat: ${timerCount}");
-        } else if (pickSettingsData[i].type == "longitude"  && widget.getBookingData!.vehicles![0].vehiclesDrivers == null) {
+        } else if (pickSettingsData[i].type == "longitude" &&
+            widget.getBookingData!.vehicles![0].vehiclesDrivers == null) {
           long = double.parse(pickSettingsData[i].description!);
           print("timer long: ${timerCount}");
         }
@@ -128,7 +128,6 @@ class _TrackPageState extends State<TrackPage> {
 
     addCustomIcon();
     if (widget.getBookingData!.vehicles![0].vehiclesDrivers != null) {
-
       print(
           "lat: ${widget.getBookingData!.vehicles![0].vehiclesDrivers!.lattitude}");
       print(
@@ -170,393 +169,82 @@ class _TrackPageState extends State<TrackPage> {
       backgroundColor: mainColor,
       body: getProfileResponse.data != null || long != null
           ? Container(
-        color: Colors.transparent,
-        width: size.width,
-        height: size.height,
-        child: Stack(
-          children: [
-            Container(
-              height: MediaQuery.sizeOf(context).height / 2.28,
-              child: GoogleMap(
-                initialCameraPosition:
-                CameraPosition(target: _initialcameraposition),
-                mapType: MapType.normal,
-                onMapCreated: _onMapCreated,
-                myLocationEnabled: false,
-                markers: {
-                  Marker(
-                      markerId: MarkerId('Pakistan'),
-                      position: LatLng(lat!, long!),
-                      draggable: true,
-                      icon: icon != null
-                          ? icon!
-                          : BitmapDescriptor.defaultMarker)
-                },
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              child: Container(
-                width: size.width,
-                height: size.height * 0.56,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+              color: Colors.transparent,
+              width: size.width,
+              height: size.height,
+              child: Stack(
+                children: [
+                  Container(
+                    height: MediaQuery.sizeOf(context).height / 2.28,
+                    child: GoogleMap(
+                      initialCameraPosition:
+                          CameraPosition(target: _initialcameraposition),
+                      mapType: MapType.normal,
+                      onMapCreated: _onMapCreated,
+                      myLocationEnabled: false,
+                      markers: {
+                        Marker(
+                            markerId: MarkerId('Pakistan'),
+                            position: LatLng(lat!, long!),
+                            draggable: true,
+                            icon: icon != null
+                                ? icon!
+                                : BitmapDescriptor.defaultMarker)
+                      },
+                    ),
                   ),
-                  border: Border.all(
-                    width: 1,
-                    color: const Color(0xFF000000).withOpacity(0.15),
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: size.height * 0.03),
-                        Row(
-                          children: [
-                             const Text(
-                              'Bookings Details',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                             const SizedBox(width: 20,),
-                             Text(
-                              '(Booking Id ${widget.getBookingData!.bookingsId})',
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
+                  Positioned(
+                    bottom: 0,
+                    child: Container(
+                      width: size.width,
+                      height: size.height * 0.56,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
                         ),
-                        SizedBox(height: size.height * 0.02),
-                        const Text(
-                          'Pickup Location',
-                          style: TextStyle(
-                            color: Color(0xFF929292),
-                            fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w400,
-                          ),
+                        border: Border.all(
+                          width: 1,
+                          color: const Color(0xFF000000).withOpacity(0.15),
                         ),
-                        SizedBox(height: size.height * 0.02),
-                        Text(
-                          '${widget.getBookingData!.routes!.pickup!.name} (${widget.getBookingData!.routes!.pickup!.type})',
-                          style: const TextStyle(
-                            color: Color(0xFF565656),
-                            fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(height: size.height * 0.02),
-                        const Text(
-                          'Drop off Location',
-                          style: TextStyle(
-                            color: Color(0xFF929292),
-                            fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        SizedBox(height: size.height * 0.02),
-                        Text(
-                          '${widget.getBookingData!.routes!.dropoff!.name} (${widget.getBookingData!.routes!.dropoff!.type})',
-                          style: const TextStyle(
-                            color: Color(0xFF565656),
-                            fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        SizedBox(height: size.height * 0.025),
-                        Row(
-                          children: [
-                            for (int i = 0;
-                            i <
-                                widget
-                                    .getBookingData!.vehicles!.length;
-                            i++)
-                              Padding(
-                                padding: const EdgeInsets.only(right: 7),
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/fast-car-icon.svg',
-                                      width: 10,
-                                      height: 10,
-                                    ),
-                                    SizedBox(width: size.width * 0.01),
-                                    Text(
-                                      '${widget.getBookingData!.vehicles![i]!.vehiclesName!.name}',
-                                      style: const TextStyle(
-                                        color: Color(0xFF565656),
-                                        fontSize: 10,
-                                        fontFamily: 'Montserrat-Regular',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                          ],
-                        ),
-                        SizedBox(height: size.height * 0.02),
-                        Row(
-                          children: [
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/images/small-black-bookings-icon.svg',
-                                  width: 20,
-                                  height: 20,
-                                ),
-                                SizedBox(width: size.width * 0.032),
-                                Text(
-                                  '${widget.getBookingData!.flightDate}',
-                                  style: const TextStyle(
-                                    color: Color(0xFF565656),
-                                    fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: size.width * 0.14),
-                            Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/images/clock-icon.svg',
-                                  width: 20,
-                                  height: 20,
-                                ),
-                                SizedBox(width: size.width * 0.032),
-                                Text(
-                                  '${widget.getBookingData!.pickupTime}',
-                                  style: const TextStyle(
-                                    color: Color(0xFF565656),
-                                    fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
-
-                          SizedBox(height: size.height * 0.02),
-                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
-                          Divider(
-                            color: const Color(0xFF929292).withOpacity(0.3),
-                            thickness: 1,
-                          ),
-                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
-
-                          SizedBox(height: size.height * 0.01),
-                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
-                          const Text(
-                            'Driver Details',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontFamily: 'Montserrat-Regular',
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
-                          SizedBox(height: size.height * 0.04),
-                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
-                          Row(
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 15,
-                                    child: Image.asset(
-                                      'assets/images/user-profile.png',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(width: size.width * 0.032),
-                                  SizedBox(
-                                    width: size.width * 0.275,
-                                    child: Text(
-                                      '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.name}',
-                                      style: const TextStyle(
-                                        color: Color(0xFF565656),
-                                        fontSize: 12,
-                                        fontFamily: 'Montserrat-Regular',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(width: size.width * 0.115),
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/location-icon.svg',
-                                    width: 20,
-                                    height: 20,
-                                  ),
-                                  SizedBox(width: size.width * 0.045),
-                                  SizedBox(
-                                    width: size.width * 0.275,
-                                    child: Text(
-                                      '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.city}',
-                                      style: const TextStyle(
-                                        color: Color(0xFF565656),
-                                        fontSize: 12,
-                                        fontFamily: 'Montserrat-Regular',
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
-
-                          SizedBox(height: size.height * 0.02),
-                        if(widget.getBookingData!.vehicles![0].vehiclesDrivers !=null )
-
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: ()async {
-                                  Uri phoneno = Uri.parse('tel: ${widget.getBookingData!.vehicles![0].vehiclesDrivers!.contact}');
-                                  if (await launchUrl(phoneno)) {
-                                  //dialer opened
-                                  }else{
-                                  //dailer is not opened
-                                  }
-                                  print(
-                                  "iddddd ${widget.getBookingData!.vehicles![0].usersDriversId}");
-                                },
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                        'assets/images/contact-icon.svg'),
-                                    SizedBox(width: size.width * 0.032),
-                                    SizedBox(
-                                      width: size.width * 0.275,
-                                      child: Text(
-                                        '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.contact}',
-                                        style: const TextStyle(
-                                          color: Color(0xFF565656),
-                                          fontSize: 12,
-                                          fontFamily: 'Montserrat-Regular',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(width: size.width * 0.14),
-                              InkWell(
-                                onTap: () {
-                                  print("nmbr: ${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}");
-                                  _launchURL(
-                                      'https://wa.me/${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}/?text=hello');
-                                  setState(() {});
-                                },
-                                child: Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                        'assets/images/whatsapp-icon.svg'),
-                                    SizedBox(width: size.width * 0.032),
-                                    SizedBox(
-                                      width: size.width * 0.275,
-                                      child: Text(
-                                        '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}',
-                                        style: const TextStyle(
-                                          color: Color(0xFF565656),
-                                          fontSize: 12,
-                                          fontFamily: 'Montserrat-Regular',
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        SizedBox(height: size.height * 0.02),
-                        Divider(
-                          color: const Color(0xFF929292).withOpacity(0.3),
-                          thickness: 1,
-                        ),
-                        if (widget.getBookingData!.bookedFare != "0")
-                          SizedBox(height: size.height * 0.01),
-                        if (widget.getBookingData!.bookedFare != "0")
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Booked Fare',
-                                style: TextStyle(
-                                  color: Color(0xFF929292),
-                                  fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
                               SizedBox(height: size.height * 0.03),
-                              widget.getBookingData!.paymentType=="credit"?
+                              Row(
+                                children: [
+                                  const Text(
+                                    'Bookings Details',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontFamily: 'Montserrat-Regular',
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    '(Booking Id ${widget.getBookingData!.bookingsId})',
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 12,
+                                      fontFamily: 'Montserrat-Regular',
+                                      fontWeight: FontWeight.w300,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: size.height * 0.02),
                               const Text(
-                                'credit',
-                                style: TextStyle(
-                                  color: Color(0xFF565656),
-                                  fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ):
-                              Text(
-                                '${widget.getBookingData!.bookedFare}',
-                                style: const TextStyle(
-                                  color: Color(0xFF565656),
-                                  fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              )
-
-                            ],
-                          ),
-                        if (widget.getBookingData!
-                            .cashReceiveFromCustomer !=
-                            "0")
-                          SizedBox(height: size.height * 0.02),
-                        if (widget.getBookingData!
-                            .cashReceiveFromCustomer !=
-                            "0")
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Cash Receive From Customer',
+                                'Pickup Location',
                                 style: TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
@@ -566,7 +254,7 @@ class _TrackPageState extends State<TrackPage> {
                               ),
                               SizedBox(height: size.height * 0.02),
                               Text(
-                                'credit (${widget.getBookingData!.cashReceiveFromCustomer})',
+                                '${widget.getBookingData!.routes!.pickup!.name} (${widget.getBookingData!.routes!.pickup!.type})',
                                 style: const TextStyle(
                                   color: Color(0xFF565656),
                                   fontSize: 12,
@@ -574,63 +262,395 @@ class _TrackPageState extends State<TrackPage> {
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
+                              SizedBox(height: size.height * 0.02),
+                              const Text(
+                                'Drop off Location',
+                                style: TextStyle(
+                                  color: Color(0xFF929292),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              SizedBox(height: size.height * 0.02),
+                              Text(
+                                '${widget.getBookingData!.routes!.dropoff!.name} (${widget.getBookingData!.routes!.dropoff!.type})',
+                                style: const TextStyle(
+                                  color: Color(0xFF565656),
+                                  fontSize: 12,
+                                  fontFamily: 'Montserrat-Regular',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              SizedBox(height: size.height * 0.025),
+                              Row(
+                                children: [
+                                  for (int i = 0;
+                                      i <
+                                          widget
+                                              .getBookingData!.vehicles!.length;
+                                      i++)
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 7),
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            'assets/images/fast-car-icon.svg',
+                                            width: 10,
+                                            height: 10,
+                                          ),
+                                          SizedBox(width: size.width * 0.01),
+                                          Text(
+                                            '${widget.getBookingData!.vehicles![i]!.vehiclesName!.name}',
+                                            style: const TextStyle(
+                                              color: Color(0xFF565656),
+                                              fontSize: 10,
+                                              fontFamily: 'Montserrat-Regular',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              SizedBox(height: size.height * 0.02),
+                              Row(
+                                children: [
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/small-black-bookings-icon.svg',
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      SizedBox(width: size.width * 0.032),
+                                      Text(
+                                        '${widget.getBookingData!.flightDate}',
+                                        style: const TextStyle(
+                                          color: Color(0xFF565656),
+                                          fontSize: 12,
+                                          fontFamily: 'Montserrat-Regular',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: size.width * 0.14),
+                                  Row(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/images/clock-icon.svg',
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                      SizedBox(width: size.width * 0.032),
+                                      Text(
+                                        '${widget.getBookingData!.pickupTime}',
+                                        style: const TextStyle(
+                                          color: Color(0xFF565656),
+                                          fontSize: 12,
+                                          fontFamily: 'Montserrat-Regular',
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              if (widget.getBookingData!.vehicles![0]
+                                      .vehiclesDrivers !=
+                                  null)
+                                SizedBox(height: size.height * 0.02),
+                              if (widget.getBookingData!.vehicles![0]
+                                      .vehiclesDrivers !=
+                                  null)
+                                Divider(
+                                  color:
+                                      const Color(0xFF929292).withOpacity(0.3),
+                                  thickness: 1,
+                                ),
+                              if (widget.getBookingData!.vehicles![0]
+                                      .vehiclesDrivers !=
+                                  null)
+                                SizedBox(height: size.height * 0.01),
+                              if (widget.getBookingData!.vehicles![0]
+                                      .vehiclesDrivers !=
+                                  null)
+                                const Text(
+                                  'Driver Details',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 16,
+                                    fontFamily: 'Montserrat-Regular',
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              if (widget.getBookingData!.vehicles![0]
+                                      .vehiclesDrivers !=
+                                  null)
+                                SizedBox(height: size.height * 0.04),
+                              if (widget.getBookingData!.vehicles![0]
+                                      .vehiclesDrivers !=
+                                  null)
+                                Row(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 15,
+                                          child: Image.asset(
+                                            'assets/images/user-profile.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        SizedBox(width: size.width * 0.032),
+                                        SizedBox(
+                                          width: size.width * 0.275,
+                                          child: Text(
+                                            '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.name}',
+                                            style: const TextStyle(
+                                              color: Color(0xFF565656),
+                                              fontSize: 12,
+                                              fontFamily: 'Montserrat-Regular',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(width: size.width * 0.115),
+                                    Row(
+                                      children: [
+                                        SvgPicture.asset(
+                                          'assets/images/location-icon.svg',
+                                          width: 20,
+                                          height: 20,
+                                        ),
+                                        SizedBox(width: size.width * 0.045),
+                                        SizedBox(
+                                          width: size.width * 0.275,
+                                          child: Text(
+                                            '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.city}',
+                                            style: const TextStyle(
+                                              color: Color(0xFF565656),
+                                              fontSize: 12,
+                                              fontFamily: 'Montserrat-Regular',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              if (widget.getBookingData!.vehicles![0]
+                                      .vehiclesDrivers !=
+                                  null)
+                                SizedBox(height: size.height * 0.02),
+                              if (widget.getBookingData!.vehicles![0]
+                                      .vehiclesDrivers !=
+                                  null)
+                                Row(
+                                  children: [
+                                    InkWell(
+                                      onTap: () async {
+                                        Uri phoneno = Uri.parse(
+                                            'tel: ${widget.getBookingData!.vehicles![0].vehiclesDrivers!.contact}');
+                                        if (await launchUrl(phoneno)) {
+                                          //dialer opened
+                                        } else {
+                                          //dailer is not opened
+                                        }
+                                        print(
+                                            "iddddd ${widget.getBookingData!.vehicles![0].usersDriversId}");
+                                      },
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              'assets/images/contact-icon.svg'),
+                                          SizedBox(width: size.width * 0.032),
+                                          SizedBox(
+                                            width: size.width * 0.275,
+                                            child: Text(
+                                              '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.contact}',
+                                              style: const TextStyle(
+                                                color: Color(0xFF565656),
+                                                fontSize: 12,
+                                                fontFamily:
+                                                    'Montserrat-Regular',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(width: size.width * 0.14),
+                                    InkWell(
+                                      onTap: () {
+                                        print(
+                                            "nmbr: ${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}");
+                                        _launchURL(
+                                            'https://wa.me/${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}/?text=hello');
+                                        setState(() {});
+                                      },
+                                      child: Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                              'assets/images/whatsapp-icon.svg'),
+                                          SizedBox(width: size.width * 0.032),
+                                          SizedBox(
+                                            width: size.width * 0.275,
+                                            child: Text(
+                                              '${widget.getBookingData!.vehicles![0].vehiclesDrivers!.whatsapp}',
+                                              style: const TextStyle(
+                                                color: Color(0xFF565656),
+                                                fontSize: 12,
+                                                fontFamily:
+                                                    'Montserrat-Regular',
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              SizedBox(height: size.height * 0.02),
+                              Divider(
+                                color: const Color(0xFF929292).withOpacity(0.3),
+                                thickness: 1,
+                              ),
+                              if (widget.getBookingData!.bookedFare != "0")
+                                SizedBox(height: size.height * 0.01),
+                              if (widget.getBookingData!.bookedFare != "0")
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Booked Fare',
+                                      style: TextStyle(
+                                        color: Color(0xFF929292),
+                                        fontSize: 12,
+                                        fontFamily: 'Montserrat-Regular',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    SizedBox(height: size.height * 0.03),
+                                    widget.getBookingData!.paymentType ==
+                                            "credit"
+                                        ? const Text(
+                                            'credit',
+                                            style: TextStyle(
+                                              color: Color(0xFF565656),
+                                              fontSize: 12,
+                                              fontFamily: 'Montserrat-Regular',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                        : Text(
+                                            '${widget.getBookingData!.bookedFare}',
+                                            style: const TextStyle(
+                                              color: Color(0xFF565656),
+                                              fontSize: 12,
+                                              fontFamily: 'Montserrat-Regular',
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          )
+                                  ],
+                                ),
+                              if (widget.getBookingData!
+                                      .cashReceiveFromCustomer !=
+                                  "0")
+                                SizedBox(height: size.height * 0.02),
+                              if (widget.getBookingData!
+                                      .cashReceiveFromCustomer !=
+                                  "0")
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Cash Receive From Customer',
+                                      style: TextStyle(
+                                        color: Color(0xFF929292),
+                                        fontSize: 12,
+                                        fontFamily: 'Montserrat-Regular',
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                    SizedBox(height: size.height * 0.02),
+                                    Text(
+                                      'credit (${widget.getBookingData!.cashReceiveFromCustomer})',
+                                      style: const TextStyle(
+                                        color: Color(0xFF565656),
+                                        fontSize: 12,
+                                        fontFamily: 'Montserrat-Regular',
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                              SizedBox(height: size.height * 0.03),
+                              // if (widget.getBookingData!.vehicles![0]
+                              //     .vehiclesDrivers !=
+                              //     null)
+                              //   GestureDetector(
+                              //     onTap: () {
+                              //       Navigator.push(
+                              //           context,
+                              //           MaterialPageRoute(
+                              //             builder: (context) => PickUpPage(
+                              //                 getBookingData:
+                              //                 widget.getBookingData),
+                              //           ));
+                              //     },
+                              //     child: button('Track', context),
+                              //   ),
+                              SizedBox(height: size.height * 0.02),
                             ],
                           ),
-
-                        SizedBox(height: size.height * 0.03),
-                        // if (widget.getBookingData!.vehicles![0]
-                        //     .vehiclesDrivers !=
-                        //     null)
-                        //   GestureDetector(
-                        //     onTap: () {
-                        //       Navigator.push(
-                        //           context,
-                        //           MaterialPageRoute(
-                        //             builder: (context) => PickUpPage(
-                        //                 getBookingData:
-                        //                 widget.getBookingData),
-                        //           ));
-                        //     },
-                        //     child: button('Track', context),
-                        //   ),
-                        SizedBox(height: size.height * 0.02),
-                      ],
+                        ),
+                      ),
                     ),
                   ),
+                  Positioned(
+                    top: 40,
+                    left: 20,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                          height: 40,
+                          width: 40,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 10,
+                              ),
+                              SvgPicture.asset('assets/images/back-icon.svg'),
+                            ],
+                          )),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          : const Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(left: 175, top: 30),
+                  child: CircularProgressIndicator(),
                 ),
-              ),
+              ],
             ),
-            Positioned(
-              top: 40,
-              left: 20,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                    height: 40,
-                    width: 40,
-                    child: Column(
-                      children: [
-                        SizedBox(height: 10,),
-                        SvgPicture.asset('assets/images/back-icon.svg'),
-                      ],
-                    )),
-              ),
-            ),
-          ],
-        ),
-      )
-          : Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 175, top: 30),
-            child: CircularProgressIndicator(),
-          ),
-        ],
-      ),
     );
   }
 }
