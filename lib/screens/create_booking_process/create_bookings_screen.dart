@@ -52,7 +52,7 @@ class _CreateBookingsPageState extends State<CreateBookingsPage> {
             style: const TextStyle(
               color: Colors.black,
               fontSize: 26,
-              fontFamily: 'Montserrat-Regular',
+             fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
             ),
           ),

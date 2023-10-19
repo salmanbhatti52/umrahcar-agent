@@ -4,6 +4,7 @@ import 'package:umrahcar/screens/create_booking_process/tab_screens/guest_info_s
 import 'package:umrahcar/screens/create_booking_process/tab_screens/other_info_screen.dart';
 import 'package:umrahcar/screens/create_booking_process/tab_screens/pickup_info_screen.dart';
 import 'package:umrahcar/service/rest_api_serivice.dart';
+import 'package:umrahcar/utils/colors.dart';
 
 class TabbarCreateBookings extends StatefulWidget {
   const TabbarCreateBookings({super.key});
@@ -222,7 +223,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
-                    color: const Color(0xFF79BF42),
+                    color: secondaryColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   onTap: (index) {
@@ -232,21 +233,23 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
                       return;
                     }
                   },
-                  indicatorColor: const Color(0xFF79BF42),
-                  isScrollable: true,
+                  indicatorColor: buttonColor,
+                    indicatorSize: TabBarIndicatorSize.tab,
+                  dividerColor: Colors.transparent,
+                  isScrollable: false,
                   labelColor: Colors.white,
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 25),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 5),
                   labelStyle: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   unselectedLabelColor: const Color(0xFF929292),
                   unselectedLabelStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   tabs: const [
@@ -262,7 +265,7 @@ class _TabbarCreateBookingsState extends State<TabbarCreateBookings>
           height: MediaQuery.of(context).size.height * 0.72,
           child: TabBarView(
             controller: tabController,
-            physics: NeverScrollableScrollPhysics(),
+           // physics: const NeverScrollableScrollPhysics(),
             children: [
               TouristInfoPage(
                 tabController: tabController,

@@ -14,6 +14,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  String backImage = "assets/images/custom-car.png";
   @override
   Widget build(BuildContext context) {
     return initScreen(context);
@@ -31,9 +32,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   route() async {
-    final _sharedPref = await SharedPreferences.getInstance();
-    var uid = _sharedPref.getString('userId');
-    print("uiduid: ${uid}");
+    final sharedPref = await SharedPreferences.getInstance();
+    var uid = sharedPref.getString('userId');
+    print("uiduid: $uid");
     uid != null
         ? Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => NavBar()))
@@ -46,14 +47,25 @@ class _SplashScreenState extends State<SplashScreen> {
       onWillPop: () {
         return Future.value(false);
       },
-      child: Scaffold(
-          backgroundColor: mainColor,
-          body: SvgPicture.asset(
-            "assets/images/splash-icon.svg",
-            height: double.infinity,
-            width: double.infinity,
-            fit: BoxFit.fill,
-          )),
+      child:Scaffold(
+      backgroundColor: secondaryColor,
+        body: Container(
+            decoration: BoxDecoration(
+              // color: secondaryColor,
+              image: DecorationImage(
+                image: AssetImage(backImage),
+                fit: BoxFit.fill,
+                
+              ),
+            ),
+            child: SvgPicture.asset(
+              'assets/images/umrah-logo.svg',
+             height: double.infinity,
+             width: double.infinity,
+             fit: BoxFit.scaleDown,
+            //   colorBlendMode: BlendMode.darken,
+            )),
+      ),
     );
   }
 }

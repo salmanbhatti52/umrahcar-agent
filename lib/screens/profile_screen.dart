@@ -28,7 +28,7 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _obscure2 = true;
   var getProfileResponse;
   getProfile()async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData={
       "users_agents_id": userId.toString()
     };
@@ -65,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
             style: TextStyle(
                 color: Colors.black,
                 fontSize: 26,
-                fontFamily: 'Montserrat-Regular',
+               fontFamily: 'Poppins',
                 fontWeight: FontWeight.w700),
           ),
           leading: IconButton(onPressed: (){
@@ -109,10 +109,10 @@ class _ProfilePageState extends State<ProfilePage> {
                               if(getProfileResponse !=null)
                                Text(
                                 '${getProfileResponse.data.name}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -125,13 +125,13 @@ class _ProfilePageState extends State<ProfilePage> {
                                     builder: (context) => changePassword(),
                                   );
                                 },
-                                child: const Text(
+                                child:  Text(
                                   'Change Password',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    color: Color(0xFF79BF42),
+                                    color: secondaryColor,
                                     fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
+                                    fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -152,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ));
                           },
                           child:
-                              SvgPicture.asset('assets/images/edit-icon.svg')),
+                              SvgPicture.asset('assets/images/edit-icon.svg', color: buttonColor,)),
                     ),
                   ],
                 ),
@@ -171,10 +171,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(width: size.width * 0.04),
                       Text(
                       '${getProfileResponse.data.name}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -194,10 +194,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(width: size.width * 0.04),
                      Text(
                       '${getProfileResponse.data.agency}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -218,10 +218,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
                        Text(
                       '${getProfileResponse.data.email}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -242,10 +242,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
                       Text(
                       '${getProfileResponse.data.city}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -266,10 +266,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
                        Text(
                       '${getProfileResponse.data.contact}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
-                        fontFamily: 'Montserrat-Regular',
+                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -290,10 +290,10 @@ class _ProfilePageState extends State<ProfilePage> {
 
                        Text(
                       '${getProfileResponse.data.whatsapp}',
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 14,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -309,12 +309,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   await preferences.clear();
                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const LogInPage()));
                 },
-                child: const Text(
+                child:  Text(
                   'Logout',
                   style: TextStyle(
-                    color: Colors.green,
+                    color: secondaryColor,
                     fontSize: 18,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w900,
                   ),
                 ),
@@ -327,7 +327,9 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(height: MediaQuery.of(context).size.height/2.5,),
               const Padding(
                 padding: EdgeInsets.only(left: 175),
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.amber,
+                ),
               )
             ],
           ),
@@ -366,7 +368,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           color: Colors.black,
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                         ),
                       ),
                       SizedBox(height: size.height * 0.04),
@@ -387,7 +389,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                             fontSize: 16,
                             color: Color(0xFF6B7280),
                           ),
@@ -436,7 +438,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                             prefixIcon: SvgPicture.asset(
@@ -487,7 +489,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                             fontSize: 16,
                             color: Color(0xFF6B7280),
                           ),
@@ -536,7 +538,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                             prefixIcon: SvgPicture.asset(
@@ -586,7 +588,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                             fontSize: 16,
                             color: Color(0xFF6B7280),
                           ),
@@ -635,7 +637,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                             prefixIcon: SvgPicture.asset(
@@ -671,7 +673,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       GestureDetector(
                         onTap: () async {
                           if (changePasswordFormKey.currentState!.validate()) {
-                            print("users_agents_id: ${userId}");
+                            print("users_agents_id: $userId");
                             print("current: ${currentPasswordController.text}");
                             print("new_password: ${newPasswordController.text}");
                             print("confirm_password: ${confirmPasswordController.text}");
@@ -685,19 +687,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                 mapData,context
                             );
                             print("response otp: ${response.message}");
-                            if (response != null) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${response.message}")));
-                              Navigator.pop(context);
-                              currentPasswordController.text="";
-                              newPasswordController.text="";
-                              confirmPasswordController.text="";
-                              _obscure2=true;
-                              _obscure1=true;
-                              _obscure=true;
-                              setState(() {
-                              });
-                            }
-                          }
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${response.message}")));
+                            Navigator.pop(context);
+                            currentPasswordController.text="";
+                            newPasswordController.text="";
+                            confirmPasswordController.text="";
+                            _obscure2=true;
+                            _obscure1=true;
+                            _obscure=true;
+                            setState(() {
+                            });
+                                                    }
 
 
 

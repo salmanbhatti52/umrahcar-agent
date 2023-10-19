@@ -33,7 +33,7 @@ class _OnGoingPageState extends State<OnGoingPage> {
   GetBookingListModel getBookingOngoingResponse=GetBookingListModel();
 
   getBookingListOngoing()async{
-    print("userIdIdId ${userId}");
+    print("userIdIdId $userId");
     var mapData={
       "users_agents_id": userId.toString()
     };
@@ -54,7 +54,7 @@ class _OnGoingPageState extends State<OnGoingPage> {
 
   GetBookingListModel getBookingOngoingResponseForSearch=GetBookingListModel();
   getBookingListOngoingSearch(String? searchText)async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     getBookingOngoingResponseForSearch.data=[];
     var mapData={
       "users_agents_id": userId.toString(),
@@ -139,7 +139,7 @@ class _OnGoingPageState extends State<OnGoingPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -189,13 +189,13 @@ class _OnGoingPageState extends State<OnGoingPage> {
                   suggestionStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 14,
-                    fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   searchStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 16,
-                    fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                 ),

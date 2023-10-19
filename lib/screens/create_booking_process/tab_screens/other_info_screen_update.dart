@@ -413,7 +413,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                                 hintStyle: const TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -427,7 +427,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                                         style: const TextStyle(
                                           color: Color(0xFF929292),
                                           fontSize: 12,
-                                          fontFamily: 'Montserrat-Regular',
+                                         fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -539,7 +539,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                             },
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontSize: 16,
                               color: Color(0xFF6B7280),
                             ),
@@ -585,7 +585,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                               hintStyle: const TextStyle(
                                 color: Color(0xFF929292),
                                 fontSize: 10,
-                                fontFamily: 'Montserrat-Regular',
+                                fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                               prefixIcon: SvgPicture.asset(
@@ -614,7 +614,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                             },
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontSize: 16,
                               color: Color(0xFF6B7280),
                             ),
@@ -660,7 +660,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                               hintStyle: const TextStyle(
                                 color: Color(0xFF929292),
                                 fontSize: 10,
-                                fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                               prefixIcon: SvgPicture.asset(
@@ -702,7 +702,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -748,7 +748,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 10,
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -778,7 +778,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                     style: TextStyle(
                       color: Color(0xFF1E1E1E),
                       fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -788,10 +788,10 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                   child: Text(
                     totalNumberOfPassengers !=null ?'$totalNumberOfPassengers': "0",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFF79BF42),
+                    style:  TextStyle(
+                      color: secondaryColor,
                       fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -847,7 +847,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -861,7 +861,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                                 style: const TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -896,7 +896,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                       },
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontSize: 16,
                         color: Color(0xFF6B7280),
                       ),
@@ -942,7 +942,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                         hintStyle: const TextStyle(
                           color: Color(0xFF929292),
                           fontSize: 12,
-                          fontFamily: 'Montserrat-Regular',
+                         fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                         prefixIcon: SvgPicture.asset(
@@ -1005,7 +1005,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                             fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -1019,7 +1019,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                                 style: const TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -1064,7 +1064,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -1110,7 +1110,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -1137,7 +1137,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -1183,7 +1183,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -1211,7 +1211,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                     // },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -1257,7 +1257,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -1271,7 +1271,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                     style: TextStyle(
                       color: Color(0xFF1E1E1E),
                       fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -1282,9 +1282,9 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                     "${totalFare!}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color(0xFF79BF42),
+                      color: secondaryColor,
                       fontSize: 50,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -1373,7 +1373,9 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
           padding: EdgeInsets.only(left: 175, top: 300),
           child: Column(
             children: [
-              CircularProgressIndicator(),
+              CircularProgressIndicator(
+                color: Colors.amber,
+              ),
             ],
           ),
         ),
@@ -1435,7 +1437,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -1449,7 +1451,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                               style: const TextStyle(
                                 color: Color(0xFF929292),
                                 fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -1535,6 +1537,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                   if(addDropdowns.isEmpty){
                     fare1=0.0;
                     selectedVehicle1Id=null;
+                    
                     totalFare=fare!+fare1!;
                     print("total fair: ${totalFare}");
                     selectedVehicle1Passengers=0;
@@ -1640,7 +1643,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -1654,7 +1657,7 @@ class _OtherInfoPageUpdateState extends State<OtherInfoPageUpdate> {
                               style: const TextStyle(
                                 color: Color(0xFF929292),
                                 fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                             ),

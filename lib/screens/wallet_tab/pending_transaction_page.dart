@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:umrahcar/models/pending_transaction_model.dart';
+import 'package:umrahcar/utils/colors.dart';
 
 import '../../models/driver_status_model.dart';
 import '../../service/rest_api_serivice.dart';
@@ -19,7 +20,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
 
   PendingTransactiontModel summaryAgentModel=PendingTransactiontModel();
   getSummaryAgent()async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData={
       "users_agents_id": userId.toString()
     };
@@ -103,7 +104,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
             Slidable(
               key: const ValueKey(0),
               endActionPane: ActionPane(
-                motion: ScrollMotion(),
+                motion: const ScrollMotion(),
                 children: [
                   SlidableAction(
                     onPressed: (context) async {
@@ -113,7 +114,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
 
                       });
                     },
-                    backgroundColor: Color(0xFFFE4A49),
+                    backgroundColor: const Color(0xFFFE4A49),
                     foregroundColor: Colors.white,
                     icon: Icons.delete,
                     label: 'Delete',
@@ -127,7 +128,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                   Container(
                     width: 70,
                     height: 70,
-                    margin: EdgeInsets.only(left: 20,right: 20),
+                    margin: const EdgeInsets.only(left: 20,right: 20),
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                     ),
@@ -138,14 +139,14 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         width: 175,
                         child: Text(
                          "Txn Type: ${ summaryAgentModel.data![i].txnType!}",
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                           ),
                           maxLines: 1,
@@ -158,7 +159,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                         style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 10,
-                          fontFamily: 'Montserrat-Regular',
+                         fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -168,7 +169,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                         style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 10,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -178,7 +179,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                         style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 10,
-                          fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),SizedBox(height: size.height * 0.005),
@@ -187,7 +188,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                         style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 10,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),SizedBox(height: size.height * 0.005),
@@ -196,7 +197,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                         style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 10,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),SizedBox(height: size.height * 0.005),
@@ -205,7 +206,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                         style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 10,
-                          fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -218,13 +219,13 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                   Container(
                     width: size.width * 0.2,
                     height: size.height * 0.024,
-                    margin: EdgeInsets.only(left: 20),
+                    margin:  const EdgeInsets.only(left: 20),
                     child: Text(
                       summaryAgentModel.data![i].status!,
-                      style: const TextStyle(
-                        color: Color(0xFF0066FF),
+                      style:  TextStyle(
+                        color: buttonColor,
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -233,7 +234,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                 ],
         ),
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
           ]
             );
       }):const Column(
@@ -249,7 +250,7 @@ class _PendingTransactionPageState extends State<PendingTransactionPage> {
                 color: Color(0xFF565656),
                 fontSize: 12,
 
-                fontFamily: 'Montserrat-Regular',
+               fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.center,

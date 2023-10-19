@@ -103,19 +103,17 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
     print("bookingId ${widget.bookingId}");
     var mapData = {"bookings_id": widget.bookingId};
     getBookingByidResponse = await DioClient().getBookingById(mapData, context);
-    if (getBookingByidResponse != null) {
-      for (int i = 0; i < getBookingByidResponse.data!.length; i++) {
-        print("Get Booking by  id: ${getBookingByidResponse.data![i].name}");
-        guestNameController.text = getBookingByidResponse.data![i].name!;
-        contactNumberController.text = getBookingByidResponse.data![i].contact!;
-        whatsappNumberController.text = getBookingByidResponse.data![i].whatsapp!;
-        print("visaTypesId: ${getBookingByidResponse.data![i].visaTypesId}");
-        setState(() {
+    for (int i = 0; i < getBookingByidResponse.data!.length; i++) {
+      print("Get Booking by  id: ${getBookingByidResponse.data![i].name}");
+      guestNameController.text = getBookingByidResponse.data![i].name!;
+      contactNumberController.text = getBookingByidResponse.data![i].contact!;
+      whatsappNumberController.text = getBookingByidResponse.data![i].whatsapp!;
+      print("visaTypesId: ${getBookingByidResponse.data![i].visaTypesId}");
+      setState(() {
 
-        });
-      }
+      });
     }
-  }
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +150,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                       },
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                         fontSize: 16,
                         color: Color(0xFF6B7280),
                       ),
@@ -201,7 +199,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                         hintStyle: const TextStyle(
                           color: Color(0xFF929292),
                           fontSize: 12,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                         prefixIcon: SvgPicture.asset(
@@ -235,7 +233,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                       // },
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                         fontSize: 16,
                         color: Color(0xFF6B7280),
                       ),
@@ -285,7 +283,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                         hintStyle: const TextStyle(
                           color: Color(0xFF929292),
                           fontSize: 12,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                         prefixIcon: GestureDetector(
@@ -358,7 +356,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                       },
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontSize: 16,
                         color: Color(0xFF6B7280),
                       ),
@@ -407,7 +405,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                         hintStyle: const TextStyle(
                           color: Color(0xFF929292),
                           fontSize: 12,
-                          fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                         prefixIcon: SvgPicture.asset(
@@ -430,14 +428,14 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                           style: TextStyle(
                             color: Color(0xFF565656),
                             fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         FlutterSwitch(
                           width: 45,
                           height: 25,
-                          activeColor: const Color(0xFF79BF42),
+                          activeColor: buttonColor,
                           inactiveColor: const Color(0xFF565656).withOpacity(0.2),
                           toggleSize: 25,
                           value: status,
@@ -447,7 +445,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                             setState(() {
                               status = val;
                               if(status==true){
-                                completeNumber="${contactNumberController.text}";
+                                completeNumber=contactNumberController.text;
 
                                 whatsappNumberController.text=completeNumber!;
 
@@ -489,7 +487,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                         color: Colors.black,
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
-                                        fontFamily: 'Montserrat-Regular',
+                                       fontFamily: 'Poppins',
                                       ),
                                     ),
                                     SizedBox(height: size.height * 0.02),
@@ -512,7 +510,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Color(0xFF929292),
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,
-                                              fontFamily: 'Montserrat-Regular',
+                                              fontFamily: 'Poppins',
                                             ),
                                           ),
                                         ],
@@ -531,7 +529,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Colors.black,
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,
-                                              fontFamily: 'Montserrat-Regular',
+                                             fontFamily: 'Poppins',
                                             ),
                                           ),
                                     ),
@@ -552,7 +550,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Color(0xFF929292),
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,
-                                              fontFamily: 'Montserrat-Regular',
+                                              fontFamily: 'Poppins',
                                             ),
                                           ),
                                         ],
@@ -571,7 +569,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Colors.black,
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,
-                                              fontFamily: 'Montserrat-Regular',
+                                             fontFamily: 'Poppins',
                                             ),
                                           ),
                                         ),
@@ -590,7 +588,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Color(0xFF929292),
                                               fontSize: 15,
                                               fontWeight: FontWeight.w500,
-                                              fontFamily: 'Montserrat-Regular',
+                                             fontFamily: 'Poppins',
                                             ),
                                           ),
                                           Text(
@@ -599,7 +597,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Colors.black,
                                               fontSize: 15,
                                               fontWeight: FontWeight.w600,
-                                              fontFamily: 'Montserrat-Regular',
+                                             fontFamily: 'Poppins',
                                             ),
                                           ),
                                         ],
@@ -607,7 +605,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                     ),
                                     SizedBox(height: size.height * 0.02),
                                      Padding(
-                                      padding: EdgeInsets.only(left: 10, right: 10),
+                                      padding: const EdgeInsets.only(left: 10, right: 10),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -618,7 +616,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Color(0xFF929292),
                                               fontSize: 15,
                                               fontWeight: FontWeight.w500,
-                                              fontFamily: 'Montserrat-Regular',
+                                             fontFamily: 'Poppins',
                                             ),
                                           ),
                                           Text(
@@ -627,7 +625,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Colors.black,
                                               fontSize: 15,
                                               fontWeight: FontWeight.w600,
-                                              fontFamily: 'Montserrat-Regular',
+                                              fontFamily: 'Poppins',
                                             ),
                                           ),
                                         ],
@@ -635,7 +633,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                     ),
                                     SizedBox(height: size.height * 0.02),
                                      Padding(
-                                      padding: EdgeInsets.only(left: 10, right: 10),
+                                      padding: const EdgeInsets.only(left: 10, right: 10),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -646,7 +644,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Color(0xFF929292),
                                               fontSize: 15,
                                               fontWeight: FontWeight.w500,
-                                              fontFamily: 'Montserrat-Regular',
+                                             fontFamily: 'Poppins',
                                             ),
                                           ),
                                           Text(
@@ -655,7 +653,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                               color: Colors.black,
                                               fontSize: 15,
                                               fontWeight: FontWeight.w600,
-                                              fontFamily: 'Montserrat-Regular',
+                                             fontFamily: 'Poppins',
                                             ),
                                           ),
                                         ],
@@ -692,7 +690,7 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                     SizedBox(height: size.height * 0.06),
                                     GestureDetector(
                                       onTap: () async{
-                                        print("uidZ: ${userId}");
+                                        print("uidZ: $userId");
                                         var mapData={
                                           "bookings_id":"${widget.bookingId}",
                                           "source": "TEST API",
@@ -737,13 +735,10 @@ class _GuestInfoPageUpdateState extends State<GuestInfoPageUpdate> {
                                             mapData,context
                                         );
                                         print("hiiii data: ${response.data}");
-                                        if(response !=null){
-
-                                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Booking Update successfull")));
-                                          Navigator.pushReplacement(
-                                              context, MaterialPageRoute(builder: (context) =>  NavBar()));
-                                        }
-                                      },
+                                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Booking Update successfull")));
+                                        Navigator.pushReplacement(
+                                            context, MaterialPageRoute(builder: (context) =>  NavBar()));
+                                                                            },
                                       child: dialogButton('OK', context),
                                     ),
                                   ],

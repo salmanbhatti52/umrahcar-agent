@@ -33,7 +33,7 @@ Widget walletList(BuildContext context) {
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -50,7 +50,7 @@ Widget walletList(BuildContext context) {
                         style: TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 8,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -68,7 +68,7 @@ Widget walletList(BuildContext context) {
                         style: TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 8,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -87,7 +87,7 @@ Widget walletList(BuildContext context) {
                         style: TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 8,
-                          fontFamily: 'Montserrat-Regular',
+                         fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -102,7 +102,7 @@ Widget walletList(BuildContext context) {
                 style: const TextStyle(
                   color: Color(0xFFFF0000),
                   fontSize: 12,
-                  fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                   fontWeight: FontWeight.w500,
                 ),
               ),

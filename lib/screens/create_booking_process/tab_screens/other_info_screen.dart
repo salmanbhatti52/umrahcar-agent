@@ -362,7 +362,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                                 hintStyle: const TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -376,7 +376,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                                         style: const TextStyle(
                                           color: Color(0xFF929292),
                                           fontSize: 12,
-                                          fontFamily: 'Montserrat-Regular',
+                                          fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -441,7 +441,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                           ),
                           child: Center(
                             child: SvgPicture.asset(
-                              'assets/images/plus-icon.svg',
+                              'assets/images/plus-icon.svg',color: buttonColor,
                             ),
                           ),
                         ),
@@ -488,7 +488,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             },
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontSize: 16,
                               color: Color(0xFF6B7280),
                             ),
@@ -534,7 +534,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                               hintStyle: const TextStyle(
                                 color: Color(0xFF929292),
                                 fontSize: 10,
-                                fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                               prefixIcon: SvgPicture.asset(
@@ -563,7 +563,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             },
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontSize: 16,
                               color: Color(0xFF6B7280),
                             ),
@@ -609,7 +609,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                               hintStyle: const TextStyle(
                                 color: Color(0xFF929292),
                                 fontSize: 10,
-                                fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                               prefixIcon: SvgPicture.asset(
@@ -651,7 +651,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -697,7 +697,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 10,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -727,7 +727,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     style: TextStyle(
                       color: Color(0xFF1E1E1E),
                       fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -737,10 +737,10 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                   child: Text(
                     totalNumberOfPassengers !=null ?'$totalNumberOfPassengers': "0",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Color(0xFF79BF42),
+                    style:  TextStyle(
+                      color: secondaryColor,
                       fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -796,7 +796,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                             fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -810,7 +810,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                                 style: const TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                 fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -845,7 +845,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -891,7 +891,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -954,7 +954,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -968,7 +968,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                                 style: const TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -1013,7 +1013,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -1059,7 +1059,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -1086,7 +1086,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -1132,7 +1132,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -1160,7 +1160,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     // },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -1206,7 +1206,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -1220,7 +1220,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     style: TextStyle(
                       color: Color(0xFF1E1E1E),
                       fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -1231,9 +1231,9 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                     "${totalFare!}",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: Color(0xFF79BF42),
+                      color: secondaryColor,
                       fontSize: 50,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -1324,7 +1324,9 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
           padding: EdgeInsets.only(left: 175, top: 300),
           child: Column(
             children: [
-              CircularProgressIndicator(),
+              CircularProgressIndicator(
+                color: Colors.amber,
+              ),
             ],
           ),
         ),
@@ -1386,7 +1388,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -1400,7 +1402,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                               style: const TextStyle(
                                 color: Color(0xFF929292),
                                 fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -1526,7 +1528,7 @@ class _OtherInfoPageState extends State<OtherInfoPage> {
                 ),
                 child: Center(
                   child: SvgPicture.asset(
-                    'assets/images/minus-icon.svg',
+                    'assets/images/minus-icon.svg', color: buttonColor,
                   ),
                 ),
               ),

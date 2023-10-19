@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:umrahcar/screens/booking_process/tab_screens/ongoing_screen.dart';
 import 'package:umrahcar/screens/booking_process/tab_screens/upcoming_screen.dart';
 import 'package:umrahcar/screens/booking_process/tab_screens/completed_screen.dart';
+import 'package:umrahcar/utils/colors.dart';
 
 import '../screens/booking_process/tab_screens/pending_screen.dart';
 
@@ -41,24 +42,27 @@ class _TabbarBookingsState extends State<TabbarBookings>
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
-                    color: const Color(0xFF79BF42),
+                    color: buttonColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  indicatorColor: const Color(0xFF79BF42),
-                  isScrollable: true,
+                  
+                  indicatorColor: buttonColor,
+                  isScrollable: false,
+                   indicatorSize: TabBarIndicatorSize.tab,
+                  dividerColor: Colors.transparent,
                   labelColor: Colors.white,
                   labelPadding: const EdgeInsets.symmetric(horizontal: 12),
                   labelStyle: const TextStyle(
                     color: Colors.white,
-                    fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                    fontSize: 9,
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   unselectedLabelColor: const Color(0xFF929292),
                   unselectedLabelStyle: const TextStyle(
                     color: Color(0xFF929292),
-                    fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                    fontSize: 9,
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   tabs: const [

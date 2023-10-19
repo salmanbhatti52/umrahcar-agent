@@ -36,7 +36,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
   bool isFocused = false;
   GetBookingListModel getBookingUpcomingResponse = GetBookingListModel();
   getBookingListUpcoming() async {
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData = {"users_agents_id": userId.toString()};
     getBookingUpcomingResponse =
         await DioClient().getBookingupcoming(mapData, context);
@@ -46,7 +46,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
   }
   GetBookingListModel getBookingUpcomingResponseForSearch=GetBookingListModel();
   getBookingListOngoingSearch(String? searchText)async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     getBookingUpcomingResponseForSearch.data=[];
     var mapData={
       "users_agents_id": userId.toString(),
@@ -62,7 +62,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
 
   GetBookingPendingById getBookingPendingById = GetBookingPendingById();
   getBookingListPending(String? bookingId) async {
-    print("bookingId ${bookingId}");
+    print("bookingId $bookingId");
     var mapData = {"bookings_id": bookingId};
     getBookingPendingById =
         await DioClient().getBookingPendingById(mapData, context);
@@ -147,7 +147,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -193,13 +193,13 @@ class _UpcomingPageState extends State<UpcomingPage> {
                   suggestionStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 14,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   searchStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 16,
-                    fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -275,7 +275,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                             style: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 16,
-                                              fontFamily: 'Montserrat-Regular',
+                                            fontFamily: 'Poppins',
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -289,7 +289,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                 style: const TextStyle(
                                                   color: Color(0xFF565656),
                                                   fontSize: 8,
-                                                  fontFamily: 'Montserrat-Regular',
+                                                  fontFamily: 'Poppins',
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
@@ -303,14 +303,14 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                 style: const TextStyle(
                                                   color: Color(0xFF565656),
                                                   fontSize: 8,
-                                                  fontFamily: 'Montserrat-Regular',
+                                                  fontFamily: 'Poppins',
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
                                             ],
                                           ),
                                           SizedBox(height: size.height * 0.005),
-                                          Container(
+                                          SizedBox(
                                             width: 180,
                                             child: Row(
                                               children: [
@@ -345,8 +345,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                                   color: Color(
                                                                       0xFF565656),
                                                                   fontSize: 7,
-                                                                  fontFamily:
-                                                                      'Montserrat-Regular',
+                                                                 fontFamily: 'Poppins',
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
@@ -378,8 +377,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                                     color: Color(
                                                                         0xFF565656),
                                                                     fontSize: 7,
-                                                                    fontFamily:
-                                                                        'Montserrat-Regular',
+                                                                    fontFamily: 'Poppins',
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w500,
@@ -403,11 +401,10 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                   'assets/images/small-black-bookings-icon.svg'),
                                               SizedBox(width: size.width * 0.01),
                                               Text(
-                                                '${getData.pickupTime} ${getData.pickupDate}',                                              style: TextStyle(
+                                                '${getData.pickupTime} ${getData.pickupDate}',                                              style: const TextStyle(
                                                   color: Color(0xFF565656),
                                                   fontSize: 8,
-                                                  fontFamily:
-                                                      'Montserrat-Regular',
+                                                 fontFamily: 'Poppins',
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
@@ -431,12 +428,12 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                             },
                                             child: Row(
                                               children: [
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 25,
                                                 ),
                                                 SvgPicture.asset(
                                                     "assets/images/edit.svg"),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: 20,
                                                 )
                                               ],
@@ -459,7 +456,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                             builder: (context) =>
                                                                 TrackPagePending(
                                                                     getBookingData:
-                                                                        getBookingPendingById!
+                                                                        getBookingPendingById
                                                                             .data![0]),
                                                           ));
                                                     }
@@ -474,8 +471,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                     color: Color(
                                                         0xFF565656),
                                                     fontSize: 12,
-                                                    fontFamily:
-                                                    'Montserrat-Regular',
+                                                   fontFamily: 'Poppins',
                                                     fontWeight:
                                                     FontWeight
                                                         .w500,
@@ -492,10 +488,10 @@ class _UpcomingPageState extends State<UpcomingPage> {
                             );
                           },
                         )
-                      : Container(
+                      : const SizedBox(
                           height: 300,
                           width: 300,
-                          child: Center(child: const Text("No upcoming Booking")),
+                          child: Center(child: Text("No upcoming Booking")),
                         ),
                 ),
               ),
@@ -560,7 +556,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 16,
-                                      fontFamily: 'Montserrat-Regular',
+                                      fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -574,7 +570,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                         style: const TextStyle(
                                           color: Color(0xFF565656),
                                           fontSize: 8,
-                                          fontFamily: 'Montserrat-Regular',
+                                          fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -588,14 +584,14 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                         style: const TextStyle(
                                           color: Color(0xFF565656),
                                           fontSize: 8,
-                                          fontFamily: 'Montserrat-Regular',
+                                         fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ],
                                   ),
                                   SizedBox(height: size.height * 0.005),
-                                  Container(
+                                  SizedBox(
                                     width: 180,
                                     child: Row(
                                       children: [
@@ -630,8 +626,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                     color: Color(
                                                         0xFF565656),
                                                     fontSize: 7,
-                                                    fontFamily:
-                                                    'Montserrat-Regular',
+                                                   fontFamily: 'Poppins',
                                                     fontWeight:
                                                     FontWeight
                                                         .w500,
@@ -663,8 +658,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                                       color: Color(
                                                           0xFF565656),
                                                       fontSize: 7,
-                                                      fontFamily:
-                                                      'Montserrat-Regular',
+                                                     fontFamily: 'Poppins',
                                                       fontWeight:
                                                       FontWeight
                                                           .w500,
@@ -688,11 +682,10 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                           'assets/images/small-black-bookings-icon.svg'),
                                       SizedBox(width: size.width * 0.01),
                                       Text(
-                                        '${getData.pickupTime} ${getData.pickupDate}',                                              style: TextStyle(
+                                        '${getData.pickupTime} ${getData.pickupDate}',                                              style: const TextStyle(
                                         color: Color(0xFF565656),
                                         fontSize: 8,
-                                        fontFamily:
-                                        'Montserrat-Regular',
+                                        fontFamily: 'Poppins',
                                         fontWeight: FontWeight.w500,
                                       ),
                                       ),
@@ -716,12 +709,12 @@ class _UpcomingPageState extends State<UpcomingPage> {
                               },
                               child: Row(
                                 children: [
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 25,
                                   ),
                                   SvgPicture.asset(
                                       "assets/images/edit.svg"),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20,
                                   )
                                 ],
@@ -744,7 +737,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                               builder: (context) =>
                                                   TrackPagePending(
                                                       getBookingData:
-                                                      getBookingPendingById!
+                                                      getBookingPendingById
                                                           .data![0]),
                                             ));
                                       }
@@ -759,8 +752,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                                         color: Color(
                                             0xFF565656),
                                         fontSize: 12,
-                                        fontFamily:
-                                        'Montserrat-Regular',
+                                    fontFamily: 'Poppins',
                                         fontWeight:
                                         FontWeight
                                             .w500,
@@ -777,10 +769,10 @@ class _UpcomingPageState extends State<UpcomingPage> {
                     );
                   },
                 )
-                    : Container(
+                    : const SizedBox(
                   height: 300,
                   width: 300,
-                  child: Center(child: const Text("No upcoming Booking")),
+                  child: Center(child: Text("No upcoming Booking")),
                 ),
               ),
             )

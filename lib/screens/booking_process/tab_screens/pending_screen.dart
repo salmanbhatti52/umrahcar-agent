@@ -34,7 +34,7 @@ class _PendingPageState extends State<PendingPage> {
   GetBookingListModel getBookingResponse=GetBookingListModel();
 
   getBookingList()async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData={
       "users_agents_id": userId.toString()
     };
@@ -48,7 +48,7 @@ class _PendingPageState extends State<PendingPage> {
 
   GetBookingListModel getBookingPendingResponseForSearch=GetBookingListModel();
   getBookingListOngoingSearch(String? searchText)async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     getBookingPendingResponseForSearch.data=[];
     var mapData={
       "users_agents_id": userId.toString(),
@@ -141,7 +141,7 @@ class _PendingPageState extends State<PendingPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -187,13 +187,13 @@ class _PendingPageState extends State<PendingPage> {
                   suggestionStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 14,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   searchStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 16,
-                    fontFamily: 'Montserrat-Regular',
+                  fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                 ),

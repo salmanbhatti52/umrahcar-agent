@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:umrahcar/utils/colors.dart';
 import 'package:umrahcar/widgets/button.dart';
 
 Widget bookingConfirmation(BuildContext context) {
@@ -23,7 +24,7 @@ Widget bookingConfirmation(BuildContext context) {
                 color: Colors.black,
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'Montserrat-Regular',
+                fontFamily: 'Poppins',
               ),
             ),
             SizedBox(height: size.height * 0.02),
@@ -46,7 +47,7 @@ Widget bookingConfirmation(BuildContext context) {
                       color: Color(0xFF929292),
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                     ),
                   ),
                 ],
@@ -61,7 +62,7 @@ Widget bookingConfirmation(BuildContext context) {
                   color: Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Montserrat-Regular',
+                  fontFamily: 'Poppins',
                 ),
               ),
             ),
@@ -80,7 +81,7 @@ Widget bookingConfirmation(BuildContext context) {
                       color: Color(0xFF929292),
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                     ),
                   ),
                 ],
@@ -95,7 +96,7 @@ Widget bookingConfirmation(BuildContext context) {
                   color: Colors.black,
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                 ),
               ),
             ),
@@ -112,7 +113,7 @@ Widget bookingConfirmation(BuildContext context) {
                       color: Color(0xFF929292),
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                     ),
                   ),
                   Text(
@@ -140,7 +141,7 @@ Widget bookingConfirmation(BuildContext context) {
                       color: Color(0xFF929292),
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                     ),
                   ),
                   Text(
@@ -149,7 +150,7 @@ Widget bookingConfirmation(BuildContext context) {
                       color: Colors.black,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                     ),
                   ),
                 ],
@@ -168,7 +169,7 @@ Widget bookingConfirmation(BuildContext context) {
                       color: Color(0xFF929292),
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                     ),
                   ),
                   Text(
@@ -177,35 +178,35 @@ Widget bookingConfirmation(BuildContext context) {
                       color: Colors.black,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                     ),
                   ),
                 ],
               ),
             ),
             SizedBox(height: size.height * 0.02),
-            const Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
+             Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Total Fare',
                     style: TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 15,
                       fontWeight: FontWeight.w500,
-                      fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                     ),
                   ),
                   Text(
                     '600 SAR',
                     style: TextStyle(
-                      color: Color(0xFF79BF42),
+                      color: secondaryColor,
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                     ),
                   ),
                 ],

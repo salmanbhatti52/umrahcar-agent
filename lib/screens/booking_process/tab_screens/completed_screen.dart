@@ -31,7 +31,7 @@ class _CompletedPageState extends State<CompletedPage> {
   bool isFocused = false;
   GetBookingListModel getBookingCompletedResponse=GetBookingListModel();
   getBookingListUpcoming()async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData={
       "users_agents_id": userId.toString()
     };
@@ -47,7 +47,7 @@ class _CompletedPageState extends State<CompletedPage> {
 
   GetBookingListModel getBookingCompletedResponseForSearch=GetBookingListModel();
   getBookingListOngoingSearch(String? searchText)async {
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     getBookingCompletedResponseForSearch.data = [];
     var mapData = {
       "users_agents_id": userId.toString(),
@@ -138,7 +138,7 @@ class _CompletedPageState extends State<CompletedPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                  fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -184,13 +184,13 @@ class _CompletedPageState extends State<CompletedPage> {
                   suggestionStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 14,
-                    fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   searchStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 16,
-                    fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                 ),

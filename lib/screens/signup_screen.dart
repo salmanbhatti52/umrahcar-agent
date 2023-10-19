@@ -162,7 +162,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   // },
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontSize: 16,
                     color: Color(0xFF6B7280),
                   ),
@@ -208,8 +208,8 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
-                      fontWeight: FontWeight.w500,
+ fontFamily: 'Poppins',
+                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon: SvgPicture.asset(
                       'assets/images/name-icon.svg',
@@ -234,7 +234,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   // },
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontSize: 16,
                     color: Color(0xFF6B7280),
                   ),
@@ -280,7 +280,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon: SvgPicture.asset(
@@ -395,7 +395,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             style: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 14,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -406,7 +406,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         style: TextStyle(
                           color: Color(0xFF929292),
                           fontSize: 20,
-                          fontFamily: 'Montserrat-Regular',
+                         fontFamily: 'Poppins',
                           fontWeight: FontWeight.normal,
                         ),
                       ),
@@ -423,7 +423,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           // },
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                             fontSize: 16,
                             color: Color(0xFF6B7280),
                           ),
@@ -450,7 +450,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             hintStyle: const TextStyle(
                               color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                             prefixIcon: SvgPicture.asset(
@@ -480,7 +480,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   // },
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat-Regular',
+                   fontFamily: 'Poppins',
                     fontSize: 16,
                     color: Color(0xFF6B7280),
                   ),
@@ -526,7 +526,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon: SvgPicture.asset(
@@ -696,7 +696,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   // },
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontSize: 16,
                     color: Color(0xFF6B7280),
                   ),
@@ -742,7 +742,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon: SvgPicture.asset(
@@ -769,7 +769,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   // },
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontSize: 16,
                     color: Color(0xFF6B7280),
                   ),
@@ -815,7 +815,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon: SvgPicture.asset(
@@ -862,7 +862,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   // },
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontSize: 16,
                     color: Color(0xFF6B7280),
                   ),
@@ -908,7 +908,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon: SvgPicture.asset(
@@ -1191,7 +1191,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     'OR',
                     style: TextStyle(
                       fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -1214,7 +1214,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   style: const TextStyle(
                     color: Colors.black,
                     fontSize: 16,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   children: [
@@ -1230,9 +1230,9 @@ class _SignUpPageState extends State<SignUpPage> {
                           );
                         },
                       text: 'Login',
-                      style: const TextStyle(
-                        color: Color(0xFF79BF42),
-                        fontFamily: 'Montserrat-Regular',
+                      style:  TextStyle(
+                        color: buttonColor,
+                        fontFamily: 'Poppins',
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),

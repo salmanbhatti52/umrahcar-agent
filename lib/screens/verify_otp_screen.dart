@@ -86,7 +86,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 24,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
@@ -98,7 +98,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF6B7280),
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
                     ),
@@ -113,7 +113,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                       text: "$seconds",
                       style: const TextStyle(
                         color: Color(0xFF6B7280),
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontSize: 36,
                         fontWeight: FontWeight.w700,
                       ),
@@ -122,7 +122,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                           text: '  sec',
                           style: TextStyle(
                             color: Color(0xFF6B7280),
-                            fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                             fontSize: 20,
                             fontWeight: FontWeight.w700,
                           ),
@@ -156,7 +156,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                             style: TextStyle(
                               color: secondaryColor,
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -168,7 +168,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                           style: TextStyle(
                             color: Colors.grey.withOpacity(0.5),
                             fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -200,7 +200,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                       color: Color(0xFF6B7280),
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                     ),
                     onComplete: (output) {
                       // Your logic with pin code

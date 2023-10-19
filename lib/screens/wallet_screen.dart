@@ -20,7 +20,7 @@ class _WalletPageState extends State<WalletPage> {
   var getAgentsWidgetData;
 
   getAgentWidgetData()async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData={
       "users_agents_id": userId.toString()
     };
@@ -52,10 +52,11 @@ class _WalletPageState extends State<WalletPage> {
         body: getAgentsWidgetData !=null ?
         Container(
           decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/images/background.png'),
-              fit: BoxFit.cover,
-            ),
+            color: Color(0xFFFFB940),
+            // image: DecorationImage(
+            //   image: AssetImage('assets/images/background.png'),
+            //   fit: BoxFit.cover,
+            // ),
           ),
           child: Column(
             children: [
@@ -71,7 +72,7 @@ class _WalletPageState extends State<WalletPage> {
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                         fontWeight: FontWeight.w700,
                         fontSize: 26,
                       ),
@@ -115,11 +116,11 @@ class _WalletPageState extends State<WalletPage> {
             ],
           ),
         )
-            :Container(
+            :SizedBox(
           height: MediaQuery.of(context).size.height/1,
           child: const Center(
             child: CircularProgressIndicator(
-              color: Colors.blue,
+              color: Colors.amber,
             ),
           ),
         ),

@@ -69,7 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   var getProfileResponse;
   getProfile()async{
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData={
       "users_agents_id": userId.toString()
     };
@@ -123,7 +123,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             style: TextStyle(
               color: Colors.black,
               fontSize: 26,
-              fontFamily: 'Montserrat-Regular',
+              fontFamily: 'Poppins',
               fontWeight: FontWeight.w700,
             ),
           ),
@@ -205,8 +205,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16,
-                                                        fontFamily:
-                                                            'Montserrat-Regular',
+                                                       fontFamily: 'Poppins',
                                                         fontWeight:
                                                             FontWeight.w400,
                                                       ),
@@ -234,8 +233,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                       style: TextStyle(
                                                         color: Colors.black,
                                                         fontSize: 16,
-                                                        fontFamily:
-                                                            'Montserrat-Regular',
+                                                        fontFamily: 'Poppins',
                                                         fontWeight:
                                                             FontWeight.w400,
                                                       ),
@@ -252,7 +250,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 },
                                 child: CircleAvatar(
                                   radius: 12,
-                                  backgroundColor: const Color(0xFF79BF42),
+                                  backgroundColor: buttonColor,
                                   child: SvgPicture.asset(
                                     'assets/images/white-camera-icon.svg',
                                     width: 15,
@@ -278,7 +276,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             style: TextStyle(
                               color: Color(0xFF565656),
                               fontSize: 16,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -290,7 +288,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16,
-                              fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -314,7 +312,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -360,7 +358,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -386,7 +384,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -432,7 +430,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -465,7 +463,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -511,7 +509,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -537,7 +535,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -583,7 +581,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -621,7 +619,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             },
                             style: const TextStyle(
                               fontWeight: FontWeight.w400,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontSize: 16,
                               color: Color(0xFF6B7280),
                             ),
@@ -648,7 +646,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               hintStyle: const TextStyle(
                                 color: Color(0xFF929292),
                                 fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
+                                fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                               prefixIcon: SvgPicture.asset(
@@ -678,7 +676,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     },
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
-                      fontFamily: 'Montserrat-Regular',
+                      fontFamily: 'Poppins',
                       fontSize: 16,
                       color: Color(0xFF6B7280),
                     ),
@@ -724,7 +722,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                        fontFamily: 'Montserrat-Regular',
+                       fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -766,23 +764,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                           "landline":getProfileResponse !=null ? "${getProfileResponse.data.landline}":"1234567890",
                           "notification_switch":getProfileResponse !=null ? "${getProfileResponse.data.notificationSwitch}":"1234567890"
                         };
-                        print("mapData: ${mapData}");
+                        print("mapData: $mapData");
                         var response = await DioClient().updateProfile(
                             mapData,context
                         );
-                        if(response !=null){
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Profile Updated Successfully")));
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Profile Updated Successfully")));
 
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>  NavBar(indexNmbr: 4),
-                              ));
-                          setState(() {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>  NavBar(indexNmbr: 4),
+                            ));
+                        setState(() {
 
-                          });
-                        }
-
+                        });
+                      
 
 
                       }
@@ -798,7 +794,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
           children: [
             Padding(
               padding: EdgeInsets.only(left: 170),
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.amber,
+              ),
             ),
           ],
         ),

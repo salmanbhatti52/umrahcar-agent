@@ -62,7 +62,7 @@ class _PickUpPageState extends State<PickUpPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: size.height * 0.03),
-                          const Row(
+                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -70,16 +70,16 @@ class _PickUpPageState extends State<PickUpPage> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
-                                  fontFamily: 'Montserrat-Regular',
+                                 fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               Text(
                                 '12 Km Away',
                                 style: TextStyle(
-                                  color: Color(0xFF79BF42),
+                                  color: secondaryColor,
                                   fontSize: 16,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -91,7 +91,7 @@ class _PickUpPageState extends State<PickUpPage> {
                             style: TextStyle(
                               color: Color(0xFF565656),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                             fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -112,7 +112,7 @@ class _PickUpPageState extends State<PickUpPage> {
                                     style: TextStyle(
                                       color: Color(0xFF565656),
                                       fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
+                                      fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -124,7 +124,7 @@ class _PickUpPageState extends State<PickUpPage> {
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
-                                        fontFamily: 'Montserrat-Regular',
+                                       fontFamily: 'Poppins',
                                         fontWeight: FontWeight.w500,
                                       ),
                                       minFontSize: 12,

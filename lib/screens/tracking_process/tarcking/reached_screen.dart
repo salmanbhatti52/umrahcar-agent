@@ -66,7 +66,7 @@ class _ReachedPageState extends State<ReachedPage> {
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
-                                  fontFamily: 'Montserrat-Regular',
+                                 fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -82,17 +82,17 @@ class _ReachedPageState extends State<ReachedPage> {
                                 style: TextStyle(
                                   color: Color(0xFF565656),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                 fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                               SizedBox(width: size.width * 0.04),
-                              const Text(
+                               Text(
                                 'Waiting',
                                 style: TextStyle(
-                                  color: Color(0xFF79BF42),
+                                  color:secondaryColor,
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -104,7 +104,7 @@ class _ReachedPageState extends State<ReachedPage> {
                             style: TextStyle(
                               color: Color(0xFF565656),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -125,7 +125,7 @@ class _ReachedPageState extends State<ReachedPage> {
                                     style: TextStyle(
                                       color: Color(0xFF565656),
                                       fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
+                                      fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
@@ -137,7 +137,7 @@ class _ReachedPageState extends State<ReachedPage> {
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 12,
-                                        fontFamily: 'Montserrat-Regular',
+                                        fontFamily: 'Poppins',
                                         fontWeight: FontWeight.w500,
                                       ),
                                       minFontSize: 12,

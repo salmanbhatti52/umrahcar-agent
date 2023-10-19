@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:umrahcar/models/get_booking_list_model.dart';
 import 'package:umrahcar/screens/tracking_process/track_completed_screen.dart';
+import 'package:umrahcar/utils/colors.dart';
 
 import '../screens/tracking_process/track_screen.dart';
 import '../utils/const.dart';
@@ -36,14 +37,20 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    getData.name!,
-                    style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontFamily: 'Montserrat-Regular',
-                      fontWeight: FontWeight.w500,
+                  SizedBox(
+                    width: size.width * 0.4,
+                    child: Text(
+                      getData.name!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                       fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
+                  
                   ),
                   SizedBox(height: size.height * 0.005),
                   Row(
@@ -55,10 +62,12 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
                         style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 8,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
-                      ),
+                      )
+                       ,
+                     
 
                       SizedBox(width: size.width * 0.05),
                       SvgPicture.asset(
@@ -69,14 +78,14 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
                         style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 8,
-                          fontFamily: 'Montserrat-Regular',
+                         fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: size.height * 0.005),
-                  Container(
+                  SizedBox(
                     width: 180,
 
                     child: Row(
@@ -97,7 +106,7 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
                                   style: const TextStyle(
                                     color: Color(0xFF565656),
                                     fontSize: 7,
-                                    fontFamily: 'Montserrat-Regular',
+                                   fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -117,7 +126,7 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
                                     style: const TextStyle(
                                       color: Color(0xFF565656),
                                       fontSize: 7,
-                                      fontFamily: 'Montserrat-Regular',
+                                      fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -137,10 +146,10 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
                           'assets/images/small-black-bookings-icon.svg'),
                       SizedBox(width: size.width * 0.01),
                       Text(
-                        '${getData.pickupTime} ${getData.pickupDate}',                        style: TextStyle(
+                        '${getData.pickupTime} ${getData.pickupDate}',                        style: const TextStyle(
                           color: Color(0xFF565656),
                           fontSize: 8,
-                          fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -157,13 +166,13 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
                   //       builder: (context) =>  TrackPage(getBookingData: getData),
                   //     ));
                 },
-                child: const Text(
+                child: Text(
                   'Completed',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF0066FF),
+                    color: buttonColor,
                     fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -174,10 +183,10 @@ Widget completedList(BuildContext context,GetBookingListModel getBookingComplete
         ],
       );
     },
-  ):Container(
+  ):const SizedBox(
     height: 300,
     width: 300,
-    child: Center(child: const Text("No Completed Booking")),
+    child: Center(child: Text("No Completed Booking")),
   );
 }
 

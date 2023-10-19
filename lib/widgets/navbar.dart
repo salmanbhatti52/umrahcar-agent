@@ -27,8 +27,9 @@ class _NavBarState extends State<NavBar> {
 
   @override
   void initState() {
-    if(widget.indexNmbr !=null)
-    index=widget.indexNmbr!;
+    if(widget.indexNmbr !=null) {
+      index=widget.indexNmbr!;
+    }
     print("update allow; ${widget.updateBooking}");
     print("booking Id; ${widget.bookingId}");
     // TODO: implement initState
@@ -70,10 +71,10 @@ class _NavBarState extends State<NavBar> {
                 indicatorShape: const CircleBorder(),
                 indicatorColor: Colors.transparent,
                 labelTextStyle: MaterialStateProperty.all(
-                  const TextStyle(
-                    color: Color(0xFF79BF42),
+               TextStyle(
+                    color: secondaryColor,
                     fontSize: 8,
-                    fontFamily: 'Montserrat-Regular',
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -91,32 +92,32 @@ class _NavBarState extends State<NavBar> {
                   NavigationDestination(
                     icon: SvgPicture.asset('assets/images/home-icon.svg'),
                     selectedIcon:
-                    SvgPicture.asset('assets/images/active-home-icon.svg'),
+                    SvgPicture.asset('assets/images/active-home-icon.svg', color: secondaryColor,),
                     label: 'Home',
                   ),
                   NavigationDestination(
                     icon: SvgPicture.asset('assets/images/bookings-icon.svg'),
                     selectedIcon: SvgPicture.asset(
-                        'assets/images/active-bookings-icon.svg'),
+                        'assets/images/active-bookings-icon.svg', color: secondaryColor,),
                     label: 'Bookings',
                   ),
                   NavigationDestination(
                     icon: SvgPicture.asset(
-                        'assets/images/create-bookings-icon.svg'),
+                        'assets/images/create-bookings-icon.svg',color: secondaryColor,),
                     selectedIcon: SvgPicture.asset(
-                        'assets/images/create-bookings-icon.svg'),
+                        'assets/images/create-bookings-icon.svg', color: secondaryColor,),
                     label: '',
                   ),
                   NavigationDestination(
                     icon: SvgPicture.asset('assets/images/wallet-icon.svg'),
                     selectedIcon:
-                    SvgPicture.asset('assets/images/active-wallet-icon.svg'),
+                    SvgPicture.asset('assets/images/active-wallet-icon.svg', color: secondaryColor,),
                     label: 'Wallet',
                   ),
                   NavigationDestination(
                     icon: SvgPicture.asset('assets/images/profile-icon.svg'),
                     selectedIcon:
-                    SvgPicture.asset('assets/images/active-profile-icon.svg'),
+                    SvgPicture.asset('assets/images/active-profile-icon.svg', color: secondaryColor,),
                     label: 'Profile',
                   ),
                 ],

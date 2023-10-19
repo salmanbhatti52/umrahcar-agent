@@ -260,7 +260,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                   hintStyle: const TextStyle(
                                     color: Color(0xFF929292),
                                     fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
+                                   fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -274,7 +274,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                           style: const TextStyle(
                                             color: Color(0xFF929292),
                                             fontSize: 12,
-                                            fontFamily: 'Montserrat-Regular',
+                                            fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -346,7 +346,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                   hintStyle: const TextStyle(
                                     color: Color(0xFF929292),
                                     fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
+                                    fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -360,7 +360,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                           style: const TextStyle(
                                             color: Color(0xFF929292),
                                             fontSize: 12,
-                                            fontFamily: 'Montserrat-Regular',
+                                            fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -447,7 +447,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                   hintStyle: const TextStyle(
                                     color: Color(0xFF929292),
                                     fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
+                                    fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -461,7 +461,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                           style: const TextStyle(
                                             color: Color(0xFF929292),
                                             fontSize: 12,
-                                            fontFamily: 'Montserrat-Regular',
+                                            fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -581,7 +581,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                   hintStyle: const TextStyle(
                                     color: Color(0xFF929292),
                                     fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
+                                    fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -598,7 +598,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                             style: const TextStyle(
                                               color: Color(0xFF929292),
                                               fontSize: 12,
-                                              fontFamily: 'Montserrat-Regular',
+                                              fontFamily: 'Poppins',
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -690,7 +690,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                   hintStyle: const TextStyle(
                                     color: Color(0xFF929292),
                                     fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
+                                    fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -704,7 +704,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                           style: const TextStyle(
                                             color: Color(0xFF929292),
                                             fontSize: 12,
-                                            fontFamily: 'Montserrat-Regular',
+                                           fontFamily: 'Poppins',
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -800,7 +800,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                     hintStyle: const TextStyle(
                                       color: Color(0xFF929292),
                                       fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
+                                     fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -817,8 +817,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                               style: const TextStyle(
                                                 color: Color(0xFF929292),
                                                 fontSize: 12,
-                                                fontFamily:
-                                                    'Montserrat-Regular',
+                                               fontFamily: 'Poppins',
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -852,7 +851,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                           style: TextStyle(
                             color: Color(0xFF1E1E1E),
                             fontSize: 16,
-                            fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -880,13 +879,13 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                 }
                                 setState(() {});
                               },
-                              child: const Text(
+                              child:  Text(
                                 "Select Date:",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Color(0xFF79BF42),
+                                  color: secondaryColor,
                                   fontSize: 16,
-                                  fontFamily: 'Montserrat-Regular',
+                                 fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -919,9 +918,9 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                       : "$currentDate",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
-                                    color: Color(0xFF79BF42),
+                                    color: secondaryColor,
                                     fontSize: 16,
-                                    fontFamily: 'Montserrat-Regular',
+                                    fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -938,7 +937,7 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                           style: TextStyle(
                             color: Color(0xFF1E1E1E),
                             fontSize: 16,
-                            fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -962,13 +961,13 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                   print("Time is not selected");
                                 }
                               },
-                              child: const Text(
+                              child:  Text(
                                 "Select Time:",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
-                                  color: Color(0xFF79BF42),
+                                  color: secondaryColor,
                                   fontSize: 16,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -994,10 +993,10 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                                 child: Text(
                                   pickupTime != null ? pickupTime! : currentTime!,
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    color: Color(0xFF79BF42),
+                                  style:  TextStyle(
+                                    color: secondaryColor,
                                     fontSize: 16,
-                                    fontFamily: 'Montserrat-Regular',
+                                    fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -1093,7 +1092,9 @@ class _TouristInfoPageState extends State<TouristInfoPage> {
                 padding: EdgeInsets.only(left: 175, top: 300),
                 child: Column(
                   children: [
-                    CircularProgressIndicator(),
+                    CircularProgressIndicator(
+                      color: Colors.amber,
+                    ),
                   ],
                 ),
               ),

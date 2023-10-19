@@ -4,6 +4,7 @@ import 'package:umrahcar/models/get_booking_list_model.dart';
 import 'package:umrahcar/screens/tracking_process/track_screen.dart';
 import 'package:umrahcar/screens/tracking_process/track_completed_screen.dart';
 import 'package:umrahcar/screens/tracking_process/track_upcoming_screen.dart';
+import 'package:umrahcar/utils/colors.dart';
 import 'package:umrahcar/utils/const.dart';
 
 Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
@@ -17,8 +18,6 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
     itemBuilder: (BuildContext context, int index) {
       var reverselist = getBookingListModel.data!.reversed.toList();
       var getData = reverselist[index];
-      print("images:");
-      print("${imageUrl}${getData.routes!.vehicles!.featureImage}");
       return Material(
         color: Colors.transparent,
         child: InkWell(
@@ -49,14 +48,14 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
+                      SizedBox(
                         width: 175,
                         child: Text(
                           getData.name!,
                           style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
-                            fontFamily: 'Montserrat-Regular',
+                            fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                           ),
                           maxLines: 1,
@@ -73,7 +72,7 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
                             style: const TextStyle(
                               color: Color(0xFF565656),
                               fontSize: 8,
-                              fontFamily: 'Montserrat-Regular',
+                             fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -87,14 +86,14 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
                             style: const TextStyle(
                               color: Color(0xFF565656),
                               fontSize: 8,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
                         ],
                       ),
                       SizedBox(height: size.height * 0.005),
-                      Container(
+                      SizedBox(
                         width: 180,
                         child: Row(
                           children: [
@@ -116,7 +115,7 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
                                             style: const TextStyle(
                                               color: Color(0xFF565656),
                                               fontSize: 7,
-                                              fontFamily: 'Montserrat-Regular',
+                                              fontFamily: 'Poppins',
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -137,7 +136,7 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
                                               style: const TextStyle(
                                                 color: Color(0xFF565656),
                                                 fontSize: 7,
-                                                fontFamily: 'Montserrat-Regular',
+                                                 fontFamily: 'Poppins',
                                                 fontWeight: FontWeight.w500,
                                               ),
                                             ),
@@ -158,10 +157,10 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
                           SizedBox(width: size.width * 0.01),
                           Text(
                             '${getData.bookingTime} ${getData.bookingDate}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Color(0xFF565656),
                               fontSize: 8,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -188,10 +187,10 @@ Widget homeList(BuildContext context, GetBookingListModel getBookingListModel) {
                       child: Text(
                         getData.status!,
                         textAlign: TextAlign.end,
-                        style: const TextStyle(
-                          color: Color(0xFF0066FF),
+                        style: TextStyle(
+                          color: secondaryColor,
                           fontSize: 12,
-                          fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,
                         ),
                       ),

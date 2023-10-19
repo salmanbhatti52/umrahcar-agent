@@ -16,7 +16,7 @@ Widget button(buttonText, context) {
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: Colors.white,
-            fontFamily: 'Montserrat-Regular',
+             fontFamily: 'Poppins',
             fontWeight: FontWeight.w600,
             fontSize: 18,
           ),
@@ -68,7 +68,7 @@ Widget dialogButton(buttonText, context) {
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: Colors.white,
-            fontFamily: 'Poppins-Regular',
+           fontFamily: 'Poppins',
             fontWeight: FontWeight.w700,
             fontSize: 16,
             letterSpacing: 0.3,

@@ -221,7 +221,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 16,
-                                fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -231,7 +231,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 12,
-                                fontFamily: 'Montserrat-Regular',
+                               fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w300,
                               ),
                             ),
@@ -243,7 +243,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                           style: TextStyle(
                             color: Color(0xFF929292),
                             fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -253,7 +253,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                           style: const TextStyle(
                             color: Color(0xFF565656),
                             fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -263,7 +263,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                           style: TextStyle(
                             color: Color(0xFF929292),
                             fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
+                           fontFamily: 'Poppins',
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -273,7 +273,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                           style: const TextStyle(
                             color: Color(0xFF565656),
                             fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
+                          fontFamily: 'Poppins',
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -300,7 +300,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                       style: const TextStyle(
                                         color: Color(0xFF565656),
                                         fontSize: 10,
-                                        fontFamily: 'Montserrat-Regular',
+                                       fontFamily: 'Poppins',
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
@@ -325,7 +325,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                   style: const TextStyle(
                                     color: Color(0xFF565656),
                                     fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -345,7 +345,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                   style: const TextStyle(
                                     color: Color(0xFF565656),
                                     fontSize: 12,
-                                    fontFamily: 'Montserrat-Regular',
+                                   fontFamily: 'Poppins',
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -379,7 +379,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                     style: TextStyle(
                                       color: Color(0xFF565656),
                                       fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
+                                      fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -402,7 +402,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                     style: const TextStyle(
                                       color: Color(0xFF565656),
                                       fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
+                                      fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -426,7 +426,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                     style: const TextStyle(
                                       color: Color(0xFF565656),
                                       fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
+                                     fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -446,7 +446,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                     style: const TextStyle(
                                       color: Color(0xFF565656),
                                       fontSize: 12,
-                                      fontFamily: 'Montserrat-Regular',
+                                      fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
@@ -472,7 +472,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                 style: TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                 fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -483,7 +483,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                 style: TextStyle(
                                   color: Color(0xFF565656),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ):
@@ -492,7 +492,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                 style: const TextStyle(
                                   color: Color(0xFF565656),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               )
@@ -515,7 +515,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                 style: TextStyle(
                                   color: Color(0xFF929292),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                 fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -525,7 +525,7 @@ class _TrackPagePendingState extends State<TrackPagePending> {
                                 style: const TextStyle(
                                   color: Color(0xFF565656),
                                   fontSize: 12,
-                                  fontFamily: 'Montserrat-Regular',
+                                  fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -574,7 +574,9 @@ class _TrackPagePendingState extends State<TrackPagePending> {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 175, top: 30),
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Colors.amber,
+            ),
           ),
         ],
       ),

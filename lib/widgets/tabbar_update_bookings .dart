@@ -9,6 +9,7 @@ import 'package:umrahcar/screens/create_booking_process/tab_screens/other_info_s
 import 'package:umrahcar/screens/create_booking_process/tab_screens/pickup_info_screen.dart';
 import 'package:umrahcar/screens/create_booking_process/tab_screens/pickup_info_screen_update.dart';
 import 'package:umrahcar/service/rest_api_serivice.dart';
+import 'package:umrahcar/utils/colors.dart';
 
 import '../models/get_booking_list_model.dart';
 
@@ -239,7 +240,7 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
-                    color: const Color(0xFF79BF42),
+                    color: buttonColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   onTap: (index) {
@@ -249,21 +250,21 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
                       return;
                     }
                   },
-                  indicatorColor: const Color(0xFF79BF42),
-                  isScrollable: true,
+                  indicatorColor: buttonColor,
+                  isScrollable: false,
                   labelColor: Colors.white,
                   labelPadding: const EdgeInsets.symmetric(horizontal: 25),
                   labelStyle: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                  fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   unselectedLabelColor: const Color(0xFF929292),
                   unselectedLabelStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                  fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   tabs: const [
@@ -279,7 +280,7 @@ class _TabbarUpdateBookingsState extends State<TabbarUpdateBookings>
           height: MediaQuery.of(context).size.height * 0.72,
           child: TabBarView(
             controller: tabController,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               TouristInfoPageUpdate(
                 tabController: tabController,

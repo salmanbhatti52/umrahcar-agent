@@ -28,18 +28,18 @@ class _HomePageState extends State<HomePage> {
   var getBookingResponse;
   var getProfileResponse;
   getLocalData() async {
-    final _sharedPref = await SharedPreferences.getInstance();
-    var uid = _sharedPref.getString('userId');
+    final sharedPref = await SharedPreferences.getInstance();
+    var uid = sharedPref.getString('userId');
     userId = uid;
-    print("uiduid: ${uid}");
-    print("uiduid: ${userId}");
+    print("uiduid: $uid");
+    print("uiduid: $userId");
     getBookingList();
     getAgentWidgetData();
     getProfile();
   }
 
   getBookingList() async {
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData = {"users_agents_id": userId.toString()};
     getBookingResponse = await DioClient().getBookingList(mapData, context);
     print("response id: ${getBookingResponse.data}");
@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
   var getAgentsWidgetData;
 
   getAgentWidgetData() async {
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData = {"users_agents_id": userId.toString()};
     getAgentsWidgetData =
         await DioClient().getAgentsWidgetsData(mapData, context);
@@ -58,11 +58,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   getProfile() async {
-    print("userIdId ${userId}");
+    print("userIdId $userId");
     var mapData = {"users_agents_id": userId.toString()};
     getProfileResponse = await DioClient().getProfile(mapData, context);
-    if (getProfileResponse.data != null)
+    if (getProfileResponse.data != null) {
       print("getProfileResponse name: ${getProfileResponse.data.name}");
+    }
     profileName = getProfileResponse.data.name;
     print("my name: ${getProfileResponse.data.name}");
     setState(() {});
@@ -75,12 +76,13 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: mainColor,
       body: getProfileResponse != null
           ? Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/background.png'),
-                  fit: BoxFit.cover,
-                ),
-              ),
+             color: const Color(0xFFF8B73F),
+              // decoration: const BoxDecoration(
+              //   image: DecorationImage(
+              //     image: AssetImage('assets/images/background.png'),
+              //     fit: BoxFit.cover,
+              //   ),
+              // ),
               child: Column(
                 children: [
                   Container(
@@ -109,7 +111,7 @@ class _HomePageState extends State<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (getProfileResponse != null)
-                                Container(
+                                SizedBox(
                                   width: 150,
                                   child: Text(
                                     '${getProfileResponse.data!.name}',
@@ -118,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                                     style: const TextStyle(
                                       color: Colors.white,
                                       fontSize: 16,
-                                      fontFamily: 'Montserrat-Regular',
+                                      fontFamily: 'Poppins',
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -130,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                                       'assets/images/white-location-icon.svg'),
                                   SizedBox(width: size.width * 0.01),
                                   if (getProfileResponse != null)
-                                    Container(
+                                    SizedBox(
                                       width: 150,
                                       child: Text(
                                         '${getProfileResponse.data!.address!} ${getProfileResponse.data!.city!}, ${getProfileResponse.data!.state!} ${getProfileResponse.data!.country!}',
@@ -140,7 +142,7 @@ class _HomePageState extends State<HomePage> {
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 12,
-                                          fontFamily: 'Montserrat-Regular',
+                                          fontFamily: 'Poppins',
                                           fontWeight: FontWeight.w500,
                                         ),
                                       ),
@@ -160,8 +162,15 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.black.withOpacity(0.15),
                               ),
                             ),
-                            child: SvgPicture.asset(
-                                'assets/images/notification-icon.svg'),
+                            child: Container(
+                               decoration: const ShapeDecoration(
+                                  color: Color(0xFFDD9519),
+                                  shape: OvalBorder(),
+                                ),
+                              child: SvgPicture.asset(
+                                
+                                  'assets/images/notification-icon.svg'),
+                            ),
                           ),
                         ),
                       ],
@@ -280,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                                 'Bookings',
                                 style: TextStyle(
                                   color: Colors.black,
-                                  fontFamily: 'Montserrat-Regular',
+                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,
                                 ),
@@ -310,12 +319,13 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(height: size.height * 0.02),
                         Container(
                             color: Colors.transparent,
-                            height: size.height * 0.430,
+                            height: size.height * 0.421,
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 12),
                               child: getBookingResponse != null
                                   ? RefreshIndicator(
+                                    color: secondaryColor,
                                   onRefresh: ()async{
                                     getBookingList();
                                     setState(() {
@@ -335,7 +345,7 @@ class _HomePageState extends State<HomePage> {
                                             "No data Found",
                                             style: TextStyle(
                                               color: Colors.black,
-                                              fontFamily: 'Montserrat-Regular',
+                                              fontFamily: 'Poppins',
                                               fontWeight: FontWeight.w600,
                                               fontSize: 16,
                                             ),
@@ -354,7 +364,7 @@ class _HomePageState extends State<HomePage> {
               height: MediaQuery.of(context).size.height / 1,
               child: const Center(
                 child: CircularProgressIndicator(
-                  color: Colors.blue,
+                  color: Colors.amber,
                 ),
               ),
             ),

@@ -25,18 +25,21 @@ class LogInPage extends StatefulWidget {
 }
 
 class _LogInPageState extends State<LogInPage> {
+  String backImage = "assets/images/custom-car.png";
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
 
   bool _obscure = true;
+
 
   DateTime? currentBackPressTime;
 
   String? validateEmail(String? value) {
     bool emailValid = RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
         .hasMatch(value!);
-    if (value.length == 0) {
+    if (value.isEmpty) {
       return "Email field is required!";
     } else if (!emailValid) {
       return "Email field is not valid!";
@@ -94,263 +97,290 @@ class _LogInPageState extends State<LogInPage> {
           //   elevation: 0,
           // ),
           backgroundColor: mainColor,
-          body: Form(
-            key: _formKey,
-            child: Center(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    SizedBox(height: size.height * 0.04),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: SvgPicture.asset('assets/images/umrah-car-logo-big.svg'),
-                    ),
-                    SizedBox(height: size.height * 0.04),
-                    const Text(
-                      'Welcome to UmrahCar Agent App',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontFamily: 'Montserrat-Regular',
-                        fontWeight: FontWeight.w600,
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(backImage),
+                alignment: Alignment.topCenter,
+                fit: BoxFit.scaleDown
+              ),
+            ),
+            child: Form(
+              key: _formKey,
+              child: Center(
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      SizedBox(height: size.height * 0.04),
+                           Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: SvgPicture.asset(
+                            'assets/images/umrah-passenger-logo.svg'),
                       ),
-                    ),
-                    // SizedBox(height: size.height * 0.02),
-                    // const Text(
-                    //   '(For Agents)',
-                    //   style: TextStyle(
-                    //     fontSize: 18,
-                    //     fontFamily: 'Montserrat-Regular',
-                    //     fontWeight: FontWeight.w500,
-                    //   ),
-                    // ),
-                    SizedBox(height: size.height * 0.06),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        controller: emailController,
-                        keyboardType: TextInputType.emailAddress,
-                        validator: (value) {
-                          bool emailValid = RegExp(
-                                  r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                              .hasMatch(value!);
-                          if (value.isEmpty) {
-                            return "Email field is required!";
-                          } else if (!emailValid) {
-                            return "Email field is not valid!";
-                          } else {
-                            return null;
-                          }
-                        },
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Montserrat-Regular',
-                          fontSize: 16,
-                          color: Color(0xFF6B7280),
+                        SizedBox(height: size.height * 0.04),
+                      RichText(
+                        text: const TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Welcome!\n',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Login to your Account',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Colors
+                                    .black, 
+                              fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
-                        decoration: InputDecoration(
-                          filled: false,
-                          errorStyle: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            wordSpacing: 2,
+                        textAlign: TextAlign.center,
+                      ),
+
+                      // SizedBox(height: size.height * 0.02),
+                      // const Text(
+                      //   '(For Agents)',
+                      //   style: TextStyle(
+                      //     fontSize: 18,
+                      //     fontFamily: 'Montserrat-Regular',
+                      //     fontWeight: FontWeight.w500,
+                      //   ),
+                      // ),
+                      SizedBox(height: size.height * 0.06),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          controller: emailController,
+                          keyboardType: TextInputType.emailAddress,
+                          validator: (value) {
+                            bool emailValid = RegExp(
+                                    r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                .hasMatch(value!);
+                            if (value.isEmpty) {
+                              return "Email field is required!";
+                            } else if (!emailValid) {
+                              return "Email field is not valid!";
+                            } else {
+                              return null;
+                            }
+                          },
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w400,
+                           fontFamily: 'Poppins',
+                            fontSize: 16,
+                            color: Color(0xFF6B7280),
                           ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                              color: const Color(0xFF000000).withOpacity(0.15),
-                              width: 1,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                              color: const Color(0xFF000000).withOpacity(0.15),
-                              width: 1,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                              color: const Color(0xFF000000).withOpacity(0.15),
-                              width: 1,
-                            ),
-                          ),
-                          errorBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
+                          decoration: InputDecoration(
+                            filled: false,
+                            errorStyle: const TextStyle(
                               color: Colors.red,
-                              width: 1,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              wordSpacing: 2,
                             ),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          hintText: "Email",
-                          hintStyle: const TextStyle(
-                            color: Color(0xFF929292),
-                            fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w500,
-                          ),
-                          prefixIcon: SvgPicture.asset(
-                            'assets/images/email-icon.svg',
-                            width: 25,
-                            height: 25,
-                            fit: BoxFit.scaleDown,
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: size.height * 0.02),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: TextFormField(
-                        controller: passwordController,
-                        obscureText: _obscure,
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Password field is required!';
-                          }
-                          else if(value.length <6){
-                            return "Password must be 6 Digits";
-                          }
-                          return null;
-                        },
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Montserrat-Regular',
-                          fontSize: 16,
-                          color: Color(0xFF6B7280),
-                        ),
-                        decoration: InputDecoration(
-                          filled: false,
-                          errorStyle: const TextStyle(
-                            color: Colors.red,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            wordSpacing: 2,
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                              color: const Color(0xFF000000).withOpacity(0.15),
-                              width: 1,
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
                             ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                              color: const Color(0xFF000000).withOpacity(0.15),
-                              width: 1,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                              color: const Color(0xFF000000).withOpacity(0.15),
-                              width: 1,
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
                             ),
-                          ),
-                          errorBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                            borderSide: BorderSide(
-                              color: Colors.red,
-                              width: 1,
+                            errorBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1,
+                              ),
                             ),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          hintText: "Password",
-                          hintStyle: const TextStyle(
-                            color: Color(0xFF929292),
-                            fontSize: 12,
-                            fontFamily: 'Montserrat-Regular',
-                            fontWeight: FontWeight.w500,
-                          ),
-                          prefixIcon: SvgPicture.asset(
-                            'assets/images/password-icon.svg',
-                            width: 25,
-                            height: 25,
-                            fit: BoxFit.scaleDown,
-                          ),
-                          suffixIcon: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _obscure = !_obscure;
-                              });
-                            },
-                            child: _obscure
-                                ? SvgPicture.asset(
-                                    'assets/images/hide-password-icon.svg',
-                                    width: 25,
-                                    height: 25,
-                                    fit: BoxFit.scaleDown,
-                                  )
-                                : SvgPicture.asset(
-                                    'assets/images/show-password-icon.svg',
-                                    width: 25,
-                                    height: 25,
-                                    fit: BoxFit.scaleDown,
-                                  ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: size.height * 0.01),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForgotPasswordPage(),
-                          ),
-                        );
-                      },
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 20),
-                          child: Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              color: Color(0xFF79BF42),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            hintText: "Email",
+                            hintStyle: const TextStyle(
+                              color: Color(0xFF929292),
                               fontSize: 12,
-                              fontFamily: 'Montserrat-Regular',
+                              fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                             ),
+                            prefixIcon: SvgPicture.asset(
+                              'assets/images/email-icon.svg',
+                              width: 25,
+                              height: 25,
+                              fit: BoxFit.scaleDown,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: size.height * 0.06),
-                    GestureDetector(
-                        onTap: () async {
-                          if (_formKey.currentState!.validate()) {
-                            final status =
-                            await OneSignal.shared.getDeviceState();
-                            String? onesignalId = status?.userId;
-
-                            print("onesignalId: ${onesignalId}");
-                            print("email: ${emailController.text}");
-                            print("password: ${passwordController.text}");
-                            var mapData={
-                              "onesignal_id": "$onesignalId",
-                              "email": emailController.text,
-                              "password": passwordController.text,
-                            };
-                            var response = await DioClient().login(
-                                mapData,context
-                            );
-                            print("response id: ${response.data!.userData!.email}");
-                            if (response != null) {
+                      SizedBox(height: size.height * 0.02),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: TextFormField(
+                          controller: passwordController,
+                          obscureText: _obscure,
+                          keyboardType: TextInputType.visiblePassword,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Password field is required!';
+                            }
+                            else if(value.length <6){
+                              return "Password must be 6 Digits";
+                            }
+                            return null;
+                          },
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w400,
+                           fontFamily: 'Poppins',
+                            fontSize: 16,
+                            color: Color(0xFF6B7280),
+                          ),
+                          decoration: InputDecoration(
+                            filled: false,
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              wordSpacing: 2,
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: const Color(0xFF000000).withOpacity(0.15),
+                                width: 1,
+                              ),
+                            ),
+                            errorBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(16)),
+                              borderSide: BorderSide(
+                                color: Colors.red,
+                                width: 1,
+                              ),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            hintText: "Password",
+                            hintStyle: const TextStyle(
+                              color: Color(0xFF929292),
+                              fontSize: 12,
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w500,
+                            ),
+                            prefixIcon: SvgPicture.asset(
+                              'assets/images/password-icon.svg',
+                              width: 25,
+                              height: 25,
+                              fit: BoxFit.scaleDown,
+                            ),
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _obscure = !_obscure;
+                                });
+                              },
+                              child: _obscure
+                                  ? SvgPicture.asset(
+                                      'assets/images/hide-password-icon.svg',
+                                      width: 25,
+                                      height: 25,
+                                      fit: BoxFit.scaleDown,
+                                    )
+                                  : SvgPicture.asset(
+                                      'assets/images/show-password-icon.svg',
+                                      width: 25,
+                                      height: 25,
+                                      fit: BoxFit.scaleDown,
+                                    ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.01),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ForgotPasswordPage(),
+                            ),
+                          );
+                        },
+                        child:  Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: Text(
+                              'Forgot Password?',
+                              style: TextStyle(
+                                color: secondaryColor,
+                                fontSize: 12,
+                               fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.06),
+                      GestureDetector(
+                          onTap: () async {
+                            if (_formKey.currentState!.validate()) {
+                              final status =
+                              await OneSignal.shared.getDeviceState();
+                              String? onesignalId = status?.userId;
+          
+                              print("onesignalId: $onesignalId");
+                              print("email: ${emailController.text}");
+                              print("password: ${passwordController.text}");
+                              var mapData={
+                                "onesignal_id": "$onesignalId",
+                                "email": emailController.text,
+                                "password": passwordController.text,
+                              };
+                              var response = await DioClient().login(
+                                  mapData,context
+                              );
+                              print("response id: ${response.data!.userData!.email}");
                               print("userId: ${response.data!.userData!.usersAgentsId}");
                               print("oneSignalId: ${response.data!.userData!.onesignalId}");
                               print("users_roles_id: ${response.data!.userData!.usersRolesId}");
@@ -363,79 +393,79 @@ class _LogInPageState extends State<LogInPage> {
                               //     MaterialPageRoute(
                               //         builder: (context) => const HomePage()),
                               //         (Route<dynamic> route) => false);
-                            }
-                          }
-
-
-                        },
-                        child: button('Login', context)),
-                    SizedBox(height: size.height * 0.06),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Expanded(
-                    //       child: Divider(
-                    //         color: const Color(0xFF929292).withOpacity(0.3),
-                    //         thickness: 1,
-                    //         indent: 20,
-                    //         endIndent: 10,
-                    //       ),
-                    //     ),
-                    //     const Text(
-                    //       'OR',
-                    //       style: TextStyle(
-                    //         fontSize: 16,
-                    //         fontFamily: 'Montserrat-Regular',
-                    //         fontWeight: FontWeight.w500,
-                    //       ),
-                    //     ),
-                    //     Expanded(
-                    //       child: Divider(
-                    //         color: const Color(0xFF929292).withOpacity(0.3),
-                    //         thickness: 1,
-                    //         indent: 10,
-                    //         endIndent: 20,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(height: size.height * 0.06),
-                    // RichText(
-                    //   overflow: TextOverflow.clip,
-                    //   textAlign: TextAlign.center,
-                    //   text: TextSpan(
-                    //     text: "Don’t have an account? ",
-                    //     style: const TextStyle(
-                    //       color: Colors.black,
-                    //       fontSize: 16,
-                    //       fontFamily: 'Montserrat-Regular',
-                    //       fontWeight: FontWeight.w500,
-                    //     ),
-                    //     children: [
-                    //       TextSpan(
-                    //         recognizer: TapGestureRecognizer()
-                    //           ..onTap = () {
-                    //             // Handle the tap event, e.g., navigate to a new screen
-                    //             Navigator.push(
-                    //               context,
-                    //               MaterialPageRoute(
-                    //                 builder: (context) => const SignUpPage(),
-                    //               ),
-                    //             );
-                    //           },
-                    //         text: 'Sign Up',
-                    //         style: const TextStyle(
-                    //           color: Color(0xFF79BF42),
-                    //           fontFamily: 'Montserrat-Regular',
-                    //           fontSize: 16,
-                    //           fontWeight: FontWeight.w600,
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // SizedBox(height: size.height * 0.02),
-                  ],
+                                                        }
+          
+          
+                          },
+                          child: button('Login', context)),
+                      SizedBox(height: size.height * 0.06),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Expanded(
+                      //       child: Divider(
+                      //         color: const Color(0xFF929292).withOpacity(0.3),
+                      //         thickness: 1,
+                      //         indent: 20,
+                      //         endIndent: 10,
+                      //       ),
+                      //     ),
+                      //     const Text(
+                      //       'OR',
+                      //       style: TextStyle(
+                      //         fontSize: 16,
+                      //         fontFamily: 'Montserrat-Regular',
+                      //         fontWeight: FontWeight.w500,
+                      //       ),
+                      //     ),
+                      //     Expanded(
+                      //       child: Divider(
+                      //         color: const Color(0xFF929292).withOpacity(0.3),
+                      //         thickness: 1,
+                      //         indent: 10,
+                      //         endIndent: 20,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // SizedBox(height: size.height * 0.06),
+                      // RichText(
+                      //   overflow: TextOverflow.clip,
+                      //   textAlign: TextAlign.center,
+                      //   text: TextSpan(
+                      //     text: "Don’t have an account? ",
+                      //     style: const TextStyle(
+                      //       color: Colors.black,
+                      //       fontSize: 16,
+                      //       fontFamily: 'Montserrat-Regular',
+                      //       fontWeight: FontWeight.w500,
+                      //     ),
+                      //     children: [
+                      //       TextSpan(
+                      //         recognizer: TapGestureRecognizer()
+                      //           ..onTap = () {
+                      //             // Handle the tap event, e.g., navigate to a new screen
+                      //             Navigator.push(
+                      //               context,
+                      //               MaterialPageRoute(
+                      //                 builder: (context) => const SignUpPage(),
+                      //               ),
+                      //             );
+                      //           },
+                      //         text: 'Sign Up',
+                      //         style: const TextStyle(
+                      //           color: Color(0xFF79BF42),
+                      //           fontFamily: 'Montserrat-Regular',
+                      //           fontSize: 16,
+                      //           fontWeight: FontWeight.w600,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // SizedBox(height: size.height * 0.02),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -6,6 +6,7 @@ import 'package:umrahcar/screens/create_booking_process/tab_screens/pickup_info_
 import 'package:umrahcar/screens/wallet_tab/pending_transaction_page.dart';
 import 'package:umrahcar/screens/wallet_tab/summary_agent_page.dart';
 import 'package:umrahcar/service/rest_api_serivice.dart';
+import 'package:umrahcar/utils/colors.dart';
 
 class WalletTabBarScreen extends StatefulWidget {
   int? indexNmbr=0;
@@ -39,7 +40,7 @@ int index=0;
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Container(
               width: MediaQuery.of(context).size.width * 0.9,
-              height: MediaQuery.of(context).size.height * 0.055,
+              height: MediaQuery.of(context).size.height * 0.051,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(30),
@@ -53,7 +54,7 @@ int index=0;
                 child: TabBar(
                   controller: tabController,
                   indicator: BoxDecoration(
-                    color: const Color(0xFF79BF42),
+                    color: secondaryColor,
                     borderRadius: BorderRadius.circular(20),
                   ),
                   // onTap: (index) {
@@ -63,21 +64,23 @@ int index=0;
                   //     return;
                   //   }
                   // },
-                  indicatorColor: const Color(0xFF79BF42),
-                  isScrollable: true,
+                  indicatorColor: buttonColor,
+                  isScrollable: false,
+                   indicatorSize: TabBarIndicatorSize.tab,
+                  dividerColor: Colors.transparent,
                   labelColor: Colors.white,
                   labelPadding: const EdgeInsets.symmetric(horizontal: 25),
                   labelStyle: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                  fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   unselectedLabelColor: const Color(0xFF929292),
                   unselectedLabelStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 12,
-                    fontFamily: 'Montserrat-Regular',
+                  fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
                   ),
                   tabs: const [
