@@ -31,35 +31,31 @@ class _PendingPageState extends State<PendingPage> {
 
   bool isFocused = false;
 
-  GetBookingListModel getBookingResponse=GetBookingListModel();
+  GetBookingListModel getBookingResponse = GetBookingListModel();
 
-  getBookingList()async{
+  getBookingList() async {
     print("userIdId $userId");
-    var mapData={
-      "users_agents_id": userId.toString()
-    };
-    getBookingResponse= await DioClient().getBookingList(mapData, context);
+    var mapData = {"users_agents_id": userId.toString()};
+    getBookingResponse = await DioClient().getBookingList(mapData, context);
     print("response id: ${getBookingResponse.data}");
-    setState(() {
-
-    });
-
+    setState(() {});
   }
 
-  GetBookingListModel getBookingPendingResponseForSearch=GetBookingListModel();
-  getBookingListOngoingSearch(String? searchText)async{
+  GetBookingListModel getBookingPendingResponseForSearch =
+      GetBookingListModel();
+  getBookingListOngoingSearch(String? searchText) async {
     print("userIdId $userId");
-    getBookingPendingResponseForSearch.data=[];
-    var mapData={
+    getBookingPendingResponseForSearch.data = [];
+    var mapData = {
       "users_agents_id": userId.toString(),
       "bookings_id": searchText
     };
-    getBookingPendingResponseForSearch= await DioClient().getBookingList(mapData, context);
+    getBookingPendingResponseForSearch =
+        await DioClient().getBookingList(mapData, context);
     print("response id: ${getBookingPendingResponseForSearch.data}");
     setState(() {
-      getBookingResponse.data=[];
+      getBookingResponse.data = [];
     });
-
   }
 
   @override
@@ -68,8 +64,6 @@ class _PendingPageState extends State<PendingPage> {
     // TODO: implement initState
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -119,29 +113,29 @@ class _PendingPageState extends State<PendingPage> {
                     ),
                     suffixIcon: isFocused == true
                         ? GestureDetector(
-                      onTap: () {
-                        isFocused = false;
-                        searchController.clear();
-                        setState(() {});
-                      },
-                      child: const Icon(
-                        Icons.close,
-                        size: 20,
-                        color: Color(0xFF565656),
-                      ),
-                      // SvgPicture.asset(
-                      //   'assets/images/close-icon.svg',
-                      //   width: 10,
-                      //   height: 10,
-                      //   fit: BoxFit.scaleDown,
-                      // ),
-                    )
+                            onTap: () {
+                              isFocused = false;
+                              searchController.clear();
+                              setState(() {});
+                            },
+                            child: const Icon(
+                              Icons.close,
+                              size: 20,
+                              color: Color(0xFF565656),
+                            ),
+                            // SvgPicture.asset(
+                            //   'assets/images/close-icon.svg',
+                            //   width: 10,
+                            //   height: 10,
+                            //   fit: BoxFit.scaleDown,
+                            // ),
+                          )
                         : null,
                     hintText: "Search",
                     hintStyle: const TextStyle(
                       color: Color(0xFF929292),
                       fontSize: 12,
-                     fontFamily: 'Poppins',
+                      fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
                     ),
                     contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -165,9 +159,9 @@ class _PendingPageState extends State<PendingPage> {
                   onSearchTextChanged: (value) {
                     setState(() {
                       isFocused = true;
-                      if(value.isNotEmpty){
-                        getBookingListOngoingSearch(value);}
-                      else{
+                      if (value.isNotEmpty) {
+                        getBookingListOngoingSearch(value);
+                      } else {
                         getBookingList();
                       }
                     });
@@ -179,7 +173,10 @@ class _PendingPageState extends State<PendingPage> {
                   //   }
                   //   return null;
                   // },
-                  scrollbarAlwaysVisible: false,
+                  // scrollbarAlwaysVisible: false,
+                  scrollbarDecoration: ScrollbarDecoration(
+                    thumbVisibility: false,
+                  ),
                   suggestionState: Suggestion.hidden,
                   suggestions: suggestions
                       .map((e) => SearchFieldListItem<String>(e))
@@ -193,47 +190,57 @@ class _PendingPageState extends State<PendingPage> {
                   searchStyle: const TextStyle(
                     color: Color(0xFF929292),
                     fontSize: 16,
-                  fontFamily: 'Poppins',
+                    fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
             ),
             SizedBox(height: size.height * 0.03),
-            getBookingPendingResponseForSearch.data ==null && searchController.text.isEmpty || searchController.text==""?
-            Container(
-              color: Colors.transparent,
-              height: size.height * 0.6,
-              child: RefreshIndicator(
-                onRefresh: ()async{
-                  getBookingList();
-                  setState(() {
-
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: getBookingResponse !=null ? onPendingList(context,getBookingResponse): const Column(
-                    children: [
-                      SizedBox(height: 250,),
-                      Text("No Pending Booking"),
-                    ],
-                  ),
-                ),
-              ),
-            ):Container(
-              color: Colors.transparent,
-              height: size.height * 0.6,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: getBookingPendingResponseForSearch !=null ? onPendingList(context,getBookingPendingResponseForSearch): const Column(
-                  children: [
-                    SizedBox(height: 250,),
-                    Text("No Pending Booking"),
-                  ],
-                ),
-              ),
-            )
+            getBookingPendingResponseForSearch.data == null &&
+                        searchController.text.isEmpty ||
+                    searchController.text == ""
+                ? Container(
+                    color: Colors.transparent,
+                    height: size.height * 0.6,
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        getBookingList();
+                        setState(() {});
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: getBookingResponse != null
+                            ? onPendingList(context, getBookingResponse)
+                            : const Column(
+                                children: [
+                                  SizedBox(
+                                    height: 250,
+                                  ),
+                                  Text("No Pending Booking"),
+                                ],
+                              ),
+                      ),
+                    ),
+                  )
+                : Container(
+                    color: Colors.transparent,
+                    height: size.height * 0.6,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: getBookingPendingResponseForSearch != null
+                          ? onPendingList(
+                              context, getBookingPendingResponseForSearch)
+                          : const Column(
+                              children: [
+                                SizedBox(
+                                  height: 250,
+                                ),
+                                Text("No Pending Booking"),
+                              ],
+                            ),
+                    ),
+                  )
           ],
         ),
       ),
