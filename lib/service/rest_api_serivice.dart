@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,10 +20,6 @@ import '../models/ge_bookings_pending_by_id_model.dart';
 import '../models/get_booking_list_model.dart';
 import '../models/get_driver_profile.dart';
 import '../models/get_drop_off_location_model.dart';
-import '../models/login_model.dart';
-import '../models/login_model.dart';
-import '../models/login_model.dart';
-import '../models/login_model.dart';
 import '../utils/const.dart';
 
 class DioClient {

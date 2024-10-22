@@ -58,10 +58,14 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                SizedBox(height: size.height * 0.02),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: SvgPicture.asset('assets/images/umrah-passenger-logo.svg'),
+                Container(
+                  width: size.width,
+                  height: size.height * 0.36,
+                  decoration: const BoxDecoration(),
+                  child: SvgPicture.asset(
+                    'assets/app-icon.svg',
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
                 SizedBox(height: size.height * 0.04),
                 const Text(
@@ -90,7 +94,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
                       bool emailValid = RegExp(
-                          r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                              r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
                           .hasMatch(value!);
                       if (value.isEmpty) {
                         return "Email field is required!";
@@ -100,7 +104,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         return null;
                       }
                     },
-
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontFamily: 'Poppins',
@@ -116,21 +119,24 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         wordSpacing: 2,
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
                         borderSide: BorderSide(
                           color: const Color(0xFF000000).withOpacity(0.15),
                           width: 1,
                         ),
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
                         borderSide: BorderSide(
                           color: const Color(0xFF000000).withOpacity(0.15),
                           width: 1,
                         ),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(Radius.circular(16)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
                         borderSide: BorderSide(
                           color: const Color(0xFF000000).withOpacity(0.15),
                           width: 1,
@@ -149,7 +155,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       hintStyle: const TextStyle(
                         color: Color(0xFF929292),
                         fontSize: 12,
-                       fontFamily: 'Poppins',
+                        fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
                       ),
                       prefixIcon: SvgPicture.asset(
@@ -166,24 +172,26 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     onTap: () async {
                       if (_formKey.currentState!.validate()) {
                         print("email: ${emailController.text}");
-                        var mapData={
+                        var mapData = {
                           "email": emailController.text,
                         };
-                        var response = await DioClient().forgotPasswordOtp(
-                            mapData,context
-                        );
+                        var response = await DioClient()
+                            .forgotPasswordOtp(mapData, context);
                         print("response otp: ${response.data!.otp.toString()}");
-                        print("response uid: ${response.data!.usersAgentsId.toString()}");
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("${response.data!.message}")));
+                        print(
+                            "response uid: ${response.data!.usersAgentsId.toString()}");
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("${response.data!.message}")));
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  VerifyOTPPage(email: emailController.text,verifyOTP: response.data!.otp.toString(),userId: response.data!.usersAgentsId ),
+                            builder: (context) => VerifyOTPPage(
+                                email: emailController.text,
+                                verifyOTP: response.data!.otp.toString(),
+                                userId: response.data!.usersAgentsId),
                           ),
                         );
-                                            }
-
-
+                      }
                     },
                     child: button('Confirm', context)),
                 SizedBox(height: size.height * 0.02),
