@@ -29,10 +29,8 @@ class _LogInPageState extends State<LogInPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
 
   bool _obscure = true;
-
 
   DateTime? currentBackPressTime;
 
@@ -67,12 +65,9 @@ class _LogInPageState extends State<LogInPage> {
     return Future.value(true);
   }
 
-  void configOneSignel()
-  {
+  void configOneSignel() {
     OneSignal.shared.setAppId(onesignalAppId);
   }
-
-
 
   @override
   void initState() {
@@ -80,7 +75,6 @@ class _LogInPageState extends State<LogInPage> {
     // TODO: implement initState
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -98,13 +92,7 @@ class _LogInPageState extends State<LogInPage> {
           // ),
           backgroundColor: mainColor,
           body: Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(backImage),
-                alignment: Alignment.topCenter,
-                fit: BoxFit.scaleDown
-              ),
-            ),
+            decoration: const BoxDecoration(),
             child: Form(
               key: _formKey,
               child: Center(
@@ -113,12 +101,16 @@ class _LogInPageState extends State<LogInPage> {
                   child: Column(
                     children: [
                       SizedBox(height: size.height * 0.04),
-                           Padding(
-                        padding: const EdgeInsets.only(left: 20),
+                      Container(
+                        width: size.width,
+                        height: size.height * 0.36,
+                        decoration: const BoxDecoration(),
                         child: SvgPicture.asset(
-                            'assets/images/umrah-passenger-logo.svg'),
+                          'assets/app-icon.svg',
+                          fit: BoxFit.scaleDown,
+                        ),
                       ),
-                        SizedBox(height: size.height * 0.04),
+                      SizedBox(height: size.height * 0.04),
                       RichText(
                         text: const TextSpan(
                           children: [
@@ -135,9 +127,8 @@ class _LogInPageState extends State<LogInPage> {
                               text: 'Login to your Account',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: Colors
-                                    .black, 
-                              fontFamily: 'Poppins',
+                                color: Colors.black,
+                                fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -175,7 +166,7 @@ class _LogInPageState extends State<LogInPage> {
                           },
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
-                           fontFamily: 'Poppins',
+                            fontFamily: 'Poppins',
                             fontSize: 16,
                             color: Color(0xFF6B7280),
                           ),
@@ -191,7 +182,8 @@ class _LogInPageState extends State<LogInPage> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
-                                color: const Color(0xFF000000).withOpacity(0.15),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
                               ),
                             ),
@@ -199,7 +191,8 @@ class _LogInPageState extends State<LogInPage> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
-                                color: const Color(0xFF000000).withOpacity(0.15),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
                               ),
                             ),
@@ -207,12 +200,14 @@ class _LogInPageState extends State<LogInPage> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
-                                color: const Color(0xFF000000).withOpacity(0.15),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
                               ),
                             ),
                             errorBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(16)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
                                 color: Colors.red,
                                 width: 1,
@@ -246,15 +241,14 @@ class _LogInPageState extends State<LogInPage> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Password field is required!';
-                            }
-                            else if(value.length <6){
+                            } else if (value.length < 6) {
                               return "Password must be 6 Digits";
                             }
                             return null;
                           },
                           style: const TextStyle(
                             fontWeight: FontWeight.w400,
-                           fontFamily: 'Poppins',
+                            fontFamily: 'Poppins',
                             fontSize: 16,
                             color: Color(0xFF6B7280),
                           ),
@@ -270,7 +264,8 @@ class _LogInPageState extends State<LogInPage> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
-                                color: const Color(0xFF000000).withOpacity(0.15),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
                               ),
                             ),
@@ -278,7 +273,8 @@ class _LogInPageState extends State<LogInPage> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
-                                color: const Color(0xFF000000).withOpacity(0.15),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
                               ),
                             ),
@@ -286,12 +282,14 @@ class _LogInPageState extends State<LogInPage> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
-                                color: const Color(0xFF000000).withOpacity(0.15),
+                                color:
+                                    const Color(0xFF000000).withOpacity(0.15),
                                 width: 1,
                               ),
                             ),
                             errorBorder: const OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(16)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(16)),
                               borderSide: BorderSide(
                                 color: Colors.red,
                                 width: 1,
@@ -345,16 +343,16 @@ class _LogInPageState extends State<LogInPage> {
                             ),
                           );
                         },
-                        child:  Align(
+                        child: const Align(
                           alignment: Alignment.centerRight,
                           child: Padding(
-                            padding: const EdgeInsets.only(right: 20),
+                            padding: EdgeInsets.only(right: 20),
                             child: Text(
                               'Forgot Password?',
                               style: TextStyle(
-                                color: secondaryColor,
+                                color: ConstantColor.primaryColor,
                                 fontSize: 12,
-                               fontFamily: 'Poppins',
+                                fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -366,36 +364,44 @@ class _LogInPageState extends State<LogInPage> {
                           onTap: () async {
                             if (_formKey.currentState!.validate()) {
                               final status =
-                              await OneSignal.shared.getDeviceState();
+                                  await OneSignal.shared.getDeviceState();
                               String? onesignalId = status?.userId;
-          
+
                               print("onesignalId: $onesignalId");
                               print("email: ${emailController.text}");
                               print("password: ${passwordController.text}");
-                              var mapData={
+                              var mapData = {
                                 "onesignal_id": "$onesignalId",
                                 "email": emailController.text,
                                 "password": passwordController.text,
                               };
-                              var response = await DioClient().login(
-                                  mapData,context
-                              );
-                              print("response id: ${response.data!.userData!.email}");
-                              print("userId: ${response.data!.userData!.usersAgentsId}");
-                              print("oneSignalId: ${response.data!.userData!.onesignalId}");
-                              print("users_roles_id: ${response.data!.userData!.usersRolesId}");
-                              SharedPreferences prefs = await SharedPreferences.getInstance();
-                              await prefs.setString("userId", response.data!.userData!.usersAgentsId!);
-                              await prefs.setString("oneSignalId", response.data!.userData!.onesignalId!);
-                              await prefs.setString("usersRoleId", response.data!.userData!.usersRolesId!);
-                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>NavBar()));
+                              var response =
+                                  await DioClient().login(mapData, context);
+                              print(
+                                  "response id: ${response.data!.userData!.email}");
+                              print(
+                                  "userId: ${response.data!.userData!.usersAgentsId}");
+                              print(
+                                  "oneSignalId: ${response.data!.userData!.onesignalId}");
+                              print(
+                                  "users_roles_id: ${response.data!.userData!.usersRolesId}");
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
+                              await prefs.setString("userId",
+                                  response.data!.userData!.usersAgentsId!);
+                              await prefs.setString("oneSignalId",
+                                  response.data!.userData!.onesignalId!);
+                              await prefs.setString("usersRoleId",
+                                  response.data!.userData!.usersRolesId!);
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => NavBar()));
                               // Navigator.of(context).pushAndRemoveUntil(
                               //     MaterialPageRoute(
                               //         builder: (context) => const HomePage()),
                               //         (Route<dynamic> route) => false);
-                                                        }
-          
-          
+                            }
                           },
                           child: button('Login', context)),
                       SizedBox(height: size.height * 0.06),
