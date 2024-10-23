@@ -57,7 +57,7 @@ class _NavBarState extends State<NavBar> {
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.15),
           border: Border.all(
-            color: const Color(0xFFFFFFFF).withOpacity(0.15),
+            color: Colors.white,
             width: 1,
           ),
           borderRadius: const BorderRadius.only(
@@ -112,14 +112,18 @@ class _NavBarState extends State<NavBar> {
                 ),
                 NavigationDestination(
                   icon: SvgPicture.asset(
-                      'assets/images/create-bookings-icon.svg'),
+                    'assets/images/create-bookings-icon.svg',
+                    width: 34,
+                    height: 34,
+                    color: ConstantColor.lightgreyColor,
+                  ),
                   selectedIcon: SvgPicture.asset(
                     'assets/images/create-bookings-icon.svg',
-                    width: 24,
-                    height: 24,
+                    width: 34,
+                    height: 34,
                     color: buttonColor,
                   ),
-                  label: 'Create Bookings',
+                  label: ' Create\nBooking',
                 ),
                 NavigationDestination(
                   icon: SvgPicture.asset(

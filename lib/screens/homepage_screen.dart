@@ -76,13 +76,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: mainColor,
       body: getProfileResponse != null
           ? Container(
-             color: const Color(0xFFF8B73F),
-              // decoration: const BoxDecoration(
-              //   image: DecorationImage(
-              //     image: AssetImage('assets/images/background.png'),
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
+              color: ConstantColor.primaryColor,
               child: Column(
                 children: [
                   Container(
@@ -153,7 +147,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(bottom: 6, left: 50),
+                          padding: const EdgeInsets.only(bottom: 6, left: 35),
                           child: Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -163,12 +157,11 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             child: Container(
-                               decoration: const ShapeDecoration(
-                                  color: Color(0xFFDD9519),
-                                  shape: OvalBorder(),
-                                ),
+                              decoration: const ShapeDecoration(
+                                color: ConstantColor.primaryColor,
+                                shape: OvalBorder(),
+                              ),
                               child: SvgPicture.asset(
-                                
                                   'assets/images/notification-icon.svg'),
                             ),
                           ),
@@ -177,184 +170,178 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.04),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: mainColor,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: mainColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: size.height * 0.03),
-                        if (getAgentsWidgetData != null)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NavBar(
-                                                indexNmbr: 1,
-                                              )));
-                                  setState(() {});
-                                },
-                                child: box(
-                                    'assets/images/white-bookings-icon.svg',
-                                    '${getAgentsWidgetData.data.bookingsPending}',
-                                    'Pending Bookings',
-                                    context),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NavBar(
-                                                indexNmbr: 1,
-                                              )));
-                                  setState(() {});
-                                },
-                                child: box(
-                                    'assets/images/white-bookings-icon.svg',
-                                    '${getAgentsWidgetData.data.bookingsAll}',
-                                    'All Bookings',
-                                    context),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => NavBar(
-                                                indexNmbr: 1,
-                                              )));
-                                  setState(() {});
-                                },
-                                child: box(
-                                    'assets/images/white-bookings-icon.svg',
-                                    '${getAgentsWidgetData.data.bookingsCompleted}',
-                                    'Completed Trips',
-                                    context),
-                              ),
-                            ],
-                          ),
-                        SizedBox(height: size.height * 0.01),
-                        if (getAgentsWidgetData != null)
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              InkWell(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: size.height * 0.03),
+                          if (getAgentsWidgetData != null)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
                                   onTap: () {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => NavBar(
-                                                  indexNmbr: 3,
+                                                  indexNmbr: 1,
                                                 )));
                                     setState(() {});
                                   },
-                                  child: noimagebox(
-                                      '${getAgentsWidgetData.data.bookingsTotalDeposit}',
-                                      'Balance',
-                                      context)),
-                              // InkWell(
-                              //     onTap: () {
-                              //       Navigator.push(
-                              //           context,
-                              //           MaterialPageRoute(
-                              //               builder: (context) => NavBar(
-                              //                     indexNmbr: 3,
-                              //                   )));
-                              //       setState(() {});
-                              //     },
-                              //     child: noimageredbox(
-                              //         '${getAgentsWidgetData.data.bookingsTotalReamining}',
-                              //         'Remaining',
-                              //         context)),
-                              nobox(context),nobox(context),
-                            ],
-                          ),
-                        SizedBox(height: size.height * 0.03),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Bookings',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                   fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
+                                  child: box(
+                                      'assets/images/white-bookings-icon.svg',
+                                      '${getAgentsWidgetData.data.bookingsPending}',
+                                      'Pending Bookings',
+                                      context),
                                 ),
-                              ),
-                              // GestureDetector(
-                              //   onTap: () {
-                              //     Navigator.push(
-                              //         context,
-                              //         MaterialPageRoute(
-                              //           builder: (context) => const BookingsPage(),
-                              //         ));
-                              //   },
-                              //   child: const Text(
-                              //     'See all',
-                              //     textAlign: TextAlign.right,
-                              //     style: TextStyle(
-                              //       color: Color(0xFF79BF42),
-                              //       fontFamily: 'Montserrat-Regular',
-                              //       fontWeight: FontWeight.w500,
-                              //       fontSize: 12,
-                              //     ),
-                              //   ),
-                              // ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: size.height * 0.02),
-                        Container(
-                            color: Colors.transparent,
-                            height: size.height * 0.421,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                              child: getBookingResponse != null
-                                  ? RefreshIndicator(
-                                    color: secondaryColor,
-                                  onRefresh: ()async{
-                                    getBookingList();
-                                    setState(() {
-
-                                    });
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NavBar(
+                                                  indexNmbr: 1,
+                                                )));
+                                    setState(() {});
                                   },
-                                  child: homeList(context, getBookingResponse))
-                                  : const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 130),
-                                          child: Text(
-                                            "No data Found",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 16,
-                                            ),
-                                          ),
+                                  child: box(
+                                      'assets/images/white-bookings-icon.svg',
+                                      '${getAgentsWidgetData.data.bookingsAll}',
+                                      'All Bookings',
+                                      context),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => NavBar(
+                                                  indexNmbr: 1,
+                                                )));
+                                    setState(() {});
+                                  },
+                                  child: box(
+                                      'assets/images/white-bookings-icon.svg',
+                                      '${getAgentsWidgetData.data.bookingsCompleted}',
+                                      'Completed Trips',
+                                      context),
+                                ),
+                              ],
+                            ),
+                          SizedBox(height: size.height * 0.01),
+                          if (getAgentsWidgetData != null)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => NavBar(
+                                                    indexNmbr: 3,
+                                                  )));
+                                      setState(() {});
+                                    },
+                                    child: noimagebox(
+                                        '${getAgentsWidgetData.data.bookingsTotalDeposit}',
+                                        'Balance',
+                                        context)),
+                                // InkWell(
+                                //     onTap: () {
+                                //       Navigator.push(
+                                //           context,
+                                //           MaterialPageRoute(
+                                //               builder: (context) => NavBar(
+                                //                     indexNmbr: 3,
+                                //                   )));
+                                //       setState(() {});
+                                //     },
+                                //     child: noimageredbox(
+                                //         '${getAgentsWidgetData.data.bookingsTotalReamining}',
+                                //         'Remaining',
+                                //         context)),
+                                nobox(context), nobox(context),
+                              ],
+                            ),
+                          SizedBox(height: size.height * 0.03),
+                          const Padding(
+                            padding: EdgeInsets.only(
+                              left: 15,
+                            ),
+                            child: Row(
+                              children: [
+                                Text(
+                                  'Bookings',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Poppins',
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     Navigator.push(
+                                //         context,
+                                //         MaterialPageRoute(
+                                //           builder: (context) => const BookingsPage(),
+                                //         ));
+                                //   },
+                                //   child: const Text(
+                                //     'See all',
+                                //     textAlign: TextAlign.right,
+                                //     style: TextStyle(
+                                //       color: Color(0xFF79BF42),
+                                //       fontFamily: 'Montserrat-Regular',
+                                //       fontWeight: FontWeight.w500,
+                                //       fontSize: 12,
+                                //     ),
+                                //   ),
+                                // ),
+                              ],
+                            ),
+                          ),
+                          Container(
+                              color: Colors.transparent,
+                              height: size.height * 0.421,
+                              child: Padding(
+                                padding: const EdgeInsets.only(),
+                                child: getBookingResponse != null
+                                    ? RefreshIndicator(
+                                        color: secondaryColor,
+                                        onRefresh: () async {
+                                          getBookingList();
+                                          setState(() {});
+                                        },
+                                        child: homeList(
+                                            context, getBookingResponse))
+                                    : Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 10,
+                                          left: 10,
+                                          right: 10,
+                                          bottom: 10,
                                         ),
-                                      ],
-                                    ),
-                            )),
-                      ],
+                                        child: Center(
+                                            child: SvgPicture.asset(
+                                          'assets/images1/noBooking.svg',
+                                          width: 150,
+                                          height: 150,
+                                        )),
+                                      ),
+                              )),
+                        ],
+                      ),
                     ),
                   )
                 ],
